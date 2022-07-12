@@ -1,0 +1,6 @@
+node_modules
+protect.js
+.env
+personal.js
+dist
+temp.js
