@@ -121,7 +121,7 @@ menuController.updateMenu = async (req, res, next) => {
       const data = await db.query(sqlQuery, para);
     }
 
-    for (let dishId in menuChanges) {
+    for (const dishId in menuChanges) {
       if (menuChanges[dishId]) {
         if (Object.keys(menuChanges[dishId]).length === 0) {
           const sqlQuery = `DELETE FROM public.dishes
@@ -153,12 +153,12 @@ menuController.updateMenu = async (req, res, next) => {
               cache[i][0] = 'quantity_available';
             }
             if (typeof cache[i][1] === 'string')
-              cache[i][1] = cache[i][1].replaceAll("'", "''");
+              cache[i][1] = cache[i][1].replaceAll('\'', '\'\'');
           });
           console.log('2cache==>', cache);
 
-          let text = cache.reduce((str, [key, value]) => {
-            str += key + ' = ' + "'" + value + "', ";
+          const text = cache.reduce((str, [key, value]) => {
+            str += key + ' = ' + '\'' + value + '\', ';
             return str;
           }, '');
 
