@@ -16,6 +16,7 @@ CREATE TABLE "public".Sellers
  seller_street_name   varchar(50)  NULL,
  seller_street_number integer  NULL,
  seller_city          varchar(20)  NULL,
+ seller_state          varchar(20)  NULL,
  seller_zip_code      varchar(10)  NULL,
  cuisine              varchar NULL,
  market_enabled       boolean NULL
@@ -31,7 +32,8 @@ CREATE TABLE "public".Buyers
  buyer_street_name   varchar(30) NULL,
  buyer_street_number integer NULL,
  buyer_zip_code      varchar(10) NULL,
- buyer_city          varchar(20) NULL
+ buyer_city          varchar(20) NULL,
+ 
 );
 
 CREATE TABLE "public".Dishes
