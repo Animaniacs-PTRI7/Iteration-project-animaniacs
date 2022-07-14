@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+//Todo build My orders Icon for Seller and User.
 export default function Nav(props) {
   const classes = useStyles();
 
@@ -52,14 +54,24 @@ export default function Nav(props) {
   // if logout has been passed, it means we're signed in
   if (props.logOut) {
     logOutIconElement = (
-      <Tooltip
-        title={<h2 style={{ color: 'white' }}>Log Out</h2>}
-        TransitionComponent={Zoom}
-      >
-        <IconButton onClick={props.logOut}>
-          <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
-        </IconButton>
-      </Tooltip>
+      <div>
+        <Tooltip
+          title={<h2 style={{ color: 'white' }}>Log Out</h2>}
+          TransitionComponent={Zoom}
+        >
+          <IconButton onClick={props.logOut}>
+            <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip
+          title={<h2 style={{ color: 'white' }}>My Orders</h2>}
+          TransitionComponent={Zoom}
+        >
+          <IconButton component={Link} to='/MyOrders'>
+            <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
+          </IconButton>
+        </Tooltip>
+      </div>
     );
 
     // if seller
