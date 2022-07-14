@@ -53,12 +53,22 @@ CREATE TABLE "public".Orders
  pk_order_id       serial PRIMARY KEY,
  fk_seller_id      serial NOT NULL,
  fk_buyer_id       serial NOT NULL,
- fk_dish_id        serial NOT NULL,
- quantity_of_order integer NOT NULL,
- seller_confirm    boolean NULL,
- buyer_confirm     boolean NULL,
+ fulfilled         boolean NULL,
+ order_date        DATE NULL,
  CONSTRAINT fk_seller_id
  FOREIGN KEY ("fk_seller_id") references Sellers("pk_seller_id"),
  CONSTRAINT fk_buyer_id
  FOREIGN KEY ("fk_buyer_id") references Buyers("pk_buyer_id") 
+);
+
+CREATE TABLE "public".Order_dish
+(
+ pk_OD_id           serial PRIMARY KEY,
+ fk_order_id        serial NOT NULL,
+ fk_dish_id         serial NOT NULL,
+ quantity           integer NULL,
+ CONSTRAINT fk_order_id
+ FOREIGN KEY ("fk_order_id") references Orders("pk_order_id"),
+ CONSTRAINT fk_dish_id
+ FOREIGN KEY ("fk_dish_id") references Dishes("pk_dish_id") 
 );

@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import SellerBody from './components/SellerBody';
 import SellerSignUp from './components/SellerSignUp';
 import KitchenEdit from './components/KitchenEdit';
+import OrderList from './components/OrderList';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +53,7 @@ const App = () => {
 
     const cookiesArr = [userIdCookie, userTypeCookie, UserZipCookie];
     console.log('entered with ', cookiesArr);
+
     if (userIdCookie) setIsLoggedIn(true);
 
     // change state so we rerender
@@ -96,6 +98,10 @@ const App = () => {
             <Route
               path='/MyKitchen'
               element={<KitchenEdit userType={userType} userId={userId} />}
+            />
+            <Route
+              path='/MyOrders'
+              element={<OrderList userType={userType} userId={userId} />}
             />
             <Route path='/feed/:id' element={<SignUp />} />
           </Route>

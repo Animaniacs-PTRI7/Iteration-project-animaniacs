@@ -109,7 +109,8 @@ export default function MenuComponent(props) {
           }}
         >
           <h1>{restaurantName}</h1>
-          <span style={{ height: '250px', width: '600px' }}>
+          
+          {/* <span style={{ height: '250px', width: '600px' }}>
             <Mappy
               sellerAddr={street}
               buyerAddr={String(props.userZip)}
@@ -120,7 +121,8 @@ export default function MenuComponent(props) {
             {mapStats.duration
               ? `Trip Duration ⏲: ${mapStats.duration.text} | Trip Distance 🚗: ${mapStats.distance.text}`
               : ''}
-          </span>
+          </span> */}
+          
           <h3>{`Pickup Window: ${dateFormat(pickupStart)} - ${dateFormat(
             pickupEnd
           )}`}</h3>
