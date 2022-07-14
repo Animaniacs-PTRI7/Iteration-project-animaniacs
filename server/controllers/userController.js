@@ -34,6 +34,7 @@ userController.createSeller = async (req, res, next) => {
 };
 
 userController.createBuyer = async (req, res, next) => {
+  console.log('req.body===>', req.body)
   if (req.body.userType === 'seller') return next();
   try {
     const props = ['buyer_email', 'password', 'buyer_nickname'];
@@ -75,16 +76,16 @@ userController.login = async (req, res, next) => {
     if (userLoginType === 'email') {
       // checking if the user is a seller or buyer to alter the query
       if (userType === 'seller') {
-        sqlQueryUsername = `select * from public.sellers where seller_email = $1`;
+        sqlQueryUsername = 'select * from public.sellers where seller_email = $1';
       } else {
-        sqlQueryUsername = `select * from public.buyers where buyer_email = $1`;
+        sqlQueryUsername = 'select * from public.buyers where buyer_email = $1';
       }
     } else {
       // If the nickname was sent instead of an email
       if (userType === 'seller') {
-        sqlQueryUsername = `select * from public.sellers where seller_nickname = $1`;
+        sqlQueryUsername = 'select * from public.sellers where seller_nickname = $1';
       } else {
-        sqlQueryUsername = `select * from public.buyers where buyer_nickname = $1`;
+        sqlQueryUsername = 'select * from public.buyers where buyer_nickname = $1';
       }
     }
     const data = await db.query(sqlQueryUsername, userInfo);
@@ -117,7 +118,7 @@ userController.sellerInformation = async (req, res, next) => {
     data = await db.query(sqlQuery);
     console.log(data.rows);
     const mappedData = {};
-    for (let el of data.rows) {
+    for (const el of data.rows) {
       console.log(el, 'booooooooooooooooooooo');
       const {
         pk_seller_id,

@@ -8,6 +8,7 @@ const userController = require('./controllers/userController');
 const tokenVerifier2 = require('./controllers/verifyTokenController');
 const stripeController = require('./controllers/stripeController');
 const menuController = require('./controllers/menuController');
+const orderRoute = require('./route/orderRoute')
 
 const app = express();
 const PORT = 3000;
@@ -34,6 +35,9 @@ if (process.env.NODE_ENV !== 'development') {
       .sendFile(path.join(__dirname, '../client/index.html'));
   });
 }
+
+//order router
+app.use('/order', orderRoute);
 
 app.post('/checkout', stripeController, (req, res) => {
   res.status(200).json({ url: res.locals.session.url });
@@ -91,6 +95,7 @@ app.post(
     res.status(200).json(res.locals.sellerMenu);
   }
 );
+
 
 // app.post('/db/menu', tokenVerifier2, menuController.createDish, (req, res) => {
 //   //adding tokenVerifier2 as the 2nd middleware?
