@@ -19,12 +19,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function (props) {
+export default function FloatingCart(props) {
   const classes = useStyles();
 
   const navigate = useNavigate();
 
   console.log(props);
+
+  const submitOrder = () => {
+    const body = {
+      buyer_id,
+      seller_id,
+      dishes
+    }
+    //post to backend
+    axios
+    .post('http:localhost:3000/createOrder', body)
+    .then(res => {
+      console.log(res);
+      //send an confirmation message in popup. //On confirmation, reset card and floatcart and back to feedpage.
+      props.setFeedActive(true);
+      props.setfloatCart({ price: 0, dishes: {}});
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   const checkout = () => {
     axios
@@ -45,7 +65,7 @@ export default function (props) {
           Here's where we'd put food if <br />
           we had time to add that feature {':)'}
           <h3> Kyle's Scrambla </h3>
-          <Button color='primary' onClick={checkout}>
+          <Button color='primary' onClick={checkout} >
             Checkout
           </Button>
         {/* </Stack> */}
