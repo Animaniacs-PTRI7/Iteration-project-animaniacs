@@ -1,10 +1,8 @@
 const axios = require("axios");
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@mui/material/Card";
-import { CardContent, Paper, TextField, Typography } from "@material-ui/core";
+import { Paper, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { Stack } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -74,7 +72,6 @@ export default function SignUp() {
       <Paper elevation={6} className={classes.signupstack}>
         <form className={classes.root} onSubmit={handleSubmit}>
           <h2> Sign Up </h2>
-          <Stack spacing={2}>
             <TextField
               label={"Username"}
               value={username}
@@ -98,7 +95,6 @@ export default function SignUp() {
             <Button type="submit" color="primary">
               Submit
             </Button>
-          </Stack>
         </form>
       </Paper>
     </div>

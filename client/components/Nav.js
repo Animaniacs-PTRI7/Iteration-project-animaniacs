@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Tooltip, Zoom } from '@material-ui/core';
 import DiningIcon from '@material-ui/icons/LocalDining';
-import { fontWeight } from '@mui/system';
 import { Outlet, Link } from 'react-router-dom';
-import SortIcon from '@material-ui/icons/Sort';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -48,12 +43,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Nav(props) {
   const classes = useStyles();
 
-  let logOutIconElement;
   let myAccountIconElement;
 
   // if logout has been passed, it means we're signed in
   if (props.logOut) {
-    logOutIconElement = (
       <div>
         <Tooltip
           title={<h2 style={{ color: 'white' }}>Log Out</h2>}
@@ -72,7 +65,6 @@ export default function Nav(props) {
           </IconButton>
         </Tooltip>
       </div>
-    );
 
     // if seller
     if (props.userType === 'seller')
@@ -117,7 +109,7 @@ export default function Nav(props) {
           </Link>
           <div>
             {myAccountIconElement}
-            {logOutIconElement}
+
           </div>
         </Toolbar>
       </AppBar>

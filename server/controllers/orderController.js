@@ -27,19 +27,21 @@ orderController.createOrder = async(req, res, next) =>{
     (fk_order_id, fk_dish_id, quantity)
     VALUES ($1, $2, $3) 
     RETURNING *`;
-    
-    dishes.forEach(el => {
-      console.log('ele==>', el);
-      db.query(sqlQuery2, [order_id, el.dish_id, el.quantity])
-    });
+    for(const key in dishes){
+      db.query(sqlQuery2,[order_id, key, dishes[key].quantity])
+    }
     return next();
   }catch (error) {
+    console.log('eorrrr')
+    //return next({ message: { err: error.message }})
     return next(createError({ message: { err: error.message } }));
   }
 }
 
 //use user_id to get all orders of the user (Buyer)
 orderController.getBuyerOrders = async() =>{
+
+  // userType, userId
 
 }
 

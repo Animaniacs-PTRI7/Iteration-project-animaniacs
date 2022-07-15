@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
-import MenuItem from './MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   menuitem: {
@@ -18,13 +16,19 @@ export default function (props) {
   const classes = useStyles();
   return (
     <Paper elevation={5} className={classes.menuitem}>
-      <Stack direction='row' justifyContent='space-between'>
+      
         <h3>
           {props.name} - {props.price}
         </h3>
+<<<<<<< HEAD
         <h3>Quantity Available: {props.quantity}</h3>
       </Stack>
       <Stack direction='row' justifyContent='space-between'>
+=======
+        <h3>Quantity: {props.quantity}</h3>
+  
+      
+>>>>>>> test
         <p>{props.description}</p>
         <Button
           variant='contained'
@@ -51,7 +55,7 @@ export default function (props) {
         >
           Add to Cart
         </Button>
-      </Stack>
+
     </Paper>
   );
 }
