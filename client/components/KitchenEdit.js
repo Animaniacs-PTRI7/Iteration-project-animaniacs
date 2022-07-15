@@ -7,15 +7,14 @@ import {
   Paper,
   TextField,
   IconButton,
-  Tooltip,
   FormControlLabel,
   Switch,
 } from '@material-ui/core';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import AddCircle from '@mui/icons-material/AddCircle';
+// import AddCircle from '@mui/icons-material/AddCircle';
 import MenuItemEdit from './MenuItemEdit';
 import CuisineSelect from './CuisineSelect';
-import { width } from '@mui/system';
+// import { width } from '@mui/system';
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -485,7 +484,7 @@ export default function Body(props) {
               }}
             />
             <IconButton onClick={addNewDish}>
-              <AddCircle /> {'New Dish'}
+              {'New Dish'}
             </IconButton>
             <Button type='submit' variant='contained' color='primary'>
               Submit All Kitchen Changes
