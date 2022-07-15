@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-// import {
-//   GoogleMap,
-//   useJsApiLoader,
-//   DirectionsRenderer,
-// } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  DirectionsRenderer,
+} from '@react-google-maps/api';
 
 {
   /*   --  HOW TO USE  --
