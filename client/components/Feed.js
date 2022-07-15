@@ -174,7 +174,8 @@ export default function Body(props) {
           floatCart={floatCart}
           userZip={props.userZip}
         />
-        <FloatingCart floatCart={floatCart} />
+        {/* <FloatingCart floatCart={floatCart} /> */}
+        <FloatingCart floatCart={floatCart} buyer_id={UserId} seller_id={seller_id} setfloatCart={setfloatCart} setFeedActive={setFeedActive} />
         <Outlet />
       </div>
     );
