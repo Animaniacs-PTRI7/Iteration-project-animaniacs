@@ -7,10 +7,10 @@ const stripeController = async (req, res, next) => {
   // dishes will be an object
 
   const lineItemsArr = [];
-  for (let dishId in dishes) {
+  for (const dishId in dishes) {
     // get price for each dish
     const params = [dishId];
-    sqlDishQuery = `select * from public.dishes where pk_dish_id = $1`;
+    sqlDishQuery = 'select * from public.dishes where pk_dish_id = $1';
     dishData = await db.query(sqlDishQuery, params);
 
     const newItem = {

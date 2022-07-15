@@ -1,10 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
-import MenuItem from './MenuItem';
-import { PropaneSharp } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,8 +33,6 @@ export default function (props) {
       })
       .then((res) => {
         window.location.assign(res.data.url);
-        //navigate(res.data.url);
-        // console.log(res);
       });
   };
 

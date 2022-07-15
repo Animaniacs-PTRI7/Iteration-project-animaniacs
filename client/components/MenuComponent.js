@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
+import {  Paper } from '@material-ui/core';
+
 import MenuItem from './MenuItem';
-import { useLocation } from 'react-router';
+
 // import { useNavigate, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
-import Mappy from './mappy';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
     padding: '10px 0px 0px 10px',
     margin: '10px 0px 20px 10px',
-  },
-  stack: {
-    padding: '0px 10px',
   },
   paperbody: {
     width: '650px',
@@ -98,7 +95,6 @@ export default function MenuComponent(props) {
 
   return (
     <Paper className={classes.paperbody}>
-      <Stack className={classes.papermain}>
         <div
           style={{
             display: 'flex',
@@ -109,7 +105,8 @@ export default function MenuComponent(props) {
           }}
         >
           <h1>{restaurantName}</h1>
-          <span style={{ height: '250px', width: '600px' }}>
+          
+          {/* <span style={{ height: '250px', width: '600px' }}>
             <Mappy
               sellerAddr={street}
               buyerAddr={String(props.userZip)}
@@ -120,13 +117,13 @@ export default function MenuComponent(props) {
             {mapStats.duration
               ? `Trip Duration ⏲: ${mapStats.duration.text} | Trip Distance 🚗: ${mapStats.distance.text}`
               : ''}
-          </span>
+          </span> */}
+          
           <h3>{`Pickup Window: ${dateFormat(pickupStart)} - ${dateFormat(
             pickupEnd
           )}`}</h3>
         </div>
         {/* <span>{street}</span> */}
-      </Stack>
       <div>{destructure(dishes, props)}</div>
     </Paper>
   );

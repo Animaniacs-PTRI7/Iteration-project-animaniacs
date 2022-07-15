@@ -77,19 +77,15 @@ userController.login = async (req, res, next) => {
     if (userLoginType === "email") {
       // checking if the user is a seller or buyer to alter the query
       if (userType === "seller") {
-        sqlQueryUsername = `select * from public.sellers where seller_email = $1`;
+        sqlQueryUsername =
+          "select * from public.sellers where seller_email = $1";
       } else {
-        sqlQueryUsername = `select * from public.buyers where buyer_email = $1`;
+        sqlQueryUsername = "select * from public.buyers where buyer_email = $1";
       }
-    } else {
-      // If the nickname was sent instead of an email
-      if (userType === "seller") {
-        sqlQueryUsername = `select * from public.sellers where seller_nickname = $1`;
-      } else {
-        sqlQueryUsername = `select * from public.buyers where buyer_nickname = $1`;
-      }
+      // } else {
+      //   // If the nickname was sent instead of an email
+      //   }
     }
-    const data = await db.query(sqlQueryUsername, userInfo);
     console.log("data here!", data.rows[0]);
     // Checks if data has been found or not
     if (data.rows[0] === undefined)
@@ -116,11 +112,11 @@ userController.sellerInformation = async (req, res, next) => {
   try {
     const sqlQuery = `select pk_seller_id, kitchen_name, seller_street_name, seller_street_number, seller_city, seller_zip_code, seller_bio, cuisine, pickup_window_start, pickup_window_end, market_enabled
    from public.sellers`;
-    data = await db.query(sqlQuery);
-    console.log(data.rows);
+    const data = await db.query(sqlQuery);
+    // console.log(data.rows);
     const mappedData = {};
-    for (let el of data.rows) {
-      console.log(el, "booooooooooooooooooooo");
+    for (const el of data.rows) {
+      //console.log(el, 'booooooooooooooooooooo');
       const {
         pk_seller_id,
         kitchen_name,
@@ -135,6 +131,7 @@ userController.sellerInformation = async (req, res, next) => {
         market_enabled,
       } = el;
       mappedData[pk_seller_id] = {
+        pk_seller_id,
         kitchen_name,
         seller_street_name,
         seller_street_number,

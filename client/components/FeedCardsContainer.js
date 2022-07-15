@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Cooking from '../assets/cooking.jpg';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import KitchenCard from './KitchenCards';
 import moment from 'moment';

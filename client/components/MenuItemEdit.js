@@ -1,9 +1,7 @@
 // const axios = require('axios');
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, TextField, IconButton, Tooltip } from '@material-ui/core';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 /* 
 
@@ -68,20 +66,7 @@ export default function Body(props) {
           }
         />
         <div className={classes.dishStats}>
-          <CurrencyTextField
-            required
-            currencySymbol='$'
-            minimumValue='0'
-            //   outputFormat='number'
-            decimalCharacter='.'
-            digitGroupSeparator=','
-            defaultValue={props.price.slice(1)}
-            className={classes.dishStatItem + ' dishPrice'}
-            label='Price'
-            onChange={(e) =>
-              props.updateDish(props.dishId, 'price', e.target.value)
-            }
-          />
+        
           <TextField
             required
             type='number'
@@ -98,7 +83,7 @@ export default function Body(props) {
                 props.deleteDish(props.dishId);
               }}
             >
-              <DeleteIcon sx={{ color: 'red' }} />
+            
             </IconButton>
           </Tooltip>
         </div>

@@ -9,6 +9,7 @@ const tokenVerifier2 = require("./controllers/verifyTokenController");
 const stripeController = require("./controllers/stripeController");
 const menuController = require("./controllers/menuController");
 const getAllController = require("./controllers/getAllController");
+const orderRoute = require("./route/orderRoute");
 
 const app = express();
 const PORT = 3000;
@@ -44,8 +45,12 @@ app.get("/buyerusers", getAllController.getAllBuyers, (req, res) => {
   res.status(200).json(res.locals.buyerUsers);
 });
 
+// app.post("/checkout", stripeController, (req, res) => {
+//order router
+app.use("/api", orderRoute);
+
 app.post("/checkout", stripeController, (req, res) => {
-  res.status(200).json({ url: res.locals.session.url });
+  return res.status(200).json({ url: res.locals.session.url });
 });
 
 app.post(
