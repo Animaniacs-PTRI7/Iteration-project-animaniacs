@@ -58,7 +58,9 @@ const destructure = (object, props) => {
   return menuUnit;
 };
 export default function MenuComponent(props) {
+
   console.log('sup im the menu component');
+  const { sellerId } = useParams();
   const classes = useStyles();
   const [restaurantName, setRestaurantName] = useState('');
   const [dishes, setDishes] = useState({});
@@ -68,12 +70,16 @@ export default function MenuComponent(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mapStats, setMapStats] = useState({});
 
+  props.setSellerID(sellerId);
+  
+
+
   // this line "receives" the useNavigate from elsewhere. it gives us access to props we want to pass
   // const { state } = useLocation();
   // console.log(state);
 
   // this line allows us to access the ID parameter we passed when routing to this component
-  const { sellerId } = useParams();
+  
 
   console.log(props);
 
