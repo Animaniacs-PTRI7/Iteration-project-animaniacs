@@ -54,7 +54,7 @@ export default function Body(props) {
   const classes = useStyles();
   const currentLocation = useLocation();
   const ZipCode = props.userZip;
-  const UserId = props.buyerId;
+  const UserId = props.userId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
   const [floatCart, setfloatCart] = useState({ price: 0, dishes: {} });
 
@@ -68,6 +68,11 @@ export default function Body(props) {
   const [feedActive, setFeedActive] = useState(true);
   // define state
   const [kitchens, setKitchens] = useState({});
+<<<<<<< HEAD
+  const [success, setSuccess] = useState();
+  const [seller_id, setSellerID] = useState(null);
+=======
+>>>>>>> test
 
   // FEED COMPONENT
   // state: cartState
@@ -173,8 +178,9 @@ export default function Body(props) {
           setfloatCart={setfloatCart}
           floatCart={floatCart}
           userZip={props.userZip}
+          setSellerID={setSellerID}
         />
-        <FloatingCart floatCart={floatCart} />
+        <FloatingCart floatCart={floatCart} buyer_id={UserId} seller_id={seller_id} setfloatCart={setfloatCart} setFeedActive={setFeedActive} />
         <Outlet />
       </div>
     );

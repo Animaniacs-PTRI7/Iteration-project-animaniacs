@@ -20,9 +20,15 @@ export default function (props) {
         <h3>
           {props.name} - {props.price}
         </h3>
+<<<<<<< HEAD
+        <h3>Quantity Available: {props.quantity}</h3>
+      </Stack>
+      <Stack direction='row' justifyContent='space-between'>
+=======
         <h3>Quantity: {props.quantity}</h3>
   
       
+>>>>>>> test
         <p>{props.description}</p>
         <Button
           variant='contained'
