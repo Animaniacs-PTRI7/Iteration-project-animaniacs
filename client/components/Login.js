@@ -62,7 +62,6 @@ export default function Login(props) {
       <Paper elevation={6} className={classes.signupstack}>
         <form className={classes.root} onSubmit={handleSubmit}>
           <h2> Log In </h2>
-          <Stack spacing={2}>
             <TextField
               label=' Username / Email'
               // variant='filled'
@@ -85,7 +84,6 @@ export default function Login(props) {
             >
               Login
             </Button>
-          </Stack>
         </form>
       </Paper>
     </div>

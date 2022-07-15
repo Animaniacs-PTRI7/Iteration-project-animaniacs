@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
 );
 
 const OrderList = (props) => {
-    console.log('orderlist props ->', props)
     //on load, fetch to backend with user_id and user_type to get all orders
     return (
         <div>Here is your Order History</div>
