@@ -11,7 +11,7 @@ const menuController = require('./controllers/menuController');
 const orderRoute = require('./route/orderRoute')
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Importing Router
 
@@ -23,18 +23,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 // use for build COMMENT FOR DEV!! WILL DELIVER OLD BUILD
-if (process.env.NODE_ENV !== 'development') {
-  console.log('we are using production');
-  app.use('/dist', express.static(path.join(__dirname, '../dist')));
-  // use for build
-  app.get('/', (req, res) => {
-    console.log('picked up / only');
-    // return res.sendStatus(200);
-    return res
-      .status(203)
-      .sendFile(path.join(__dirname, '../client/index.html'));
-  });
-}
+// if (process.env.NODE_ENV !== 'development') {
+//   console.log('we are using production');
+//   app.use('/dist', express.static(path.join(__dirname, '../dist')));
+//   // use for build
+//   app.get('/', (req, res) => {
+//     console.log('picked up / only');
+//     // return res.sendStatus(200);
+//     return res
+//       .status(203)
+//       .sendFile(path.join(__dirname, '../client/index.html'));
+//   });
+// }
 
 //order router
 app.use('/api', orderRoute);
