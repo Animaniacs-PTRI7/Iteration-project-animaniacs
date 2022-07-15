@@ -134,6 +134,7 @@ userController.sellerInformation = async (req, res, next) => {
         market_enabled,
       } = el;
       mappedData[pk_seller_id] = {
+        pk_seller_id,
         kitchen_name,
         seller_street_name,
         seller_street_number,

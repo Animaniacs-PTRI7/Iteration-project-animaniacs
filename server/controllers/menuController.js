@@ -55,7 +55,7 @@ menuController.getSellerMenu = async (req, res, next) => {
 
   // sellers need to be able to have 0 dishes, so I'm splitting this query
   // currently if no dishes for a seller, they don't show up at all because of the join
-  const sqlQuery = `select d.pk_dish_id, d.fk_seller_id, d.dish_name, d.description, d.price, d.quantity_available,s.kitchen_name, s.pickup_window_start, s.pickup_window_end, s.cuisine, s.market_enabled, s.seller_street_name, s.seller_city, s.seller_zip_code
+  const sqlQuery = `select d.pk_dish_id, d.fk_seller_id, d.dish_name, d.description, d.price, d.quantity_available,s.kitchen_name, s.pickup_window_start, s.pickup_window_end, s.cuisine, s.market_enabled, s.seller_street_name, s.seller_city, s.seller_state, s.seller_zip_code
   FROM public.sellers s LEFT JOIN public.dishes d ON s.pk_seller_id = d.fk_seller_id WHERE S.pk_seller_id = $1;`;
   try {
     const data = await db.query(sqlQuery, para);
@@ -73,7 +73,7 @@ menuController.getSellerMenu = async (req, res, next) => {
     kitchenMenu.address = {
       seller_street_name: data.rows[0].seller_street_name,
       seller_city: data.rows[0].seller_city,
-      // seller_state: data.rows[0].seller_state,
+      seller_state: data.rows[0].seller_state,
       seller_zip_code: data.rows[0].seller_zip_code,
     };
 
@@ -207,14 +207,14 @@ menuController.updateMenu = async (req, res, next) => {
       }
 
       console.log(address);
-    //   if (address.seller_state) {
-    //     console.log('seller state!');
-    //     const para = [address.seller_state];
-    //     const sqlQuery = `UPDATE public.sellers
-    // SET seller_state = $1
-    //  WHERE pk_seller_id=${userId};`;
-    //     const data = await db.query(sqlQuery, para);
-    //   }
+      if (address.seller_state) {
+        console.log('seller state!');
+        const para = [address.seller_state];
+        const sqlQuery = `UPDATE public.sellers
+    SET seller_state = $1
+     WHERE pk_seller_id=${userId};`;
+        const data = await db.query(sqlQuery, para);
+      }
 
       if (address.seller_city) {
         const para = [address.seller_city];
