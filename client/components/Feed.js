@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Cooking from '../assets/cooking.jpg';
-import Button from '@material-ui/core/Button';
-import { Stack } from '@mui/material';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import ZipCodeGrab from './ZipCodeGrab';
 import MenuComponent from './MenuComponent';
 import FloatingCart from './FloatingCart';
 import axios from 'axios';
 import FeedCardsContainer from './FeedCardsContainer';
 import { useLocation } from 'react-router';
-import { useNavigate, Navigate } from 'react-router-dom';
-import Confirmation from './Confirmation.js';
+import { Navigate } from 'react-router-dom';
 
-//Styling
 const useStyles = makeStyles((theme) => ({
   body: {
     height: '100vh',
-
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -73,7 +68,6 @@ export default function Body(props) {
   const [feedActive, setFeedActive] = useState(true);
   // define state
   const [kitchens, setKitchens] = useState({});
-  const [success, setSuccess] = useState();
 
   // FEED COMPONENT
   // state: cartState
