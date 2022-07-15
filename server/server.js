@@ -37,7 +37,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 //order router
-app.use('/order', orderRoute);
+app.use('/api', orderRoute);
 
 app.post('/checkout', stripeController, (req, res) => {
   res.status(200).json({ url: res.locals.session.url });

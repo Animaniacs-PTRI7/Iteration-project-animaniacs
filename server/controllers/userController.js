@@ -34,7 +34,6 @@ userController.createSeller = async (req, res, next) => {
 };
 
 userController.createBuyer = async (req, res, next) => {
-  console.log('req.body===>', req.body)
   if (req.body.userType === 'seller') return next();
   try {
     const props = ['buyer_email', 'password', 'buyer_nickname'];
@@ -115,11 +114,11 @@ userController.sellerInformation = async (req, res, next) => {
   try {
     const sqlQuery = `select pk_seller_id, kitchen_name, seller_street_name, seller_street_number, seller_city, seller_zip_code, seller_bio, cuisine, pickup_window_start, pickup_window_end, market_enabled
    from public.sellers`;
-    data = await db.query(sqlQuery);
-    console.log(data.rows);
+    const data = await db.query(sqlQuery);
+    // console.log(data.rows);
     const mappedData = {};
     for (const el of data.rows) {
-      console.log(el, 'booooooooooooooooooooo');
+      //console.log(el, 'booooooooooooooooooooo');
       const {
         pk_seller_id,
         kitchen_name,
