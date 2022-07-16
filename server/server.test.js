@@ -1,5 +1,5 @@
 const request = require("supertest");
-const puppeteer = require("puppeteer");
+// const puppeteer = require("puppeteer");
 
 // this is http://localhost:3000   <<< precisely this
 const server = require("./server");

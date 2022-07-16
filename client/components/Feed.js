@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Cooking from '../assets/cooking.jpg';
-import { Outlet } from 'react-router-dom';
-import ZipCodeGrab from './ZipCodeGrab';
-import MenuComponent from './MenuComponent';
-import FloatingCart from './FloatingCart';
-import axios from 'axios';
-import FeedCardsContainer from './FeedCardsContainer';
-import { useLocation } from 'react-router';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Cooking from "../assets/cooking.jpg";
+import { Outlet } from "react-router-dom";
+import ZipCodeGrab from "./ZipCodeGrab";
+import MenuComponent from "./MenuComponent";
+import FloatingCart from "./FloatingCart";
+import axios from "axios";
+import FeedCardsContainer from "./FeedCardsContainer";
+import { useLocation } from "react-router";
+import { Navigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   body: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'none',
-    backgroundColor: 'transparent',
-    padding: '0px 20px',
+    backgroundSize: "cover",
+    backgroundRepeat: "none",
+    backgroundColor: "transparent",
+    padding: "0px 20px",
   },
   heavyFont: {
-    color: 'white',
-    fontWeight: '900',
-    fontSize: '40px',
-    fontFamily: 'Nunito',
+    color: "white",
+    fontWeight: "900",
+    fontSize: "40px",
+    fontFamily: "Nunito",
   },
 }));
 
@@ -36,14 +36,14 @@ export default function Body(props) {
     kitchenName: "Greg's Kitchen",
     dishes: {
       2: {
-        name: 'KFC',
-        description: 'finger licking good',
+        name: "KFC",
+        description: "finger licking good",
         price: 15,
         quantity: 30,
       },
       3: {
-        name: 'Sushi',
-        description: 'good stuff',
+        name: "Sushi",
+        description: "good stuff",
         price: 35,
         quantity: 100,
       },
@@ -59,7 +59,7 @@ export default function Body(props) {
   const [floatCart, setfloatCart] = useState({ price: 0, dishes: {} });
 
   useEffect(() => {
-    console.log('-------------------', floatCart);
+    console.log("-------------------", floatCart);
   }, [floatCart]);
   // 1: {
   //   name: ,
@@ -85,7 +85,7 @@ export default function Body(props) {
   useEffect(() => {
     // axios to get state
     axios
-      .get('/feed', {})
+      .get("/feed", {})
       .then((res) => {
         console.log(res.data);
         setKitchens(res.data);
@@ -125,35 +125,35 @@ export default function Body(props) {
 
   // if kitchens is empty, fetch isn't finished yet, so we don't want to make any decisions yet
   if (Object.keys(kitchens).length === 0) {
-    console.log('zip good, fetch not complete');
+    console.log("zip good, fetch not complete");
     return <div>LOADING</div>;
   }
 
   // if zip code good and fetch complete, some part of the feed will render
   if (feedActive) {
-    if (currentLocation.pathname.split('/')[2]) {
+    if (currentLocation.pathname.split("/")[2]) {
       console.log(
-        'woah, you shouldnt be here --------------------------------'
+        "woah, you shouldnt be here --------------------------------"
       );
-      return <Navigate to='/feed' replace={true} />;
+      return <Navigate to="/feed" replace={true} />;
     }
   }
 
   // if kitchens is empty, fetch isn't finished yet, so we don't want to make any decisions yet
   if (Object.keys(kitchens).length === 0) {
-    console.log('zip good, fetch not complete');
+    console.log("zip good, fetch not complete");
     return <div>LOADING</div>;
   }
 
   // if zip code good and fetch complete, some part of the feed will render
   if (feedActive) {
-    if (currentLocation.pathname.split('/')[2]) {
+    if (currentLocation.pathname.split("/")[2]) {
       console.log(
-        'woah, you shouldnt be here --------------------------------'
+        "woah, you shouldnt be here --------------------------------"
       );
-      return <Navigate to='/feed' replace={true} />;
+      return <Navigate to="/feed" replace={true} />;
     }
-    console.log('FEED IS ACTIVE -----');
+    console.log("FEED IS ACTIVE -----");
     return (
       <FeedCardsContainer
         setFeedActive={setFeedActive}
@@ -163,7 +163,7 @@ export default function Body(props) {
       />
     );
   } else {
-    console.log('Feed is inactive');
+    console.log("Feed is inactive");
     return (
       //Display purposes only
       <div className={classes.body}>

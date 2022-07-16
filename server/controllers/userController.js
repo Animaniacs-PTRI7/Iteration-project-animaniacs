@@ -1,4 +1,5 @@
 const db = require("../../database/pg_model.js");
+const { query } = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userController = {};
@@ -65,45 +66,47 @@ userController.createBuyer = async (req, res, next) => {
 userController.login = async (req, res, next) => {
   // Destructuring the username and password
   const { username, password, userType } = req.body;
-  try {
-    // If "@" exists then an email has been sent
-    let userLoginType = "nickname";
-    if (username.includes("@")) userLoginType = "email";
+  // If "@" exists then an email has been sent
+  let userLoginType = "nickname";
+  if (username.includes("@")) userLoginType = "email";
 
-    const userInfo = [username];
-    let sqlQueryUsername;
-    const type = userType === "seller" ? "seller" : "buyer";
-    // If an email has been sent then we need to search the table using the email column
-    if (userLoginType === "email") {
-      // checking if the user is a seller or buyer to alter the query
-      if (userType === "seller") {
-        sqlQueryUsername =
-          "select * from public.sellers where seller_email = $1";
-      } else {
-        sqlQueryUsername = "select * from public.buyers where buyer_email = $1";
-      }
-      // } else {
-      //   // If the nickname was sent instead of an email
-      //   }
-    }
-    console.log("data here!", data.rows[0]);
-    // Checks if data has been found or not
-    if (data.rows[0] === undefined)
-      return res.send("Username/Email does not exist");
-    // If the username/emaiil has been found, it checks if the password matches
-    if (await bcrypt.compare(password, data.rows[0].password)) {
-      const zip = `${type}_zip_code`;
-      const userId = `pk_${type}_id`;
-      res.locals.data = {
-        user_id: data.rows[0][userId],
-        zip: data.rows[0][zip],
-      };
-      return next();
+  const userInfo = [username];
+  let sqlQueryUsername;
+  const type = userType === "seller" ? "seller" : "buyer";
+  // If an email has been sent then we need to search the table using the email column
+  if (userLoginType === "email") {
+    // checking if the user is a seller or buyer to alter the query
+    if (userType === "seller") {
+      sqlQueryUsername = "select * from public.sellers where seller_email = $1";
     } else {
-      return res.send("Password is incorrect");
+      sqlQueryUsername = "select * from public.buyers where buyer_email = $1";
     }
-  } catch (error) {
-    return next(error);
+    console.log(sqlQueryUsername, "works?");
+    // await db
+    const data = await db
+      .query(sqlQueryUsername, [username])
+      // .query(sqlQueryUsername)
+      .then((data) => console.log(data))
+      // .then((data) => console.log("this is data", data))
+      // console.log("sup");
+      // console.log("data here!", data.rows[0]);
+      // // Checks if data has been found or not
+      // if (data.rows[0] === undefined)
+      //   return res.send("Username/Email does not exist");
+      // If the username/emaiil has been found, it checks if the password matches
+      // if (await bcrypt.compare(password, data.rows[0].password)) {
+      //   const zip = `${type}_zip_code`;
+      //   const userId = `pk_${type}_id`;
+      //   res.locals.data = {
+      //     user_id: data.rows[0][userId],
+      //     zip: data.rows[0][zip],
+      //   };
+
+      // } else {
+      //   return res.send("Password is incorrect");
+      // }
+      .catch((err) => next(err));
+    return next();
   }
 };
 
