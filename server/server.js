@@ -12,7 +12,7 @@ const getAllController = require('./controllers/getAllController');
 const orderRoute = require('./route/orderRoute');
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 
 // Importing Router
 
@@ -47,7 +47,7 @@ app.get('/buyerusers', getAllController.getAllBuyers, (req, res) => {
 
 // app.post("/checkout", stripeController, (req, res) => {
 //order router
-app.use('/api', orderRoute);
+//app.use('/api', orderRoute);
 
 app.post('/checkout', stripeController, (req, res) => {
   return res.status(200).json({ url: res.locals.session.url });
@@ -58,6 +58,7 @@ app.post(
   userController.createSeller,
   userController.createBuyer,
   (req, res) => {
+
     if (req.body.userType === 'seller') {
       res.status(200).json('You have signed up as a seller');
     } else {
@@ -67,6 +68,7 @@ app.post(
 );
 
 app.post('/auth/login', userController.login, (req, res) => {
+
   jwt.sign(
     { userdata: res.locals.data },
     process.env.ACCESS_TOKEN_SECRET,
