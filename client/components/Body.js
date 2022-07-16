@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Outlet, Link } from 'react-router-dom';
+
+import { makeStyles } from '@mui/styles';
 import Cooking from '../assets/cooking.jpg';
-import Button from '@material-ui/core/Button';
-import { Stack } from '@mui/material';
+import { Stack, Button } from '@mui/material';
+
 import SignUp from './SignUp';
 import Login from './Login';
-import { Outlet, Link } from 'react-router-dom';
+
 
 //Styling
 const useStyles = makeStyles((theme) => ({

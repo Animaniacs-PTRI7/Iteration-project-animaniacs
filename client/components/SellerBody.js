@@ -1,11 +1,17 @@
+//React and Router
+import { Outlet, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Doughy from '../assets/doughy.jpg';
-import Button from '@material-ui/core/Button';
-import { Stack } from '@mui/material';
+
+//MUI
+import { makeStyles } from '@mui/styles';
+import { Stack, Button } from '@mui/material';
+
+//Routes
 import SignUp from './SignUp';
 import Login from './Login';
-import { Outlet, Link } from 'react-router-dom';
+
+//Assets
+import Doughy from '../assets/doughy.jpg';
 
 //Styling
 const useStyles = makeStyles((theme) => ({

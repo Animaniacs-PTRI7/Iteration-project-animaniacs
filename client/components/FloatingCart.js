@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
 import MenuItem from './MenuItem';
 import { PropaneSharp } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   footer: {

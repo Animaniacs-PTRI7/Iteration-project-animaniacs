@@ -1,21 +1,20 @@
 const axios = require("axios");
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@mui/material/Card";
-import { CardContent, Paper, TextField, Typography } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { Stack } from "@mui/material";
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Card, CardContent, Paper, TextField, Typography, Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
     padding: "10px",
     display: "flex",
     flexDirection: "column",
-    position: "absolute",
+    // position: "absolute",
     margin: "30px auto auto 0px",
     left: "20%",
     right: "20%",
     zIndex: "1",
+    width: '30em'
   },
 }));
 

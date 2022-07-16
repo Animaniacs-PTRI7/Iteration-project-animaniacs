@@ -1,7 +1,7 @@
 // const axios = require('axios');
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, TextField, IconButton, Tooltip } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Paper, TextField, IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 // import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 

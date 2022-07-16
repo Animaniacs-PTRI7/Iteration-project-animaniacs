@@ -1,8 +1,13 @@
 const axios = require('axios');
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Cooking from '../assets/cooking.jpg';
-import Button from '@material-ui/core/Button';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import MenuItemEdit from './MenuItemEdit';
+import CuisineSelect from './CuisineSelect';
+import { width } from '@mui/system';
+
+import { makeStyles } from '@mui/styles';
+import AddCircle from '@mui/icons-material/AddCircle';
 import {
   Paper,
   TextField,
@@ -10,12 +15,8 @@ import {
   Tooltip,
   FormControlLabel,
   Switch,
-} from '@material-ui/core';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import AddCircle from '@mui/icons-material/AddCircle';
-import MenuItemEdit from './MenuItemEdit';
-import CuisineSelect from './CuisineSelect';
-import { width } from '@mui/system';
+  Button
+} from '@mui/material';
 
 //Styling
 const useStyles = makeStyles((theme) => ({

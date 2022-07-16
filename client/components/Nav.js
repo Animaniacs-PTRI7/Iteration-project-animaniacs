@@ -1,29 +1,36 @@
+//React and React-Router
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Tooltip, Zoom } from '@material-ui/core';
-import DiningIcon from '@material-ui/icons/LocalDining';
-import { fontWeight } from '@mui/system';
 import { Outlet, Link } from 'react-router-dom';
-import SortIcon from '@material-ui/icons/Sort';
+
+//MUI
+// import { fontWeight } from '@mui/system';
+// import { SortIcon } from '@mui/icons-material';
+import { makeStyles } from '@mui/styles';
+import { AppBar, IconButton, Toolbar, Tooltip, Zoom, Grid } from '@mui/material';
+import DiningIcon from '@mui/icons-material/LocalDining';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
+const background = document.getElementById("app")
+console.log(background, 'This is the background')
+
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    color: 'red',
-    backgroundColor: 'white',
     fontFamily: 'Lato',
   },
   appbarHead: {
     flexGrow: '1',
   },
   appbarWrap: {
-    width: '90%',
+    width: '100%',
     margin: '0 auto',
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   icon: {
+    display: 'grid',
+    
     color: 'black',
     margin: '10px',
     // fontSize: '4rem',
@@ -39,8 +46,12 @@ const useStyles = makeStyles((theme) => ({
   },
   noUnderline: {
     textDecoration: 'none',
-    color: 'unset',
+    // color: 'unset',
   },
+
+  iconGroup: {
+
+  }
 }));
 
 
@@ -54,22 +65,25 @@ export default function Nav(props) {
   // if logout has been passed, it means we're signed in
   if (props.logOut) {
     logOutIconElement = (
-      <div>
-        <Tooltip
-          title={<h2 style={{ color: 'white' }}>Log Out</h2>}
-          TransitionComponent={Zoom}
-        >
+      
+      <div id="iconGroup">
+        <Tooltip title={<h2 style={{ color: 'white' }}>Log Out</h2>} TransitionComponent={Zoom}>
+
+          {/* Log Out Icon */}
           <IconButton onClick={props.logOut}>
-            <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
+            <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon}/>
           </IconButton>
+
         </Tooltip>
-        <Tooltip
-          title={<h2 style={{ color: 'white' }}>My Orders</h2>}
-          TransitionComponent={Zoom}
-        >
+
+
+        <Tooltip title={<h2 style={{ color: 'white' }}>My Orders</h2>} TransitionComponent={Zoom}>
+          
+           {/* My Orders Icon */}
           <IconButton component={Link} to='/MyOrders'>
             <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
           </IconButton>
+
         </Tooltip>
       </div>
     );
@@ -77,30 +91,29 @@ export default function Nav(props) {
     // if seller
     if (props.userType === 'seller')
       myAccountIconElement = (
-        <Tooltip
-          title={<h2 style={{ color: 'white' }}>My Kitchen</h2>}
-          TransitionComponent={Zoom}
-        >
+
+        <div id="iconGroup">
+
+        <Tooltip title={<h2 style={{ color: 'white' }}>My Kitchen</h2>} TransitionComponent={Zoom}>
+
+
           <IconButton component={Link} to='/MyKitchen'>
-            <RestaurantMenuIcon
-              sx={{ fontSize: 33 }}
-              className={classes.icon}
-            />
+            <RestaurantMenuIcon sx={{ fontSize: 33 }} className={classes.icon}/>
           </IconButton>
+
+
         </Tooltip>
+        </div>
       );
     else
       myAccountIconElement = (
-        <Tooltip
-          title={<h2 style={{ color: 'white' }}>My Account</h2>}
-          TransitionComponent={Zoom}
-        >
+
+        <Tooltip title={<h2 style={{ color: 'white' }}>My Account</h2>} TransitionComponent={Zoom}>
+          
           <IconButton component={Link} to='/'>
-            <ManageAccountsIcon
-              sx={{ fontSize: 33 }}
-              className={classes.icon}
-            />
+            <ManageAccountsIcon sx={{ fontSize: 33 }} className={classes.icon}/>
           </IconButton>
+
         </Tooltip>
       );
   }

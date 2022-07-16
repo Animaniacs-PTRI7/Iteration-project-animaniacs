@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
-import MenuItem from './MenuItem';
 import { useLocation } from 'react-router';
-// import { useNavigate, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper } from '@mui/material';
+
+import MenuItem from './MenuItem';
+
 import moment from 'moment';
 import Mappy from './mappy';
 
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   paperbody: {
     width: '650px',
     width: '50%',
-    backgroundColor: '#ecf0f1',
+    // backgroundColor: '#ecf0f1',
     margin: '10px',
   },
   nestedBody: {
