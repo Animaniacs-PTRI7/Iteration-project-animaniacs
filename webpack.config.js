@@ -18,7 +18,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     host: 'localhost',
-    port: 8080,
+    port: 8081,
     // match the output path
     static: {
       directory: path.resolve(__dirname, 'dist'),
@@ -39,7 +39,7 @@ module.exports = {
      */
     proxy: {
       '*': {
-        target: 'http://localhost:3000/',
+        target: 'http://localhost:3001/',
         secure: false,
       },
     },

@@ -39,7 +39,7 @@ export default function (props) {
   return (
     <div>
       <Paper className={classes.footer}>
-        <Stack>
+        {/* <Stack> */}
           <h1>${props.floatCart.price}</h1>
           <h3> Current Cart: </h3>
           Here's where we'd put food if <br />
@@ -48,7 +48,7 @@ export default function (props) {
           <Button color='primary' onClick={checkout}>
             Checkout
           </Button>
-        </Stack>
+        {/* </Stack> */}
       </Paper>
     </div>
   );
