@@ -47,7 +47,7 @@ app.get('/buyerusers', getAllController.getAllBuyers, (req, res) => {
 
 // app.post("/checkout", stripeController, (req, res) => {
 //order router
-//app.use('/api', orderRoute);
+app.use('/api', orderRoute);
 
 app.post('/checkout', stripeController, (req, res) => {
   return res.status(200).json({ url: res.locals.session.url });
