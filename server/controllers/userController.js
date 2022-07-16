@@ -88,7 +88,8 @@ userController.login = async (req, res, next) => {
       }
     }
     const data = await db.query(sqlQueryUsername, userInfo);
-    console.log(data.rows[0]);
+      console.log(data.rows);
+    // console.log(data.rows[0]);
     // Checks if data has been found or not
     if (data.rows[0] === undefined)
       return res.send('Username/Email does not exist');
@@ -100,7 +101,7 @@ userController.login = async (req, res, next) => {
         user_id: data.rows[0][userId],
         zip: data.rows[0][zip],
       };
-      return next();
+      return next(); 
     } else {
       return res.send('Password is incorrect');
     }
