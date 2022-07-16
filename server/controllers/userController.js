@@ -162,7 +162,7 @@ userController.userZip = async (req, res, next) => {
   const userId = req.cookies.userId;
   const userType = req.cookies.userType;
   const { zipcode } = req.body;
-  details = [zipcode, userId];
+  const details = [zipcode, userId];
 
   try {
     //updating the zipcode using the user id

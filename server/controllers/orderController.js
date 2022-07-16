@@ -46,7 +46,7 @@ orderController.getBuyerOrders = async(req, res, next) =>{
   
 
     // use userId to find order (orderTable) 
-    // set orderId, to find the dish_id for the order (orderDish Table)
+    // set orderId, to find the dish_id from the order (orderDish Table)
     // dish_id to get details name (dish)
 
     // join orderDish with Dish Table to get name
@@ -54,22 +54,28 @@ orderController.getBuyerOrders = async(req, res, next) =>{
 
     const queryOrderId = `SELECT * FROM Orders
     WHERE fk_buyer_id = $1`;
-    const datayOrderId = await db.query(queryOrderId,[userId])
-    const orderId = datayOrderId.rows[0].fk_seller_id;
+    const dataOrderByUser = await db.query(queryOrderId,[userId])
+  
+    const orderId = dataOrderByUser.rows[0].pk_order_id;
 
-    const queryDishId  = `SELECT * FROM Dishes
-    WHERE pk_dish_id = $1`;
-    const dataDishId = await db.query(queryDishId,[orderId])
-    const dishId = dataDishId.rows[0].pk_dish_id
+    const queryDish  = `SELECT * FROM Order_dish
+    WHERE fk_order_id = $1`;
+
+    const dataDish = await db.query(queryDish,[orderId]);
+   
+    const dishId = dataDish.rows[0].pk_od_id;
+  
+    console.log('dishId ==>', dishId)
     
-    const queryOrderDish = `SELECT * FROM Order_dish
-    WHERE fk_dish_id = $1`
+    const queryOrderDish = `SELECT * FROM Dishes
+    WHERE pk_dish_id = $1`
+
     const dataOrderDish = await db.query(queryOrderDish,[dishId])
-    console.log('dataOrder ==>', dataOrderDish.rows)
+  
 
     const queryOrder = 'SELECT '
     const data = await db.query(queryOrder);
-    console.log('dataOrder ==>', data)
+    //console.log('dataOrder ==>', data)
 
     return next()
   }catch (error) {
