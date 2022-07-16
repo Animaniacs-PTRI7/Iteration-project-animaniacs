@@ -90,8 +90,8 @@ userController.login = async (req, res, next) => {
         sqlQueryUsername = 'select * from public.buyers where buyer_nickname = $1';
       }
     }
-    const data = await db.query(sqlQueryUsername, userInfo);
-    console.log(data.rows[0]);
+    const data = await db.query(sqlQueryUsername, [username]);
+    console.log('data here!', data.rows[0]);
     // Checks if data has been found or not
     if (data.rows[0] === undefined)
       return res.send('Username/Email does not exist');

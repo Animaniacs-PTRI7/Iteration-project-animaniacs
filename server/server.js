@@ -58,7 +58,6 @@ app.post(
   userController.createSeller,
   userController.createBuyer,
   (req, res) => {
-
     if (req.body.userType === 'seller') {
       res.status(200).json('You have signed up as a seller');
     } else {
@@ -68,7 +67,6 @@ app.post(
 );
 
 app.post('/auth/login', userController.login, (req, res) => {
-
   jwt.sign(
     { userdata: res.locals.data },
     process.env.ACCESS_TOKEN_SECRET,

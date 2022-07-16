@@ -1,10 +1,15 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
+//REACT
+import React, { useState } from 'react';
+
+//MUI
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper } from '@mui/material';
+
+import MenuItem from './MenuItem';
 
 const useStyles = makeStyles((theme) => ({
   menuitem: {
-    backgroundColor: '#bdc3c7',
+    // backgroundColor: '#bdc3c7',
     padding: '10px',
     margin: '10px',
   },

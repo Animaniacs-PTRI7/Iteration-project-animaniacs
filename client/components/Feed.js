@@ -1,15 +1,25 @@
+//React and React Router
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Cooking from '../assets/cooking.jpg';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
+import { useLocation } from 'react-router';
+import { useNavigate, Navigate } from 'react-router-dom';
+
+//Components
 import ZipCodeGrab from './ZipCodeGrab';
 import MenuComponent from './MenuComponent';
 import FloatingCart from './FloatingCart';
-import axios from 'axios';
 import FeedCardsContainer from './FeedCardsContainer';
-import { useLocation } from 'react-router';
-import { Navigate } from 'react-router-dom';
+import Confirmation from './Confirmation.js';
 
+//Assets
+import Cooking from '../assets/cooking.jpg';
+
+//MUI
+import { Stack, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+//Styling
 const useStyles = makeStyles((theme) => ({
   body: {
     height: '100vh',
@@ -54,7 +64,7 @@ export default function Body(props) {
   const classes = useStyles();
   const currentLocation = useLocation();
   const ZipCode = props.userZip;
-  const UserId = props.buyerId;
+  const UserId = props.userId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
   const [floatCart, setfloatCart] = useState({ price: 0, dishes: {} });
 
@@ -68,6 +78,8 @@ export default function Body(props) {
   const [feedActive, setFeedActive] = useState(true);
   // define state
   const [kitchens, setKitchens] = useState({});
+  const [success, setSuccess] = useState();
+  const [seller_id, setSellerID] = useState(null);
 
   // FEED COMPONENT
   // state: cartState
@@ -173,8 +185,8 @@ export default function Body(props) {
           setfloatCart={setfloatCart}
           floatCart={floatCart}
           userZip={props.userZip}
+          setSellerID={setSellerID}
         />
-        {/* <FloatingCart floatCart={floatCart} /> */}
         <FloatingCart floatCart={floatCart} buyer_id={UserId} seller_id={seller_id} setfloatCart={setfloatCart} setFeedActive={setFeedActive} />
         <Outlet />
       </div>
