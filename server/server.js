@@ -8,6 +8,8 @@ const userController = require("./controllers/userController");
 const tokenVerifier2 = require("./controllers/verifyTokenController");
 const stripeController = require("./controllers/stripeController");
 const menuController = require("./controllers/menuController");
+const getAllController = require("./controllers/getAllController");
+const orderRoute = require("./route/orderRoute");
 
 const app = express();
 const PORT = 3000;
@@ -35,8 +37,20 @@ if (process.env.NODE_ENV !== "development") {
   });
 }
 
+app.get("/sellerusers", getAllController.getAllSellers, (req, res) => {
+  res.status(200).json(res.locals.sellerUsers);
+});
+
+app.get("/buyerusers", getAllController.getAllBuyers, (req, res) => {
+  res.status(200).json(res.locals.buyerUsers);
+});
+
+// app.post("/checkout", stripeController, (req, res) => {
+//order router
+app.use("/api", orderRoute);
+
 app.post("/checkout", stripeController, (req, res) => {
-  res.status(200).json({ url: res.locals.session.url });
+  return res.status(200).json({ url: res.locals.session.url });
 });
 
 app.get("/allUsers", userController.login, (req, res) => {
@@ -76,10 +90,14 @@ app.get(
   }
 );
 
-app.post("/auth/zipcode", userController.userZip, (req, res) => {
-  console.log("Testubg auth/zipcode route")
-  return res.json("Successfully added zipcode");
-});
+app.post(
+  "/auth/zipcode",
+  tokenVerifier2,
+  userController.userZip,
+  (req, res) => {
+    res.json("Successfully added zipcode");
+  }
+);
 
 app.post(
   "/db/getmenu",

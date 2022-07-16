@@ -1,11 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import MenuItem from './MenuItem';
 import { PropaneSharp } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -27,7 +27,25 @@ export default function (props) {
 
   const navigate = useNavigate();
 
-  console.log(props);
+  const submitOrder = () => {
+    const body = {
+      buyer_id,
+      seller_id,
+      dishes
+    }
+    //post to backend
+    axios
+    .post('http:localhost:3000/createOrder', body)
+    .then(res => {
+      console.log(res);
+      //send an confirmation message in popup. //On confirmation, reset card and floatcart and back to feedpage.
+      props.setFeedActive(true);
+      props.setfloatCart({ price: 0, dishes: {}});
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   const checkout = () => {
     axios
@@ -41,17 +59,36 @@ export default function (props) {
       });
   };
 
+  //grab dishes from props
+  const { floatCart, seller_id, buyer_id } = props;
+  const { dishes } = floatCart;
+  console.log('float cart props', props);
+  console.log('float cart dishes', dishes);
+
+  const dishdisplay = [];
+
+  if (Object.keys(dishes).length > 0) {
+    for (const x in dishes) {
+      dishdisplay.push(
+        <div key={x}> 
+          <p>`{dishes[x].name}: {dishes[x].quantity}` </p>
+        </div>
+    )}
+  };
+
+
   return (
     <div>
       <Paper className={classes.footer}>
         <Stack>
           <h1>${props.floatCart.price}</h1>
           <h3> Current Cart: </h3>
-          Here's where we'd put food if <br />
-          we had time to add that feature {':)'}
-          <h3> Kyle's Scrambla </h3>
+          {dishdisplay}
           <Button color='primary' onClick={checkout}>
             Checkout
+          </Button>
+          <Button color='primary' onClick={submitOrder}>
+            Submit Order
           </Button>
         </Stack>
       </Paper>

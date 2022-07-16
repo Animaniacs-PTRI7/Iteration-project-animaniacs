@@ -1,5 +1,11 @@
+//React
 import React, { useState, useEffect } from 'react';
-import { CssBaseline, makeStyles } from '@material-ui/core';
+
+//MUI
+import { makeStyles } from '@mui/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+//Routes
 import SellerLogin from './components/SellerLogin';
 import Feed from './components/Feed';
 import Nav from './components/Nav'; 
@@ -9,13 +15,17 @@ import SignUp from './components/SignUp';
 import SellerBody from './components/SellerBody';
 import SellerSignUp from './components/SellerSignUp';
 import KitchenEdit from './components/KitchenEdit';
+import OrderList from './components/OrderList';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   webmain: {
-    backgroundColor: '#686de0',
-    color: 'black',
-  },
+    // backgroundColor: '#FFFFFF',
+    // color: 'black',
+    // '&.css-1hc7nu0-MuiPaper-root-MuiAppBar-root': {
+    //   // backgroundColor: '#FFFFFF'
+    // }
+  }
 }));
 
 
@@ -52,6 +62,7 @@ const App = () => {
 
     const cookiesArr = [userIdCookie, userTypeCookie, UserZipCookie];
     console.log('entered with ', cookiesArr);
+
     if (userIdCookie) setIsLoggedIn(true);
 
     // change state so we rerender
@@ -90,12 +101,16 @@ const App = () => {
               path='/feed'
               element={<Feed userZip={userZip} userId={userId} />}
             >
-              <Route path='/feed/:sellerId' />{' '}
+              <Route path='/feed/:sellerId' />
               {/* don't need an element here */}
             </Route>
             <Route
               path='/MyKitchen'
               element={<KitchenEdit userType={userType} userId={userId} />}
+            />
+            <Route
+              path='/MyOrders'
+              element={<OrderList userType={userType} userId={userId} />}
             />
             <Route path='/feed/:id' element={<SignUp />} />
           </Route>

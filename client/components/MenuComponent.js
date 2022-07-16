@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { Stack } from '@mui/material';
-import MenuItem from './MenuItem';
 import { useLocation } from 'react-router';
-// import { useNavigate, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper } from '@mui/material';
+
+import MenuItem from './MenuItem';
+
 import moment from 'moment';
 import Mappy from './mappy';
 
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   paperbody: {
     width: '650px',
     width: '50%',
-    backgroundColor: '#ecf0f1',
+    // backgroundColor: '#ecf0f1',
     margin: '10px',
   },
   nestedBody: {
@@ -58,7 +60,9 @@ const destructure = (object, props) => {
   return menuUnit;
 };
 export default function MenuComponent(props) {
+
   console.log('sup im the menu component');
+  const { sellerId } = useParams();
   const classes = useStyles();
   const [restaurantName, setRestaurantName] = useState('');
   const [dishes, setDishes] = useState({});
@@ -68,12 +72,16 @@ export default function MenuComponent(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mapStats, setMapStats] = useState({});
 
+  props.setSellerID(sellerId);
+  
+
+
   // this line "receives" the useNavigate from elsewhere. it gives us access to props we want to pass
   // const { state } = useLocation();
   // console.log(state);
 
   // this line allows us to access the ID parameter we passed when routing to this component
-  const { sellerId } = useParams();
+  
 
   console.log(props);
 
@@ -109,7 +117,8 @@ export default function MenuComponent(props) {
           }}
         >
           <h1>{restaurantName}</h1>
-          <span style={{ height: '250px', width: '600px' }}>
+          
+          {/* <span style={{ height: '250px', width: '600px' }}>
             <Mappy
               sellerAddr={street}
               buyerAddr={String(props.userZip)}
@@ -120,7 +129,8 @@ export default function MenuComponent(props) {
             {mapStats.duration
               ? `Trip Duration ⏲: ${mapStats.duration.text} | Trip Distance 🚗: ${mapStats.distance.text}`
               : ''}
-          </span>
+          </span> */}
+          
           <h3>{`Pickup Window: ${dateFormat(pickupStart)} - ${dateFormat(
             pickupEnd
           )}`}</h3>

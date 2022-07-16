@@ -2,22 +2,23 @@ const axios = require('axios');
 // const fetch = require('node-fetch');
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
-import { CardContent, Paper, TextField, Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import { Stack } from '@mui/material';
+
+import { CardContent, Paper, TextField, Typography, Button, Stack } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
-    position: 'absolute',
+    // position: 'absolute',
     margin: '30px auto auto 0px',
     left: '20%',
     right: '20%',
     zIndex: '1',
+    width: '30rem'
   },
 }));
 
@@ -88,7 +89,7 @@ export default function Login(props) {
             >
               Login
             </Button>
-          </Stack>
+            </Stack>
         </form>
       </Paper>
     </div>
