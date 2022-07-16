@@ -88,7 +88,7 @@ export default function Body() {
     <div className={classes.body}>
       <h1 className={classes.heavyFont}> {randomGreeting}</h1>
       {signUpModule}
-      <Stack direction='row' spacing={2}>
+      {/* <Stack direction='row' spacing={2}> */}
         <Button
           component={Link}
           to='/seller/signup'
@@ -111,7 +111,7 @@ export default function Body() {
         >
           Login
         </Button>
-      </Stack>
+      {/* </Stack> */}
       <Outlet />
     </div>
   );

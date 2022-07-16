@@ -97,7 +97,7 @@ export default function SignUp() {
             <Button type="submit" color="primary">
               Submit
             </Button>
-          </Stack>
+            </Stack>
         </form>
       </Paper>
     </div>

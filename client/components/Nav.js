@@ -14,6 +14,9 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 
 const background = document.getElementById("app")
 console.log(background, 'This is the background')
+let logOutIconElement;
+let myAccountIconElement;
+
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -58,9 +61,9 @@ const useStyles = makeStyles((theme) => ({
 //Todo build My orders Icon for Seller and User.
 export default function Nav(props) {
   const classes = useStyles();
+  // const logOutIconElement;
+  // const myAccountIconElement
 
-  let logOutIconElement;
-  let myAccountIconElement;
 
   // if logout has been passed, it means we're signed in
   if (props.logOut) {
@@ -76,18 +79,20 @@ export default function Nav(props) {
 
         </Tooltip>
 
+{/* <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+</svg> */}
+
 
         <Tooltip title={<h2 style={{ color: 'white' }}>My Orders</h2>} TransitionComponent={Zoom}>
           
            {/* My Orders Icon */}
           <IconButton component={Link} to='/MyOrders'>
-            <LogoutIcon sx={{ fontSize: 33 }} className={classes.icon} />
           </IconButton>
 
         </Tooltip>
       </div>
-    );
-
+    )
     // if seller
     if (props.userType === 'seller')
       myAccountIconElement = (
@@ -129,8 +134,8 @@ export default function Nav(props) {
             </h1>
           </Link>
           <div>
-            {myAccountIconElement}
-            {logOutIconElement}
+          {myAccountIconElement}
+          {logOutIconElement}
           </div>
         </Toolbar>
       </AppBar>

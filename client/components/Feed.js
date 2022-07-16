@@ -23,7 +23,6 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   body: {
     height: '100vh',
-
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

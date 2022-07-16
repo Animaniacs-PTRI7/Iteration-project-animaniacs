@@ -98,7 +98,7 @@ export default function Body(props) {
                 props.deleteDish(props.dishId);
               }}
             >
-              <DeleteIcon sx={{ color: 'red' }} />
+            
             </IconButton>
           </Tooltip>
         </div>

@@ -12,7 +12,6 @@ import {
   Paper,
   TextField,
   IconButton,
-  Tooltip,
   FormControlLabel,
   Switch,
   Button
@@ -486,7 +485,7 @@ export default function Body(props) {
               }}
             />
             <IconButton onClick={addNewDish}>
-              <AddCircle /> {'New Dish'}
+              {'New Dish'}
             </IconButton>
             <Button type='submit' variant='contained' color='primary'>
               Submit All Kitchen Changes

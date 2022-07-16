@@ -52,7 +52,7 @@ export default function ZipCodeGrab(props) {
       <Paper elevation={5} sx={{ p: 2 }} className={classes.paper}>
         <h1>Which neighborhood are you located in?</h1>
         <form onSubmit={submitZipCode}>
-          <Stack spacing={2}>
+        <Stack spacing={2}>
             <TextField
               id='outlined-basic'
               label='Zipcode'
@@ -67,7 +67,7 @@ export default function ZipCodeGrab(props) {
             <Button color='primary' variant='contained' type='submit'>
               Submit
             </Button>
-          </Stack>
+            </Stack>
         </form>
       </Paper>
     </div>

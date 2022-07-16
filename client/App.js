@@ -101,7 +101,7 @@ const App = () => {
               path='/feed'
               element={<Feed userZip={userZip} userId={userId} />}
             >
-              <Route path='/feed/:sellerId' />{' '}
+              <Route path='/feed/:sellerId' />
               {/* don't need an element here */}
             </Route>
             <Route
