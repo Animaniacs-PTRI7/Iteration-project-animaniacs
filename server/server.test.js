@@ -1,5 +1,4 @@
 const request = require("supertest");
-// const puppeteer = require("puppeteer");
 
 // this is http://localhost:3000   <<< precisely this
 const server = require("./server");
@@ -25,8 +24,10 @@ describe("POST /auth/login", () => {
       const response = await request(server)
         .post(`/auth/login`)
         .send({
-          username: `${makeid(10)}`,
-          password: `${makeid(10)}`,
+          username: `test1@test.com
+          `,
+          password: `test1_pw
+          `,
         });
       expect(response.statusCode).toBe(200);
     });
@@ -37,7 +38,7 @@ describe("POST /auth/login", () => {
     // respond with status code 400 because user error
     test("should return a 400 status code", async () => {
       const response = await request(server).post("/auth/login").send({
-        username: "test",
+        username: "test1@test.com",
       });
       expect(response.statusCode).toBe(400);
     });

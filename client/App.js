@@ -1,5 +1,11 @@
+//React
 import React, { useState, useEffect } from "react";
-import { CssBaseline, makeStyles } from "@material-ui/core";
+
+//MUI
+import { makeStyles } from "@mui/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+
+//Routes
 import SellerLogin from "./components/SellerLogin";
 import Feed from "./components/Feed";
 import Nav from "./components/Nav";
@@ -14,8 +20,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   webmain: {
-    backgroundColor: "#686de0",
-    color: "black",
+    // backgroundColor: '#FFFFFF',
+    // color: 'black',
+    // '&.css-1hc7nu0-MuiPaper-root-MuiAppBar-root': {
+    //   // backgroundColor: '#FFFFFF'
+    // }
   },
 }));
 
@@ -90,7 +99,7 @@ const App = () => {
               path="/feed"
               element={<Feed userZip={userZip} userId={userId} />}
             >
-              <Route path="/feed/:sellerId" />{" "}
+              <Route path="/feed/:sellerId" />
               {/* don't need an element here */}
             </Route>
             <Route

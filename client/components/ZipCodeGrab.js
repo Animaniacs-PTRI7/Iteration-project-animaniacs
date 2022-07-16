@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper } from '@material-ui/core';
-import { TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+
+import { makeStyles } from '@mui/styles';
+import { Stack, Button, Paper, TextField } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,7 +52,7 @@ export default function ZipCodeGrab(props) {
       <Paper elevation={5} sx={{ p: 2 }} className={classes.paper}>
         <h1>Which neighborhood are you located in?</h1>
         <form onSubmit={submitZipCode}>
-        
+        <Stack spacing={2}>
             <TextField
               id='outlined-basic'
               label='Zipcode'
@@ -67,7 +67,7 @@ export default function ZipCodeGrab(props) {
             <Button color='primary' variant='contained' type='submit'>
               Submit
             </Button>
-   
+            </Stack>
         </form>
       </Paper>
     </div>
