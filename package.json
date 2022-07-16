@@ -13,6 +13,8 @@
   "author": "Joy Zhang, Brandon, ",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
@@ -20,6 +22,8 @@
     "@googlemaps/js-api-loader": "^1.14.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
+    "@mui/private-theming": "^5.9.0",
+    "@mui/styled-engine": "^5.8.7",
     "@mui/styles": "^5.9.0",
     "@react-google-maps/api": "^2.12.0",
     "axios": "^0.27.2",
