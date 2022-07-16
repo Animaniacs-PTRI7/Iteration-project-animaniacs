@@ -86,6 +86,7 @@ userController.login = async (req, res, next) => {
       //   // If the nickname was sent instead of an email
       //   }
     }
+    const data = await db.query(sqlQueryUsername, [username]);
     console.log("data here!", data.rows[0]);
     // Checks if data has been found or not
     if (data.rows[0] === undefined)

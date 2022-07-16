@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { Box } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+
+import { makeStyles } from '@mui/styles';
+import { Box, Button } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   typography: {

@@ -12,7 +12,7 @@ const getAllController = require('./controllers/getAllController');
 const orderRoute = require('./route/orderRoute');
 
 const app = express();
-const PORT = 3001;
+const PORT = 3000;
 
 // Importing Router
 
