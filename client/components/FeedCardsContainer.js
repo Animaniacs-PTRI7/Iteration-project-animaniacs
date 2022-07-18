@@ -77,6 +77,7 @@ export default function FeedContainer(props) {
           key={kitchenID}
           kitchenID={kitchenID}
           kitchenName={curKitchen.kitchen_name}
+          cuisine={curKitchen.cuisine}
           timeStart={dateFormat(curKitchen.pickup_window_start)}
           timeEnd={dateFormat(curKitchen.pickup_window_end)}
           bio={curKitchen.seller_bio}
