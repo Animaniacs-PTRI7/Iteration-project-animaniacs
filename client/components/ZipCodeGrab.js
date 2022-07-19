@@ -1,12 +1,12 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import { makeStyles } from '@mui/styles';
-import { Stack, Button, Paper, TextField } from '@mui/material';
+import { makeStyles } from "@mui/styles";
+import { Stack, Button, Paper, TextField } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: '20px',
+    padding: "20px",
   },
 }));
 export default function ZipCodeGrab(props) {
@@ -19,11 +19,11 @@ export default function ZipCodeGrab(props) {
   //store userid in state
 
   const submitZipCode = (e) => {
-    const zipRegex = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
+    const zipRegex = new RegExp("^[0-9]{5}(?:-[0-9]{4})?$");
     console.log();
     e.preventDefault();
     if (zipRegex.test(UserZip)) {
-      console.log('Accepted!');
+      console.log("Accepted!");
       setErrorZip(false);
 
       //Post request, send entered field to server
@@ -32,19 +32,21 @@ export default function ZipCodeGrab(props) {
       //   axios.defaults.withCredentials = true;
 
       axios
-        .post('/auth/zipcode', {
+        .post("/auth/zipcode", {
           zipcode: UserZip,
           withCredentials: true,
         })
         .then((response) => {
-          console.log('Response from server is', response);
+          console.log("Response from server is", response);
           setUserZip(UserZip);
           document.cookie = `userZip=${UserZip}`;
+          setTimeout(window.location.reload(), 3000);
         });
     } else {
       //Error handling if zipcode is not 5 Digits (sorry Canada)
       setErrorZip(true);
     }
+    
   };
 
   return (
@@ -52,22 +54,27 @@ export default function ZipCodeGrab(props) {
       <Paper elevation={5} sx={{ p: 2 }} className={classes.paper}>
         <h1>Which neighborhood are you located in?</h1>
         <form onSubmit={submitZipCode}>
-        <Stack spacing={2}>
+          <Stack spacing={2}>
             <TextField
-              id='outlined-basic'
-              label='Zipcode'
-              variant='outlined'
-              type='number'
+              id="outlined-basic"
+              label="Zipcode"
+              variant="outlined"
+              type="number"
               error={ErrorZip}
               helperText={
-                ErrorZip == true ? 'Please enter a valid Zipcode' : false
+                ErrorZip == true ? "Please enter a valid Zipcode" : false
               }
               onChange={(e) => setUserZip(e.target.value)}
             />
-            <Button color='primary' variant='contained' type='submit'>
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              // onClick={refreshPage}
+            >
               Submit
             </Button>
-            </Stack>
+          </Stack>
         </form>
       </Paper>
     </div>
