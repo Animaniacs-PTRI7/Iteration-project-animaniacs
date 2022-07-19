@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function (props) {
+export default function FloatingCart(props) {
   const classes = useStyles();
 
   const navigate = useNavigate();
@@ -49,7 +49,6 @@ export default function (props) {
     return
   }
 
-  //currently disabled due to unfinished stripe API.
   const checkout = () => {
     axios
       .post('/checkout', {
