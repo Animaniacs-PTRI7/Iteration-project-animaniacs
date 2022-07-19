@@ -6,10 +6,7 @@ const axios = require('axios');
 import { makeStyles } from '@mui/styles';
 import { Stack, Button, Paper, Typography, Box } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-
-  })
-);
+const useStyles = makeStyles((theme) => ({}));
 
 // async function fetchOrders(url, user_id) {
 //   const data = await axios.get(url)
@@ -29,6 +26,7 @@ const OrderList = (props) => {
     //on load, fetch to backend with user_id and user_type to get all orders
     const {userType, userId} = props;
 
+  console.log("OrderList props ->", props);
 
     console.log('userId ->', userId);
 
