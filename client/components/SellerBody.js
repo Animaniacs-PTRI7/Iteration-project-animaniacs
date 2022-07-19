@@ -94,6 +94,7 @@ export default function Body() {
           to='/seller/signup'
           variant='contained'
           color='primary'
+          sx={{ m: 1 }}
           onClick={() => {
             signUpFunc('sign');
           }}
@@ -105,6 +106,7 @@ export default function Body() {
           to='/seller/login'
           variant='contained'
           color='secondary'
+          sx={{ m: 1 }}
           onClick={() => {
             signUpFunc('log');
           }}

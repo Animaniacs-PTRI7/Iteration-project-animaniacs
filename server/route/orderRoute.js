@@ -3,10 +3,10 @@ const router = Router();
 const order = require('../controllers/orderController')
 const tokenVerifier = require('../controllers/verifyTokenController');
 
-router.post('/create-order',tokenVerifier, order.createOrder, (res, req)=>{
+router.post('/create-order',tokenVerifier, order.createOrder, (req, res)=>{
   return res.status(200).json('Success')
 })
-router.get('/orders:id',tokenVerifier, order.getBuyerOrders, (res, req)=>{
+router.get('/orders:id',tokenVerifier, order.getBuyerOrders, (req, res)=>{
   return res.status(200).json({})
 })
 
