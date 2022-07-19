@@ -131,6 +131,7 @@ export default function Body(props) {
         <ZipCodeGrab buyerId={UserId} setZipCodeAssigned={setZipCodeAssigned} />
         <h1 className={classes.heavyFont}>{`Test feed`}</h1>
         <Outlet />
+        <Navigate to='/feed' replace={true} />;
       </div>
     );
   }

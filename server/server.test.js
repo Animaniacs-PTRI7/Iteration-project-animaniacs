@@ -24,7 +24,7 @@ describe('POST /auth/login', () => {
       const response = await request(server)
         .post('/auth/login')
         .send({
-          username: `test1@test.com
+          username: `test1@test.com'
           `,
           password: `test1_pw
           `,

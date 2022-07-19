@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
+
 import { makeStyles } from '@mui/styles';
 import { Stack, Button, Paper, TextField } from '@mui/material';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -15,16 +17,20 @@ export default function ZipCodeGrab(props) {
   const [UserZip, setUserZip] = useState(0);
   //tracks errors if incorrect zipcode format is entered
   const [ErrorZip, setErrorZip] = useState(false);
+  // let navigate = useNavigate();
 
   //store userid in state
 
   const submitZipCode = (e) => {
+
     const zipRegex = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
     console.log();
     e.preventDefault();
     if (zipRegex.test(UserZip)) {
       console.log('Accepted!');
       setErrorZip(false);
+      // navigate('../feed')
+      // forceUpdate();
 
       //Post request, send entered field to server
       //let token = localStorage.getItem("token");
@@ -41,6 +47,8 @@ export default function ZipCodeGrab(props) {
           setUserZip(UserZip);
           document.cookie = `userZip=${UserZip}`;
         });
+        setTimeout(window.location.reload(), 3000);
+      
     } else {
       //Error handling if zipcode is not 5 Digits (sorry Canada)
       setErrorZip(true);
@@ -65,7 +73,7 @@ export default function ZipCodeGrab(props) {
               onChange={(e) => setUserZip(e.target.value)}
             />
             <Button color='primary' variant='contained' type='submit'>
-              Submit
+              submit
             </Button>
             </Stack>
         </form>

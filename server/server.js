@@ -22,6 +22,8 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
+
 
 // use for build COMMENT FOR DEV!! WILL DELIVER OLD BUILD
 if (process.env.NODE_ENV !== 'development') {
