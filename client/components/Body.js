@@ -1,47 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 
-import { makeStyles } from '@mui/styles';
-import Cooking from '../assets/cooking.jpg';
-import { Stack, Button } from '@mui/material';
+import { makeStyles } from "@mui/styles";
+import Cooking from "../assets/cooking.jpg";
+import { Stack, Button } from "@mui/material";
 
-import SignUp from './SignUp';
-import Login from './Login';
-
+import SignUp from "./SignUp";
+import Login from "./Login";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
   body: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'none',
-    backgroundColor: 'transparent',
-    padding: '0px 20px',
+    backgroundSize: "cover",
+    backgroundRepeat: "none",
+    backgroundColor: "transparent",
+    padding: "0px 20px",
   },
   heavyFont: {
-    color: 'white',
-    fontWeight: '900',
-    fontSize: '40px',
-    fontFamily: 'Nunito',
+    color: "white",
+    fontWeight: "900",
+    fontSize: "40px",
+    fontFamily: "Nunito",
   },
   buttonNest: {
-    display: 'flex',
-    margin: '0px 10px',
+    display: "flex",
+    margin: "0px 10px",
   },
   bottomText: {
-    fontSize: '25px',
-    position: 'absolute',
-    bottom: '0',
-    left: '20px',
-    color: 'white',
+    fontSize: "25px",
+    position: "absolute",
+    bottom: "0",
+    left: "20px",
+    color: "white",
   },
   textLink: {
-    color: 'red',
+    color: "red",
   },
 }));
 
@@ -50,15 +49,15 @@ export default function Body() {
   const classes = useStyles();
   const [signUp, setSignUp] = useState(false);
   const [logIn, setLogin] = useState(false);
-  const [randomGreeting, setGreeting] = useState('');
+  const [randomGreeting, setGreeting] = useState("");
   let signUpModule;
 
   //Sign-up Card Display Function
   const signUpFunc = (action) => {
-    if (action == 'sign') {
-      console.log('Button Clicked, sign up was ', signUp);
+    if (action == "sign") {
+      console.log("Button Clicked, sign up was ", signUp);
       setSignUp(!signUp);
-      console.log('Sign up is now ', signUp);
+      console.log("Sign up is now ", signUp);
     } else {
       setLogin(!logIn);
     }
@@ -67,13 +66,13 @@ export default function Body() {
   useEffect(() => {
     // choose welcome text
     const greetings = [
-      'cooking is',
-      'banana bread is',
-      'world famous meatballs are',
-      'apple pie is',
-      'ravioli is',
-      'soul food is',
-      '[ insert yummy food here ] is',
+      "cooking is",
+      "banana bread is",
+      "world famous meatballs are",
+      "apple pie is",
+      "ravioli is",
+      "soul food is",
+      "[ insert yummy food here ] is",
     ];
 
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
@@ -97,37 +96,40 @@ export default function Body() {
       <div>
         <Button
           component={Link}
-          to='/signup'
-          variant='contained'
-          color='primary'
+          to="/signup"
+          variant="contained"
+          color="primary"
           sx={{ m: 5 }}
           onClick={() => {
-            signUpFunc('sign');
+            signUpFunc("sign");
           }}
         >
           Sign up
         </Button>
         <Button
+          data-testid="login-button"
           component={Link}
-          to='/login'
-          variant='contained'
-          color='secondary'
+          to="/login"
+          variant="contained"
+          color="secondary"
           sx={{ m: 5 }}
           onClick={() => {
-            signUpFunc('log');
+            signUpFunc("log");
           }}
         >
           Login
         </Button>
-        </div>
+      </div>
       <Outlet />
-      <p className={classes.bottomText}>
-        Already a seller or want to become one? Click{' '}
-        <Link className={classes.textLink} to='/seller'>
-          here
-        </Link>
-        .
-      </p>
+      <div>
+        <p className={classes.bottomText}>
+          Already a seller or want to become one? Click{" "}
+          <Link className={classes.textLink} to="/seller" data-testid="link-1">
+            here
+          </Link>
+          .
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,23 +1,23 @@
 //React and React Router
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { useLocation } from 'react-router';
-import { useNavigate, Navigate } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Outlet, Link } from "react-router-dom";
+import { useLocation } from "react-router";
+import { useNavigate, Navigate } from "react-router-dom";
 
 //Components
-import ZipCodeGrab from './ZipCodeGrab';
-import MenuComponent from './MenuComponent';
-import FloatingCart from './FloatingCart';
-import FeedCardsContainer from './FeedCardsContainer';
-import Confirmation from './Confirmation.js';
+import ZipCodeGrab from "./ZipCodeGrab";
+import MenuComponent from "./MenuComponent";
+import FloatingCart from "./FloatingCart";
+import FeedCardsContainer from "./FeedCardsContainer";
+import Confirmation from "./Confirmation.js";
 
 //Assets
-import Cooking from '../assets/cooking.jpg';
+import Cooking from "../assets/cooking.jpg";
 
 //MUI
-import { Stack, Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Stack, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +42,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Body(props) {
+  // class Body extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+  // componentDidMount() {
+  //   fetch('/feed')
+  //   .then(res => res.json())
+  //   .then(data => console.log('glen data', data))
+  // }
+
   const fakeResponse = {
     kitchenName: "Greg's Kitchen",
     dishes: {
@@ -127,6 +137,7 @@ export default function Body(props) {
   // If successfull, render component
   if (!ZipCode && !zipCodeAssigned) {
     return (
+      // <Navigate to="/information" />
       <div className={classes.body}>
         <ZipCodeGrab buyerId={UserId} setZipCodeAssigned={setZipCodeAssigned} />
         <h1 className={classes.heavyFont}>{`Test feed`}</h1>
@@ -187,7 +198,13 @@ export default function Body(props) {
           userZip={props.userZip}
           setSellerID={setSellerID}
         />
-        <FloatingCart floatCart={floatCart} buyer_id={UserId} seller_id={seller_id} setfloatCart={setfloatCart} setFeedActive={setFeedActive} />
+        <FloatingCart
+          floatCart={floatCart}
+          buyer_id={UserId}
+          seller_id={seller_id}
+          setfloatCart={setfloatCart}
+          setFeedActive={setFeedActive}
+        />
         <Outlet />
       </div>
     );
