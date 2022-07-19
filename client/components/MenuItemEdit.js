@@ -63,31 +63,19 @@ export default function Body(props) {
           defaultValue={props.name}
           className={classes.dishName + ' dishName'}
           label='Dish Name'
+          sx={{ m: 1 }}
           onChange={(e) =>
             props.updateDish(props.dishId, 'name', e.target.value)
           }
         />
         <div className={classes.dishStats}>
-          {/* <CurrencyTextField
-            required
-            currencySymbol='$'
-            minimumValue='0'
-            //   outputFormat='number'
-            decimalCharacter='.'
-            digitGroupSeparator=','
-            defaultValue={props.price.slice(1)}
-            className={classes.dishStatItem + ' dishPrice'}
-            label='Price'
-            onChange={(e) =>
-              props.updateDish(props.dishId, 'price', e.target.value)
-            }
-          /> */}
           <TextField
             required
             type='number'
             defaultValue={props.quantity}
             className={classes.dishStatItem + ' dishQty'}
             label='Qty'
+            sx={{ m: 1 }}
             onChange={(e) =>
               props.updateDish(props.dishId, 'quantity', e.target.value)
             }
@@ -98,7 +86,7 @@ export default function Body(props) {
                 props.deleteDish(props.dishId);
               }}
             >
-            
+              <DeleteIcon />
             </IconButton>
           </Tooltip>
         </div>
@@ -108,6 +96,7 @@ export default function Body(props) {
         className={classes.dishDesc + ' dishDesc'}
         //   variant='filled'
         label='Extended description'
+        sx={{ m: 1 }}
         multiline
         minRows={1}
         maxRows={3}

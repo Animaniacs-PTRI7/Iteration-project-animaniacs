@@ -40,6 +40,7 @@ const Card = (props) => {
   // set box shadow state
   const [shadow, setShadow] = useState(2);
   const navigate = useNavigate();
+  console.log('kitchen card props,', props);
 
   const onClick = (e) => {
     e.preventDefault();
@@ -101,7 +102,7 @@ const Card = (props) => {
               paddingRight: 10,
             }}
           >
-            <p style={{ fontSize: 14 }}>{props.bio}</p>
+            <b style={{ fontSize: 20 }}>{props.cuisine}</b>
           </div>
           <div
             id='bottomCard'
