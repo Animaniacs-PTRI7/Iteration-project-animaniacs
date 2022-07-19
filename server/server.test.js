@@ -115,7 +115,7 @@ describe('testing all orderRoute',()=>{
     })
   })
 
-  describe('test post/api/create-order', ()=>{
+  xdescribe('test post/api/create-order', ()=>{
     test('given details to create order', async()=>{
       // have to go to tokenVerifier to tokenVerifier first
       const respond = await request(server).post('/api/create-order','')
