@@ -2,7 +2,7 @@ const axios = require('axios');
 import React, { useState } from 'react';
 
 import { makeStyles } from '@mui/styles';
-import { Stack, Button, Card, CardContent, Paper, TextField, Typography } from '@mui/material';
+import { Stack, Button, Modal, CardContent, Paper, TextField, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -14,12 +14,14 @@ const useStyles = makeStyles((theme) => ({
     left: '20%',
     right: '20%',
     zIndex: '1',
-    width: '30em'
+    width: '30em',
+    textAlign: 'center'
   },
 }));
 
-export default function Login(props) {
+export default function SellerLogin(props) {
   const classes = useStyles();
+  const {setIsLoggedIn,setUserType,setUserZip,setUserId,showLogin,setShowLogin} = props
 
   // set form state
   const [username, setUsername] = useState('');
@@ -37,10 +39,10 @@ export default function Login(props) {
       .then((response) => {
         // if user_id sent, success
         if (response.data.user_id) {
-          props.setIsLoggedIn(true);
-          props.setUserType('seller');
-          props.setUserZip(response.data.zip);
-          props.setUserId(response.data.user_id);
+          setIsLoggedIn(true);
+          setUserType('seller');
+          setUserZip(response.data.zip);
+          setUserId(response.data.user_id);
           document.cookie = `userId=${response.data.user_id}`;
           document.cookie = `userZip=${response.data.zip}`;
           document.cookie = `userType=seller`;
@@ -57,10 +59,17 @@ export default function Login(props) {
   };
 
   return (
+    <Modal
+    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    open={showLogin}
+    onClose={setShowLogin}
+    aria-labelledby="child-modal-title"
+    aria-describedby="child-modal-description"
+  >
     <div>
       <Paper elevation={6} className={classes.signupstack}>
         <form className={classes.root} onSubmit={handleSubmit}>
-          <h2> Log In </h2>
+          <h2>Kitchen LogIn </h2>
           <Stack spacing={2}>
             <TextField
               label=' Username / Email'
@@ -77,16 +86,18 @@ export default function Login(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
-              type='submit'
-              // variant='contained'
-              color='primary'
-            >
-              Login
-            </Button>
+            <span style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={() => setShowLogin(false)} >
+                  Cancle
+                </Button>
+                <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >
+                Login
+                </Button>
+              </span>
           </Stack>
         </form>
       </Paper>
     </div>
+    </Modal>
   );
 }

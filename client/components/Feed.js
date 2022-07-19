@@ -13,7 +13,8 @@ import FeedCardsContainer from "./FeedCardsContainer";
 import Confirmation from "./Confirmation.js";
 
 //Assets
-import Cooking from "../assets/cooking.jpg";
+import Cooking from "../assets/kitchen1.jpg";
+//import Cooking from "../assets/cooking.jpg";
 
 //MUI
 import { Stack, Button } from "@mui/material";

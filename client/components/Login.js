@@ -8,7 +8,7 @@ import {
   CardContent,
   Paper,
   TextField,
-  Typography,
+  Modal,
   Button,
   Stack,
 } from "@mui/material";
@@ -19,17 +19,19 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
     display: "flex",
     flexDirection: "column",
-    // position: 'absolute',
     margin: "30px auto auto 0px",
     left: "20%",
     right: "20%",
     zIndex: "1",
     width: "30rem",
+    textAlign: 'center'
   },
 }));
 
 export default function Login(props) {
   const classes = useStyles();
+  const {setModalLogin,modalLogIn,setIsLoggedIn,setUserType,setUserZip,setUserId} = props;
+  console.log('setIsLoggedIn', setIsLoggedIn)
 
   // set form state
   const [username, setUsername] = useState("");
@@ -37,7 +39,6 @@ export default function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post("/auth/login", {
         username,
@@ -48,10 +49,10 @@ export default function Login(props) {
         // if user_id sent, success
         console.log(response.data);
         if (response.data.user_id) {
-          props.setIsLoggedIn(true);
-          props.setUserType("buyer");
-          props.setUserZip(response.data.zip);
-          props.setUserId(response.data.user_id);
+          setIsLoggedIn(true);
+          setUserType("buyer");
+          setUserZip(response.data.zip);
+          setUserId(response.data.user_id);
           document.cookie = `userId=${response.data.user_id}`;
           document.cookie = `userZip=${response.data.zip}`;
           document.cookie = `userType=buyer`;
@@ -68,6 +69,13 @@ export default function Login(props) {
   };
 
   return (
+    <Modal
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      open={modalLogIn}
+      onClose={setModalLogin}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+    >
     <div>
       <Paper elevation={6} className={classes.signupstack}>
         <form className={classes.root} onSubmit={handleSubmit}>
@@ -88,16 +96,18 @@ export default function Login(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
-              type="submit"
-              // variant='contained'
-              color="primary"
-            >
-              Login
-            </Button>
+            <span style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={() => setModalLogin(false)} >
+                  Cancle
+                </Button>
+                <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >
+                  Login
+                </Button>
+              </span>
           </Stack>
         </form>
       </Paper>
     </div>
+    </Modal>
   );
 }

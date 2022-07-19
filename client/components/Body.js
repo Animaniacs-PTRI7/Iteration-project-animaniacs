@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import { makeStyles } from "@mui/styles";
-import Cooking from "../assets/cooking.jpg";
-import { Stack, Button } from "@mui/material";
+//import Cooking from "../assets/cooking.jpg";
+import Cooking from "../assets/kitchen.jpg";
+import { Stack, Button ,Modal} from "@mui/material";
 
 import SignUp from "./SignUp";
 import Login from "./Login";
@@ -44,24 +45,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Body() {
+export default function Body({setIsLoggedIn}) {
   //Declare variables and state
   const classes = useStyles();
-  const [signUp, setSignUp] = useState(false);
-  const [logIn, setLogin] = useState(false);
   const [randomGreeting, setGreeting] = useState("");
-  let signUpModule;
+  const [modalSignUp, setModalSignUp] = useState(false);
+  const [modalLogIn, setModalLogin] = useState(false);
 
   //Sign-up Card Display Function
-  const signUpFunc = (action) => {
-    if (action == "sign") {
-      console.log("Button Clicked, sign up was ", signUp);
-      setSignUp(!signUp);
-      console.log("Sign up is now ", signUp);
-    } else {
-      setLogin(!logIn);
-    }
-  };
+  // const signUpFunc = (action) => {
+  //   //setModalSignUp(true)
+  //   if (action == "sign") {
+  //     setModalSignUp(true)
+  //     console.log("Button Clicked, sign up was ", signUp);
+  //     setSignUp(!signUp);
+  //     console.log("Sign up is now ", signUp);
+  //   } else {
+  //     setLogin(!logIn);
+  //   }
+  // };
+  
 
   useEffect(() => {
     // choose welcome text
@@ -78,33 +81,19 @@ export default function Body() {
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
   }, []);
 
-  if (signUp) {
-    //signUpModule = <SignUp />;
-  }
-
-  if (logIn) {
-    //signUpModule = <Login />;
-  }
-
   //Return back to DOM
   return (
     <div className={classes.body}>
       <h1 className={classes.heavyFont}>
         {`Grandma's ${randomGreeting} just a button press away`}
       </h1>
-      {signUpModule}
       <div>
         <Button
-          component={Link}
-          to="/signup"
           variant="contained"
           color="primary"
-          sx={{ m: 5 }}
-          onClick={() => {
-            signUpFunc("sign");
-          }}
-        >
-          Sign up
+          sx={{ m: 2 ,fontWeight : 700}}
+          onClick={()=>setModalSignUp(true)}
+        >Sign up
         </Button>
         <Button
           data-testid="login-button"
@@ -112,10 +101,8 @@ export default function Body() {
           to="/login"
           variant="contained"
           color="secondary"
-          sx={{ m: 5 }}
-          onClick={() => {
-            signUpFunc("log");
-          }}
+          sx={{ m: 2 ,fontWeight : 700}}
+          onClick={()=>setModalLogin(true)}
         >
           Login
         </Button>
@@ -130,6 +117,8 @@ export default function Body() {
           .
         </p>
       </div>
+      {modalSignUp?<SignUp setModalSignUp={setModalSignUp}  modalSignUp={modalSignUp}/> : null }
+      {modalLogIn ? <Login setModalLogin={setModalLogin}  modalLogIn={modalLogIn} setIsLoggedIn={setIsLoggedIn}/>  :null}
     </div>
   );
 }

@@ -1,8 +1,16 @@
 const axios = require("axios");
 import React, { useState } from "react";
 
-import { makeStyles } from '@mui/styles';
-import { Stack, Card, CardContent, Paper, TextField, Typography, Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {
+  Stack,
+  Modal,
+  CardContent,
+  Paper,
+  TextField,
+  Typography,
+  Button,
+} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -14,11 +22,12 @@ const useStyles = makeStyles((theme) => ({
     left: "20%",
     right: "20%",
     zIndex: "1",
-    width: '30em'
+    width: "30em",
+    textAlign: 'center'
   },
 }));
 
-export default function SignUp() {
+export default function SellerSignUp({ showSignUp, setShowSignUp }) {
   const classes = useStyles();
 
   // set form state
@@ -58,48 +67,72 @@ export default function SignUp() {
   };
 
   // display only success message if signup successful
-  if (success) {
-    return (
-      <div>
-        <Paper elevation={6} className={classes.signupstack}>
-          <h2> Sign Up </h2>
-          <p>Account created successfully!</p>
-        </Paper>
-      </div>
-    );
-  }
-  return (
+
+  return success ? (
     <div>
       <Paper elevation={6} className={classes.signupstack}>
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <h2> Sign Up </h2>
-          <Stack spacing={2}>
-            <TextField
-              label={"Username"}
-              value={username}
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              type="email"
-              label={"Email"}
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              type="password"
-              label={"Password"}
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type="submit" color="primary">
-              Submit
-            </Button>
-            </Stack>
-        </form>
+        <h2> Kitchen Sign Up </h2>
+        <p>Account created successfully!</p>
       </Paper>
     </div>
+  ) : (
+    <Modal
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      open={showSignUp}
+      onClose={setShowSignUp}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+    >
+      <div>
+        <Paper elevation={6} className={classes.signupstack}>
+          <form className={classes.root} onSubmit={handleSubmit}>
+            <h2>Kitchen Sign Up</h2>
+            <Stack spacing={2}>
+              <TextField
+                label={"Username"}
+                value={username}
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                type="email"
+                label={"Email"}
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                type="password"
+                label={"Password"}
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="outlined"
+                  sx={{ m: 2, fontWeight: 700 }}
+                  onClick={() => setShowSignUp(false)}
+                >
+                  Cancle
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ m: 2, fontWeight: 700 }}
+                >
+                  Submit
+                </Button>
+              </span>
+            </Stack>
+          </form>
+        </Paper>
+      </div>
+    </Modal>
   );
 }

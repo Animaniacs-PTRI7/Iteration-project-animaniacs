@@ -38,6 +38,7 @@ const App = () => {
   const [userZip, setUserZip] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
+
   useEffect(() => {
     let userIdCookie = document.cookie.split("; ").filter((el) => {
       return el.split("=")[0] === "userId";
@@ -142,27 +143,27 @@ const App = () => {
                 />
               }
             />
-            <Route
+            {/* <Route
               path="/signup"
-              element={<SignUp setIsLoggedIn={setIsLoggedIn} />}
-              // element={
-              //   <span
-              //     style={{
-              //       height: '600px',
-              //       width: '700px',
-              //       // overflow: 'hidden',
-              //     }}
-              //   >
-              //     <Mappy
-              //       sellerAddr={'15108'}
-              //       buyerAddr={'15222'}
-              //       mapsize={['100%', '100%']}
-              //       loadSize={3}
-              //       loadColor='rgb(255,255,255,0.7)'
-              //     />
-              //   </span>
-              // }
-            />
+              element={<SignUp />}
+              element={
+                <span
+                  style={{
+                    height: '600px',
+                    width: '700px',
+                    // overflow: 'hidden',
+                  }}
+                >
+                  <Mappy
+                    sellerAddr={'15108'}
+                    buyerAddr={'15222'}
+                    mapsize={['100%', '100%']}
+                    loadSize={3}
+                    loadColor='rgb(255,255,255,0.7)'
+                  />
+                </span>
+              }
+            /> */}
           </Route>
           <Route
             path="/seller"
@@ -180,10 +181,10 @@ const App = () => {
                 />
               }
             />
-            <Route
+            {/* <Route
               path="/seller/signup"
               element={<SellerSignUp setIsLoggedIn={setIsLoggedIn} />}
-            />
+            /> */}
           </Route>
           {/* buyer feed */}
           {/* <Route path='/feed' element={<SignUp />} /> */}
