@@ -35,7 +35,7 @@ userController.createSeller = async (req, res, next) => {
 };
 
 userController.createBuyer = async (req, res, next) => {
-  console.log('this is usertype', req.body.userType);
+
   if (req.body.userType === 'seller') return next();
   try {
     const props = ['buyer_email', 'password', 'buyer_nickname'];

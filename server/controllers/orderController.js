@@ -129,12 +129,11 @@ orderController.getSellerOrders = async (req, res, next) => {
       }
       )
     }
-    console.log('orderDish-->', orderDish)
     res.locals.orders = orderDish;
     return next()
   } catch (error) {
-    return next({ message: error.message });
-    //return next(createError({ message: { err: error.message } }));
+    //return next({ message: error.message });
+    return next(createError({ message: { err: error.message } }));
   }
 
 }
