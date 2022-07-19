@@ -6,6 +6,19 @@ import { makeStyles } from "@mui/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 //Routes
+import SellerLogin from "./components/SellerLogin";
+import Feed from "./components/Feed";
+import Nav from "./components/Nav";
+import Body from "./components/Body";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import SellerBody from "./components/SellerBody";
+import SellerSignUp from "./components/SellerSignUp";
+import KitchenEdit from "./components/KitchenEdit";
+import OrderList from "./components/OrderList";
+import Confirmation from "./components/Confirmation";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   webmain: {
     // backgroundColor: '#FFFFFF',
@@ -18,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState("");
   const [userId, setUserId] = useState(0);
@@ -80,7 +94,7 @@ const App = () => {
             element={<Navigate to="/feed" replace={true} />}
           />
           {/* Nav bar */}
-          <Route path='/' element={<Nav logOut={logOut} userType={userType} />} >
+          <Route path="/" element={<Nav logOut={logOut} userType={userType} />}>
             {/* buyer feed */}
             <Route
               path="/feed"
@@ -98,10 +112,10 @@ const App = () => {
               element={<OrderList userType={userType} userId={userId} />}
             />
             <Route
-              path='/confirmation'
+              path="/confirmation"
               element={<Confirmation userZip={userZip} userId={userId} />}
             />
-            <Route path='/feed/:id' element={<SignUp />} />
+            <Route path="/feed/:id" element={<SignUp />} />
           </Route>
           <Route path="/*" element={<Navigate to="/" replace={true} />} />
         </Routes>
