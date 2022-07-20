@@ -39,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SellerBody(props) {
   //Declare variables and state
   const classes = useStyles();
-  const {setShowLogin,setIsLoggedIn,showLogin} = props;
+  const {setIsLoggedIn,setUserType,setUserId,setUserZip} = props;
   const [signUp, setSignUp] = useState(false);
   const [logIn, setLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  const [modalSignUp, setModalSignUp] = useState(false);
+  const [modalLogIn, setModalLogin] = useState(false);
 
   const [randomGreeting, setGreeting] = useState("");
   let signUpModule;
@@ -95,33 +96,32 @@ export default function SellerBody(props) {
           variant="contained"
           color="primary"
           sx={{ m: 2, fontWeight: 700 }}
-          onClick={() => {
-            signUpFunc("sign");
-            setShowSignUp(true);
-          }}
+          onClick={()=>setModalSignUp(true)}
         >
           Sign up
         </Button>
         <Button
-          component={Link}
-          to="/seller/login"
           variant="contained"
           color="secondary"
           sx={{ m: 2, fontWeight: 700 }}
-          onClick={() => {
-            signUpFunc("log");
-            setShowLogin(true);
-          }}
+          onClick={()=>setModalLogin(true)}
         >
           Login
         </Button>
       </div>
       <Outlet />
-      {showSignUp ? (
-        <SellerSignUp showSignUp={showSignUp} setShowSignUp={setShowSignUp} />
+      {modalSignUp ? (
+        <SellerSignUp showSignUp={modalSignUp} setShowSignUp={setModalSignUp} />
       ) : null}
-      {showLogin ? (
-        <SellerLogin showLogin={showLogin} setShowLogin={setShowLogin}  setIsLoggedIn={setIsLoggedIn}/>
+      {modalLogIn ? (
+        <SellerLogin 
+        setModalLogin={setModalLogin}  
+        showLogIn={modalLogIn} 
+        setIsLoggedIn={setIsLoggedIn}
+        setUserType={setUserType}
+        setUserZip={setUserZip}
+        setUserId={setUserId}
+         />
       ) : null}
     </div>
   );

@@ -135,7 +135,12 @@ const App = () => {
         {/* setModalSignUp={setModalSignUp} modalSignUp={modalSignUp} */}
           {/* Displayed at same time as nav bar */}
           {/* setModalLogin={setModalLogin} modalLogIn={modalLogIn} */}
-          <Route path="/" element={<Body setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} setUserZip={setUserZip}  setUserId={setUserId}/>}>
+          <Route path="/" element={
+          <Body 
+          setIsLoggedIn={setIsLoggedIn} 
+          setUserType={setUserType} 
+          setUserZip={setUserZip}  
+          setUserId={setUserId}/>}>
             {/* Displayed at same time as generic body */}
             {/* <Route
               path="/login"
@@ -174,7 +179,13 @@ const App = () => {
           </Route>
           <Route
             path="/seller"
-            element={<SellerBody setIsLoggedIn={setIsLoggedIn} setShowLogin={setShowLogin}  showLogin={showLogin}/>}
+            element={<SellerBody 
+              setIsLoggedIn={setIsLoggedIn}
+              setUserType={setUserType}
+              setUserZip={setUserZip}
+              setUserId={setUserId}
+              />
+            }
           >
             {/* Displayed at same time as seller body */}
             <Route

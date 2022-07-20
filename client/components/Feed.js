@@ -71,8 +71,6 @@ export default function Body(props) {
     },
   };
   
-  console.log('props.userZip', props.userZip)
-  console.log('props.userId', props.userId)
 
   //Declare variables and state
   const classes = useStyles();

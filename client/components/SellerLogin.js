@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SellerLogin(props) {
   const classes = useStyles();
-  const {setIsLoggedIn,setUserType,setUserZip,setUserId,showLogin,setShowLogin} = props
+  const {setModalLogin,showLogIn,setIsLoggedIn,setUserType,setUserZip,setUserId} = props;
 
   // set form state
   const [username, setUsername] = useState('');
@@ -61,8 +61,8 @@ export default function SellerLogin(props) {
   return (
     <Modal
     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-    open={showLogin}
-    onClose={setShowLogin}
+    open={showLogIn}
+    onClose={setModalLogin}
     aria-labelledby="child-modal-title"
     aria-describedby="child-modal-description"
   >
@@ -87,7 +87,7 @@ export default function SellerLogin(props) {
               onChange={(e) => setPassword(e.target.value)}
             />
             <span style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={() => setShowLogin(false)} >
+                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={() => setModalLogin(false)} >
                   Cancle
                 </Button>
                 <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >

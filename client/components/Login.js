@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const classes = useStyles();
-  const {setModalLogin,modalLogIn} = props;
-  //setIsLoggedIn,setUserType,setUserZip,setUserId
+  const {setModalLogin,modalLogIn,setIsLoggedIn,setUserType,setUserZip,setUserId} = props;
+
 
   // set form state
   const [username, setUsername] = useState("");
@@ -49,11 +49,10 @@ export default function Login(props) {
         // if user_id sent, success
        
         if (response.data.user_id) {
-          console.log("WHAT==>",response.data);
-          props.setIsLoggedIn(true);
-          props.setUserType("buyer");
-          props.setUserZip(response.data.zip);
-          props.setUserId(response.data.user_id);
+          setIsLoggedIn(true);
+          setUserType("buyer");
+          setUserZip(response.data.zip);
+          setUserId(response.data.user_id);
           document.cookie = `userId=${response.data.user_id}`;
           document.cookie = `userZip=${response.data.zip}`;
           document.cookie = `userType=buyer`;
