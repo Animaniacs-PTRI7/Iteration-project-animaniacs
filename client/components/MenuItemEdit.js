@@ -1,8 +1,12 @@
 // const axios = require('axios');
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Paper, TextField, IconButton, Tooltip } from '@mui/material';
+import { Paper, TextField, IconButton, Tooltip, CurrencyTextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
 // import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 /* 
@@ -69,6 +73,35 @@ export default function Body(props) {
           }
         />
         <div className={classes.dishStats}>
+          <FormControl sx={{ m: 1, width:'15ch' }}>
+            <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+            <OutlinedInput
+              required
+              id="outlined-adornment-amount"
+              minimumvalue='0'
+              // value={values.amount}
+              defaultValue={props.price.slice(1)}
+              onChange={(e) =>
+                props.updateDish(props.dishId, 'price', e.target.value)
+              }
+              startAdornment={<InputAdornment position="start">$</InputAdornment>}
+              label="Price"
+            />
+          </FormControl>
+          {/* <CurrencyTextField
+            required
+            currencySymbol='$'
+            minimumValue='0'
+            //   outputFormat='number'
+            decimalCharacter='.'
+            digitGroupSeparator=','
+            defaultValue={props.price.slice(1)}
+            className={classes.dishStatItem + ' dishPrice'}
+            label='Price'
+            onChange={(e) =>
+              props.updateDish(props.dishId, 'price', e.target.value)
+            }
+          /> */}
           <TextField
             required
             type='number'
