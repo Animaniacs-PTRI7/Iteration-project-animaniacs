@@ -124,6 +124,8 @@ export default function SellerBody(props) {
           setUserType={setUserType}
           setUserZip={setUserZip}
           setUserId={setUserId}
+          setSuccess={setSuccess}
+          setError={setError}
         />
       ) : null}
     </div>

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SellerLogin(props) {
   const classes = useStyles();
-  const {closeLoginModal,showLogIn,setIsLoggedIn,setUserType,setUserZip,setUserId} = props;
+  const {closeLoginModal,showLogIn,setIsLoggedIn,setUserType,setUserZip,setUserId,setSuccess,setError} = props;
 
   // set form state
   const [username, setUsername] = useState('');
@@ -46,11 +46,16 @@ export default function SellerLogin(props) {
           document.cookie = `userId=${response.data.user_id}`;
           document.cookie = `userZip=${response.data.zip}`;
           document.cookie = `userType=seller`;
-        } else console.log(response.data);
+          setSuccess(true)
+        } else {
+          console.log(response.data);
+          setError(true)
+        }
       })
       .catch((error) => {
         // handle error
         console.log('hit error response');
+        setError(true)
         console.log(error);
       })
       .then(() => {
