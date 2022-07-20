@@ -37,11 +37,9 @@ const App = () => {
   const [userId, setUserId] = useState(0);
   const [userZip, setUserZip] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  //const [modalLogIn, setModalLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
-    console.log('userIdCookie', document.cookie)
     let userIdCookie = document.cookie.split("; ").filter((el) => {
       return el.split("=")[0] === "userId";
     })[0];
@@ -61,6 +59,9 @@ const App = () => {
     })[0];
     UserZipCookie = UserZipCookie ? UserZipCookie.split("=")[1] : false;
     if (UserZipCookie) setUserZip(Number(UserZipCookie));
+
+
+
 
     const cookiesArr = [userIdCookie, userTypeCookie, UserZipCookie];
     console.log("entered with ", cookiesArr);
@@ -82,7 +83,6 @@ const App = () => {
     setUserType("");
     setUserId("");
     setUserZip(0);
-    setModalLogin(false)
   };
 
   if (isLoggedIn) {
@@ -135,9 +135,9 @@ const App = () => {
         {/* setModalSignUp={setModalSignUp} modalSignUp={modalSignUp} */}
           {/* Displayed at same time as nav bar */}
           {/* setModalLogin={setModalLogin} modalLogIn={modalLogIn} */}
-          <Route path="/" element={<Body setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} />}>
+          <Route path="/" element={<Body setIsLoggedIn={setIsLoggedIn} setUserType={setUserType} setUserZip={setUserZip}  setUserId={setUserId}/>}>
             {/* Displayed at same time as generic body */}
-            <Route
+            {/* <Route
               path="/login"
               element={
                 <Login
@@ -149,7 +149,7 @@ const App = () => {
                   // modalLogIn={modalLogIn}
                 />
               }
-            />
+            /> */}
             {/* <Route
               path="/signup"
               element={<SignUp setModalSignUp={setModalSignUp} modalSignUp={modalSignUp}/>}

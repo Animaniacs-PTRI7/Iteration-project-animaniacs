@@ -46,9 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Body(props) {
-  // const {setIsLoggedIn,setModalSignUp,modalSignUp} = props;
-  //Declare variables and state
-  const {setIsLoggedIn} = props;
+  const {setIsLoggedIn,setUserType,setUserZip,setUserId} = props;
+
   const classes = useStyles();
   const [randomGreeting, setGreeting] = useState("");
   const [modalSignUp, setModalSignUp] = useState(false);
@@ -90,8 +89,8 @@ export default function Body(props) {
         <Button
           data-testid="login-button"
           onClick={()=>setModalLogin(true)}
-          component={Link}
-          to="/login"
+          // component={Link}
+          // to="/login"
           variant="contained"
           color="secondary"
           sx={{ m: 2 ,fontWeight : 700}}    
@@ -110,7 +109,14 @@ export default function Body(props) {
       </div>
       {modalSignUp?<SignUp setModalSignUp={setModalSignUp}  modalSignUp={modalSignUp}/> : null }
       {modalLogIn ? 
-      <Login setModalLogin={setModalLogin}  modalLogIn={modalLogIn} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType}/>  
+      <Login 
+      setModalLogin={setModalLogin}  
+      modalLogIn={modalLogIn} 
+      setIsLoggedIn={setIsLoggedIn} 
+      setUserType={setUserType}
+      setUserZip={setUserZip}
+      setUserId={setUserId}
+      />  
       :null}
     </div>
   );
