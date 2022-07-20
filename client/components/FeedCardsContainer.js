@@ -4,8 +4,9 @@ import { Outlet, Link } from 'react-router-dom';
 import KitchenCard from './KitchenCards';
 import moment from 'moment';
 
+
 import { makeStyles } from '@mui/styles';
-import { Paper } from '@mui/material';
+import { Paper, Grid, Box, Item } from '@mui/material';
 
 
 //Styling
@@ -13,15 +14,14 @@ const useStyles = makeStyles((theme) => ({
   body: {
     height: '100vh',
     width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'none',
     backgroundColor: 'transparent',
-    padding: '0px 20px',
   },
   heavyFont: {
     color: 'white',
@@ -29,11 +29,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '40px',
     fontFamily: 'Nunito',
   },
+
+  kitchenCardContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'auto auto auto',
+    borderSpacing: "100%",
+    height: 'fit-content'
+  },
+
   feedItem: {
-    marginTop: '15px',
-    width: '100%',
-    padding: '5px',
-    maxWidth: '800px',
+    width: '40%',
     backgroundColor: '#FA8072',
   },
   buttons: {
@@ -56,6 +61,7 @@ export default function FeedContainer(props) {
   const dateFormat = (time) => {
     return moment(time, 'hhmm').format('LT');
   };
+
 
   // state is updated everytime fetch is getting new stuffs
   // useEffect(() => {
@@ -89,29 +95,44 @@ export default function FeedContainer(props) {
     }
   }
 
+
   console.log(kitchensArr);
   //Declare variables and state
   //Return back to DOM
-  return (
+  return (<div>
     <div className={classes.body}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: 'white',
-        }}
-      >
-        <h1> Kitchens Ready For Action! </h1>
-      </div>
-      <Paper
+      <h1>Random Text</h1>
+  <div className={classes.kitchenCardContainer}>
+{kitchensArr}
+</div></div>
+</div>
+  )
+}
+
+
+    // <div className={classes.body}>
+      {/* <div
+        style={{ */}
+          {/* // display: 'flex',
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          // color: 'white', */}
+        {/* }}
+      > */}
+        {/* <h1> Kitchens Ready For Action! </h1> */}
+      {/* </div> */}
+      {/* <Box sx={{ flexGrow: 1 }} elevation={3}
+        className={classes.feedItem}
+        style={{ maxHeight: '40rem', overflow: 'auto' }}>
+        {kitchensArr}
+         */}
+      
+      {/* <Paper
         elevation={3}
         className={classes.feedItem}
         style={{ maxHeight: '40rem', overflow: 'auto' }}
       >
         {kitchensArr}
-      </Paper>
-      <Outlet />
-    </div>
-  );
-}
+      </Paper> */}
+      {/* <Outlet /> */}
+    {/* // </div> */}

@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { makeStyles } from '@mui/styles';
 import { Box, Button } from '@mui/material';
+import profilePic from '../assets/profilePic1.jpg';
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     subtitle1: {
-      fontSize: 10,
+      fontSize: 5,
       fontStyle: 'sans-serif',
     },
     subtitle2: {
@@ -23,16 +24,32 @@ const useStyles = makeStyles((theme) => ({
   },
   boxes: {
     display: 'flex',
+    position: "relative",
+    width: "75%",
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     backgroundColor: '#FFA07A',
-    borderRadius: 10,
+    borderRadius: 5,
     border: '1px white',
     '&:hover': {
       backgroundColor: '#e6906e',
       opacity: [0.9, 0.8, 0.7],
     },
   },
+  foodPicture: {
+    display: 'flex',
+    position: "absolute",
+    width: "100px",
+    left: "200px",
+    bottom: "190px",
+    height: "100px",
+    borderRadius: "100px",
+  },
+  kitchenName: {
+    paddingTop: '70px',
+    paddingBottom: '20px',
+    fontWeight: 'bold'
+  }
 }));
 
 const Card = (props) => {
@@ -86,7 +103,8 @@ const Card = (props) => {
               paddingBottom: 0,
             }}
           >
-            <h1>{props.kitchenName}</h1>
+            
+            <div className={classes.kitchenName}>{props.kitchenName}</div><img src = "https://i.imgur.com/TxwoKaa.png" className={classes.foodPicture}/>
           </div>
           <div
             id='kitchenBio'
@@ -102,7 +120,7 @@ const Card = (props) => {
               paddingRight: 10,
             }}
           >
-            <b style={{ fontSize: 20 }}>{props.cuisine}</b>
+            <b style={{ fontSize: 15 }}>{props.cuisine}</b>
           </div>
           <div
             id='bottomCard'
