@@ -45,26 +45,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Body({setIsLoggedIn}) {
+export default function Body(props) {
+  // const {setIsLoggedIn,setModalSignUp,modalSignUp} = props;
   //Declare variables and state
+  const {setIsLoggedIn} = props;
   const classes = useStyles();
   const [randomGreeting, setGreeting] = useState("");
   const [modalSignUp, setModalSignUp] = useState(false);
   const [modalLogIn, setModalLogin] = useState(false);
-
-  //Sign-up Card Display Function
-  // const signUpFunc = (action) => {
-  //   //setModalSignUp(true)
-  //   if (action == "sign") {
-  //     setModalSignUp(true)
-  //     console.log("Button Clicked, sign up was ", signUp);
-  //     setSignUp(!signUp);
-  //     console.log("Sign up is now ", signUp);
-  //   } else {
-  //     setLogin(!logIn);
-  //   }
-  // };
-  
 
   useEffect(() => {
     // choose welcome text
@@ -81,6 +69,7 @@ export default function Body({setIsLoggedIn}) {
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
   }, []);
 
+
   //Return back to DOM
   return (
     <div className={classes.body}>
@@ -89,20 +78,23 @@ export default function Body({setIsLoggedIn}) {
       </h1>
       <div>
         <Button
+          data-testid="login-button"
+          onClick={()=>setModalSignUp(true)}
+          // component={Link}
+          // to="/signup"
           variant="contained"
           color="primary"
           sx={{ m: 2 ,fontWeight : 700}}
-          onClick={()=>setModalSignUp(true)}
         >Sign up
         </Button>
         <Button
           data-testid="login-button"
+          onClick={()=>setModalLogin(true)}
           component={Link}
           to="/login"
           variant="contained"
           color="secondary"
-          sx={{ m: 2 ,fontWeight : 700}}
-          onClick={()=>setModalLogin(true)}
+          sx={{ m: 2 ,fontWeight : 700}}    
         >
           Login
         </Button>
@@ -114,11 +106,12 @@ export default function Body({setIsLoggedIn}) {
           <Link className={classes.textLink} to="/seller" data-testid="link-1">
             here
           </Link>
-          .
         </p>
       </div>
       {modalSignUp?<SignUp setModalSignUp={setModalSignUp}  modalSignUp={modalSignUp}/> : null }
-      {modalLogIn ? <Login setModalLogin={setModalLogin}  modalLogIn={modalLogIn} setIsLoggedIn={setIsLoggedIn}/>  :null}
+      {modalLogIn ? 
+      <Login setModalLogin={setModalLogin}  modalLogIn={modalLogIn} setIsLoggedIn={setIsLoggedIn} setUserType={setUserType}/>  
+      :null}
     </div>
   );
 }

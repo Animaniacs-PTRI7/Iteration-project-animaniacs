@@ -1,5 +1,5 @@
 const axios = require("axios");
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { makeStyles } from '@mui/styles';
 import { Stack, CardContent, Paper, TextField, Typography, Button, Modal } from "@mui/material";
@@ -16,15 +16,14 @@ const useStyles = makeStyles((theme) => ({
     right: "20%",
     zIndex: "1",
     width: '30em',
-    textAlign: 'center'
+    textAlign: 'center',
+    backgroundColor: 'white',
   },
 }));
 
-export default function SignUp(props) {
+export default function SignUp({ setModalSignUp, modalSignUp }) {
   const classes = useStyles();
-  const { setModalSignUp,modalSignUp } = props
-
-  // set form state
+  
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

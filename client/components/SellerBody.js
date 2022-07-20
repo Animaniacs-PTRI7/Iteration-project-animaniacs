@@ -36,13 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SellerBody({setIsLoggedIn}) {
+export default function SellerBody(props) {
   //Declare variables and state
   const classes = useStyles();
+  const {setShowLogin,setIsLoggedIn,showLogin} = props;
   const [signUp, setSignUp] = useState(false);
   const [logIn, setLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+
   const [randomGreeting, setGreeting] = useState("");
   let signUpModule;
 
@@ -89,6 +90,8 @@ export default function SellerBody({setIsLoggedIn}) {
       {signUpModule}
       <div>
         <Button
+        //  component={Link}
+        //  to="/seller/signup"
           variant="contained"
           color="primary"
           sx={{ m: 2, fontWeight: 700 }}

@@ -70,6 +70,9 @@ export default function Body(props) {
       },
     },
   };
+  
+  console.log('props.userZip', props.userZip)
+  console.log('props.userId', props.userId)
 
   //Declare variables and state
   const classes = useStyles();
@@ -141,7 +144,7 @@ export default function Body(props) {
       // <Navigate to="/information" />
       <div className={classes.body}>
         <ZipCodeGrab buyerId={UserId} setZipCodeAssigned={setZipCodeAssigned} />
-        <h1 className={classes.heavyFont}>{`Test feed`}</h1>
+        {/* <h1 className={classes.heavyFont}>{`Test feed`}</h1> */}
         <Outlet />
       </div>
     );

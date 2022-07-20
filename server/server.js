@@ -67,6 +67,7 @@ app.post(
 );
 
 app.post('/auth/login', userController.login, (req, res) => {
+  console.log('res after login-->', res.locals.data )
   jwt.sign(
     { userdata: res.locals.data },
     process.env.ACCESS_TOKEN_SECRET,
