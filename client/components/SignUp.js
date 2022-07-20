@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { makeStyles } from '@mui/styles';
 import { Stack, CardContent, Paper, TextField, Typography, Button, Modal } from "@mui/material";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -21,9 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ setModalSignUp, modalSignUp }) {
+export default function SignUp({ closeSignUpModal, modalSignUp }) {
   const classes = useStyles();
-  
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -72,7 +71,7 @@ export default function SignUp({ setModalSignUp, modalSignUp }) {
     <Modal
       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       open={modalSignUp}
-      onClose={setModalSignUp}
+      onClose={closeSignUpModal}
       aria-labelledby="child-modal-title"
       aria-describedby="child-modal-description"
     >
@@ -102,7 +101,7 @@ export default function SignUp({ setModalSignUp, modalSignUp }) {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={() => setModalSignUp(false)} >
+                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={closeSignUpModal} >
                   Cancle
                 </Button>
                 <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >

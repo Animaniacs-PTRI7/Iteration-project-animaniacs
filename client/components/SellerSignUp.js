@@ -1,15 +1,15 @@
 const axios = require("axios");
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import { makeStyles } from "@mui/styles";
 import {
   Stack,
   Modal,
-  CardContent,
+  AlertTitle,
   Paper,
   TextField,
-  Typography,
-  Button,
+  Alert,
+  Button,Snackbar
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,15 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SellerSignUp({ showSignUp, setShowSignUp }) {
+export default function SellerSignUp(props) {
   const classes = useStyles();
-
+ const { showSignUp,setModalSignUp, closeSignUpModal,setSuccess,setError } = props
   // set form state
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -54,10 +52,12 @@ export default function SellerSignUp({ showSignUp, setShowSignUp }) {
         setPassword("");
         // set "success" in state
         setSuccess(true);
+        setModalSignUp(false)
       })
       .catch((error) => {
         // handle error
         console.log("hit error response");
+        setError(true)
         console.log(error);
       })
       .then(() => {
@@ -66,16 +66,11 @@ export default function SellerSignUp({ showSignUp, setShowSignUp }) {
       });
   };
 
+
   // display only success message if signup successful
 
-  return success ? (
-    <div>
-      <Paper elevation={6} className={classes.signupstack}>
-        <h2> Kitchen Sign Up </h2>
-        <p>Account created successfully!</p>
-      </Paper>
-    </div>
-  ) : (
+
+  return  (
     <Modal
       style={{
         display: "flex",
@@ -83,7 +78,7 @@ export default function SellerSignUp({ showSignUp, setShowSignUp }) {
         justifyContent: "center",
       }}
       open={showSignUp}
-      onClose={setShowSignUp}
+      onClose={closeSignUpModal}
       aria-labelledby="child-modal-title"
       aria-describedby="child-modal-description"
     >
@@ -116,7 +111,7 @@ export default function SellerSignUp({ showSignUp, setShowSignUp }) {
                 <Button
                   variant="outlined"
                   sx={{ m: 2, fontWeight: 700 }}
-                  onClick={() => setShowSignUp(false)}
+                  onClick={closeSignUpModal}
                 >
                   Cancle
                 </Button>

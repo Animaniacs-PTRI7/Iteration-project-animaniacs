@@ -68,7 +68,11 @@ export default function Body(props) {
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
   }, []);
 
+  const openSignUpModal = ()=>setModalSignUp(true);
+  const closeSignUpModal = ()=>setModalSignUp(false);
 
+  const openLoginModal = () => setModalLogin(true)
+  const closeLoginModal = () => setModalLogin(false)
   //Return back to DOM
   return (
     <div className={classes.body}>
@@ -78,7 +82,7 @@ export default function Body(props) {
       <div>
         <Button
           data-testid="login-button"
-          onClick={()=>setModalSignUp(true)}
+          onClick={openSignUpModal}
           // component={Link}
           // to="/signup"
           variant="contained"
@@ -88,7 +92,7 @@ export default function Body(props) {
         </Button>
         <Button
           data-testid="login-button"
-          onClick={()=>setModalLogin(true)}
+          onClick={openLoginModal}
           // component={Link}
           // to="/login"
           variant="contained"
@@ -107,10 +111,10 @@ export default function Body(props) {
           </Link>
         </p>
       </div>
-      {modalSignUp?<SignUp setModalSignUp={setModalSignUp}  modalSignUp={modalSignUp}/> : null }
+      {modalSignUp?<SignUp closeSignUpModal={closeSignUpModal} modalSignUp={modalSignUp}/> : null }
       {modalLogIn ? 
       <Login 
-      setModalLogin={setModalLogin}  
+      closeLoginModal={closeLoginModal}  
       modalLogIn={modalLogIn} 
       setIsLoggedIn={setIsLoggedIn} 
       setUserType={setUserType}

@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 
 //MUI
 import { makeStyles } from "@mui/styles";
-import { Button } from "@mui/material";
+import { Button, AlertTitle, Alert, Snackbar } from "@mui/material";
 import SellerSignUp from "./SellerSignUp";
 import SellerLogin from "./SellerLogin";
+import {Success} from './Alert/Success'
+import {ErrorAlert} from './Alert/Error'
 //Assets
 //import Doughy from '../assets/doughy.jpg';
 import Cooking from "../assets/kitchen1.jpg";
@@ -34,30 +36,23 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     margin: "0px 10px",
   },
+  alertNoti: {
+    position: "relative !important",
+    justifyContent: "center !important",
+  },
 }));
 
 export default function SellerBody(props) {
   //Declare variables and state
   const classes = useStyles();
-  const {setIsLoggedIn,setUserType,setUserId,setUserZip} = props;
+  const { setIsLoggedIn, setUserType, setUserId, setUserZip } = props;
   const [signUp, setSignUp] = useState(false);
   const [logIn, setLogin] = useState(false);
   const [modalSignUp, setModalSignUp] = useState(false);
   const [modalLogIn, setModalLogin] = useState(false);
-
+  const [success, setSuccess] = useState(false);
   const [randomGreeting, setGreeting] = useState("");
-  let signUpModule;
-
-  //Sign-up Card Display Function
-  const signUpFunc = (action) => {
-    if (action == "sign") {
-      console.log("Button Clicked, sign up was ", signUp);
-      setSignUp(!signUp);
-      console.log("Sign up is now ", signUp);
-    } else {
-      setLogin(!logIn);
-    }
-  };
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     // choose welcome text
@@ -76,53 +71,63 @@ export default function SellerBody(props) {
     setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
   }, []);
 
-  if (signUp) {
-    //signUpModule = <SignUp />;
-  }
+  const openSignUpModal = () => setModalSignUp(true);
+  const closeSignUpModal = () => setModalSignUp(false);
 
-  if (logIn) {
-    //signUpModule = <Login />;
-  }
-
+  const openLoginModal = () => setModalLogin(true);
+  const closeLoginModal = () => setModalLogin(false);
+  console.log("success-->", success);
+  const handleClose = () => setSuccess(false);
+  const handleCloseError = () => setError(false);
   //Return back to DOM
   return (
+    <>
+    {error? <ErrorAlert error={error} handleCloseError={handleCloseError}/> : null }
+    {success ? <Success success={success} handleClose={handleClose}/>:  null }
     <div className={classes.body}>
-      <h1 className={classes.heavyFont}> {randomGreeting}</h1>
-      {signUpModule}
-      <div>
-        <Button
-        //  component={Link}
-        //  to="/seller/signup"
-          variant="contained"
-          color="primary"
-          sx={{ m: 2, fontWeight: 700 }}
-          onClick={()=>setModalSignUp(true)}
-        >
-          Sign up
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ m: 2, fontWeight: 700 }}
-          onClick={()=>setModalLogin(true)}
-        >
-          Login
-        </Button>
-      </div>
-      <Outlet />
+        <>
+          <h1 className={classes.heavyFont}> {randomGreeting}</h1>
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ m: 2, fontWeight: 700 }}
+                onClick={openSignUpModal}
+              >
+                Sign up
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                sx={{ m: 2, fontWeight: 700 }}
+                onClick={openLoginModal}
+              >
+                Login
+              </Button>
+            </div>
+          <Outlet />
+        </>
       {modalSignUp ? (
-        <SellerSignUp showSignUp={modalSignUp} setShowSignUp={setModalSignUp} />
+        <SellerSignUp
+          setModalSignUp={setModalSignUp}
+          showSignUp={modalSignUp}
+          closeSignUpModal={closeSignUpModal}
+          setSuccess={setSuccess}
+          setError={setError}
+        />
       ) : null}
       {modalLogIn ? (
-        <SellerLogin 
-        setModalLogin={setModalLogin}  
-        showLogIn={modalLogIn} 
-        setIsLoggedIn={setIsLoggedIn}
-        setUserType={setUserType}
-        setUserZip={setUserZip}
-        setUserId={setUserId}
-         />
+        <SellerLogin
+          closeLoginModal={closeLoginModal}
+          showLogIn={modalLogIn}
+          setIsLoggedIn={setIsLoggedIn}
+          setUserType={setUserType}
+          setUserZip={setUserZip}
+          setUserId={setUserId}
+        />
       ) : null}
     </div>
+    </>
+    
   );
 }
