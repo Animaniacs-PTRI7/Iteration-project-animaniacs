@@ -13,7 +13,8 @@ import FeedCardsContainer from "./FeedCardsContainer";
 import Confirmation from "./Confirmation.js";
 
 //Assets
-import Cooking from "../assets/cooking.jpg";
+import Cooking from "../assets/kitchen1.jpg";
+//import Cooking from "../assets/cooking.jpg";
 
 //MUI
 import { Stack, Button } from "@mui/material";
@@ -69,6 +70,7 @@ export default function Body(props) {
       },
     },
   };
+  
 
   //Declare variables and state
   const classes = useStyles();
@@ -140,7 +142,7 @@ export default function Body(props) {
       // <Navigate to="/information" />
       <div className={classes.body}>
         <ZipCodeGrab buyerId={UserId} setZipCodeAssigned={setZipCodeAssigned} />
-        <h1 className={classes.heavyFont}>{`Test feed`}</h1>
+        {/* <h1 className={classes.heavyFont}>{`Test feed`}</h1> */}
         <Outlet />
       </div>
     );

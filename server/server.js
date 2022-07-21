@@ -100,7 +100,7 @@ app.post(
   tokenVerifier2,
   menuController.getSellerMenu,
   (req, res) => {
-    console.log('res.locals.sellerMenu==>', res.locals.sellerMenu);
+
     //adding tokenVerifier2 as the 2nd middleware?
     res.status(200).json(res.locals.sellerMenu);
   }
@@ -134,7 +134,6 @@ app.use((err, req, res, next) => {
     message: { error: 'An error occurred' },
   };
   const errorObj = Object.assign(defaultErr, err);
-  console.log('errorObj ==>', errorObj);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

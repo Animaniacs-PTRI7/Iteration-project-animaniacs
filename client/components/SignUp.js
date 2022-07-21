@@ -1,5 +1,5 @@
 const axios = require("axios");
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
   Button,
-  Card,
+  Modal,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,16 +29,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp(props) {
+  const {
+    userId,
+    setUserId,
+    setUserZip,
+    setUserType,
+    setIsLoggedIn,
+    closeSignUpModal,
+    modalSignUp,
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword
+  } = props;
   const classes = useStyles();
-
-  // set form state
-  const [email2, setEmail2] = useState(email);
-  const [password2, setPassword2] = useState(password);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
-
+  console.log("THIS IS USER ID", userId);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -52,9 +60,9 @@ export default function SignUp(props) {
       })
       .then((response) => {
         // clear form
-        setEmail("");
-        setUsername("");
-        setPassword("");
+        // setEmail("");
+        // setUsername("");
+        // setPassword("");
         // set "success" in state
         setSuccess(true);
       })
@@ -66,25 +74,26 @@ export default function SignUp(props) {
       .then(() => {
         console.log("end of fetch in signup");
         // always executed
+        console.log(email, "email is");
       });
   };
-  const handleSuccess = (e) => {
+  const handleSuccessSignup = (e) => {
     e.preventDefault();
 
     axios
       .post("/auth/login", {
-        username: "z",
-        password: "z",
+        username,
+        password,
         userType: "buyer",
       })
       .then((response) => {
         // if user_id sent, success
         console.log(response.data);
         if (response.data.user_id) {
-          props.setIsLoggedIn(true);
-          props.setUserType("buyer");
-          props.setUserZip(null);
-          props.setUserId(response.data.user_id);
+          setIsLoggedIn(true);
+          setUserType("buyer");
+          setUserZip(null);
+          setUserId(response.data.user_id);
           document.cookie = `userId=${response.data.user_id}`;
           document.cookie = `userZip=${response.data.zip}`;
           document.cookie = `userType=buyer`;
@@ -100,55 +109,78 @@ export default function SignUp(props) {
       });
   };
   // display only success message if signup successful
-  if (success) {
-    return (
-      <div>
-        <Paper elevation={6} className={classes.signupstack}>
-          <h2> Sign Up </h2>
-          <p>Account created successfully!</p>
-          <span>
-            Click{" "}
-            <Button onClick={handleSuccess}>
-              <strong>here</strong>{" "}
-            </Button>
-            to get started!
-          </span>
-        </Paper>
-      </div>
-    );
-  }
-  return (
+  return success ? (
     <div>
       <Paper elevation={6} className={classes.signupstack}>
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <h2> Sign Up </h2>
-          <Stack spacing={2}>
-            <TextField
-              label={"Username"}
-              value={username}
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              type="email"
-              label={"Email"}
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              type="password"
-              label={"Password"}
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type="submit" color="primary">
-              Submit
-            </Button>
-          </Stack>
-        </form>
+        <h2> Sign Up </h2>
+        <p>Account created successfully!</p>
+        <span>
+          Click{" "}
+          <Button onClick={handleSuccessSignup}>
+            <strong>here</strong>{" "}
+          </Button>
+          to get started!
+        </span>
       </Paper>
     </div>
+  ) : (
+    <Modal
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      open={modalSignUp}
+      onClose={closeSignUpModal}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+    >
+      <div>
+        <Paper elevation={6} className={classes.signupstack}>
+          <form className={classes.root} onSubmit={handleSubmit}>
+            <h2> Sign Up </h2>
+            <Stack spacing={2}>
+              <TextField
+                label={"Username"}
+                value={username}
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                type="email"
+                label={"Email"}
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                type="password"
+                label={"Password"}
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="outlined"
+                  sx={{ m: 2, fontWeight: 700 }}
+                  onClick={closeSignUpModal}
+                >
+                  Cancle
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ m: 2, fontWeight: 700 }}
+                >
+                  Submit
+                </Button>
+              </span>
+            </Stack>
+          </form>
+        </Paper>
+      </div>
+    </Modal>
   );
 }
