@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     alertNoti: {
       position: "relative !important",
       justifyContent: "center !important",
+      top: '7rem'
     },
   }));
 export const Success = (props) =>{
