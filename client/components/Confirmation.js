@@ -5,8 +5,9 @@ import { Paper } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   paperbody: {
-    marginTop: '50%',
-    width:'50em'
+    margin: '10%',
+    padding: '10%',
+    width:'70%'
   },
 }));
 export default function (props) {
@@ -26,7 +27,7 @@ export default function (props) {
   // if (success) {
     return (
       <div>
-        <Paper className={classes.paperbody}>
+        <Paper elevation={2} className={classes.paperbody} sx={{ fontSize: 20, fontWeight: 'medium', borderRadius: 2} }>
           <p> Your order to the <b>{kitchen_name}</b> has been accepted.</p>
           <p> Your order # is <b>{order_id}.</b></p>
         </Paper>
