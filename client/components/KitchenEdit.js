@@ -4,11 +4,10 @@ import Cooking from '../assets/cooking.jpg';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import MenuItemEdit from './MenuItemEdit';
 import CuisineSelect from './CuisineSelect';
-import { width } from '@mui/system';
 
 import { makeStyles } from '@mui/styles';
-import AddCircle from '@mui/icons-material/AddCircle';
 import {
+  Box,
   Paper,
   TextField,
   IconButton,
@@ -132,6 +131,8 @@ export default function Body(props) {
     current: '',
   });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const navigate = useNavigate();
 
@@ -190,10 +191,14 @@ export default function Body(props) {
   };
 
   useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+      console.log(URL.createObjectURL(selectedImage), 'PICTURE URL')
+    }
     // run this first time the component mounts
     // later, we can use refresh to fetch again without remounting
     refresh();
-  }, []);
+  }, [selectedImage]);
 
   const updateDishProp = (id, prop, newVal) => {
     // clone dishes
@@ -310,6 +315,8 @@ export default function Body(props) {
         setCuisinesUpdated={setCuisinesUpdated}
       />
     );
+
+
   }
 
   let kitchenNameElement;
@@ -364,6 +371,26 @@ export default function Body(props) {
         >
           Edit Kitchen Name
         </Link>
+        <input
+          accept="image/*"
+          className={classes.profileInput}
+          style={{ display: 'none' }}
+          id="raised-button-file"
+          multiple
+          type="file"
+          onChange={e => setSelectedImage(e.target.files[0])}
+        />
+        <label htmlFor="raised-button-file">
+          <Button variant="raised" component="span" className={classes.profileButton}>
+            Upload a Profile Picture
+          </Button>
+        </label>
+        {imageUrl && selectedImage && (
+  <Box mt={2} textAlign="center">
+    <div>Image Preview:</div>
+    <img src={imageUrl} alt={selectedImage.name} height="100px" />
+  </Box>
+)}
       </div>
     );
   }
