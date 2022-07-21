@@ -42,11 +42,11 @@ export default function SignUp(props) {
     email,
     setEmail,
     password,
-    setPassword
+    setPassword,
+    success,
+    setSuccess,
   } = props;
   const classes = useStyles();
-  const [success, setSuccess] = useState(false);
-  console.log("THIS IS USER ID", userId);
   const handleSubmit = (e) => {
     e.preventDefault();
 
