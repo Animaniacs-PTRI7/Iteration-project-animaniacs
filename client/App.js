@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState("");
   const [userId, setUserId] = useState(0);
   const [userZip, setUserZip] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  
 
   useEffect(() => {
     let userIdCookie = document.cookie.split("; ").filter((el) => {
@@ -138,6 +139,8 @@ const App = () => {
           <Route path="/" element={
           <Body 
           setIsLoggedIn={setIsLoggedIn} 
+          userId={userId}
+          userType={userType}
           setUserType={setUserType} 
           setUserZip={setUserZip}  
           setUserId={setUserId}/>}>
@@ -157,6 +160,14 @@ const App = () => {
             /> */}
             {/* <Route
               path="/signup"
+              element={
+                <SignUp
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserType={setUserType}
+                  setUserZip={setUserZip}
+                  setUserId={setUserId}
+                />
+              }
               element={<SignUp setModalSignUp={setModalSignUp} modalSignUp={modalSignUp}/>}
               // element={
               //   <span

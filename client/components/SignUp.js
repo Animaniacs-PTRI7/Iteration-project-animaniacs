@@ -1,9 +1,16 @@
 const axios = require("axios");
 import React, { useEffect, useState } from "react";
 
-import { makeStyles } from '@mui/styles';
-import { Stack, CardContent, Paper, TextField, Typography, Button, Modal } from "@mui/material";
-
+import { makeStyles } from "@mui/styles";
+import {
+  Stack,
+  CardContent,
+  Paper,
+  TextField,
+  Typography,
+  Button,
+  Modal,
+} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -15,19 +22,31 @@ const useStyles = makeStyles((theme) => ({
     left: "20%",
     right: "20%",
     zIndex: "1",
-    width: '30em',
-    textAlign: 'center',
-    backgroundColor: 'white',
+    width: "30em",
+    textAlign: "center",
+    backgroundColor: "white",
   },
 }));
 
-export default function SignUp({ closeSignUpModal, modalSignUp }) {
+export default function SignUp(props) {
+  const {
+    userId,
+    setUserId,
+    setUserZip,
+    setUserType,
+    setIsLoggedIn,
+    closeSignUpModal,
+    modalSignUp,
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    success,
+    setSuccess,
+  } = props;
   const classes = useStyles();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -41,9 +60,9 @@ export default function SignUp({ closeSignUpModal, modalSignUp }) {
       })
       .then((response) => {
         // clear form
-        setEmail("");
-        setUsername("");
-        setPassword("");
+        // setEmail("");
+        // setUsername("");
+        // setPassword("");
         // set "success" in state
         setSuccess(true);
       })
@@ -55,21 +74,62 @@ export default function SignUp({ closeSignUpModal, modalSignUp }) {
       .then(() => {
         console.log("end of fetch in signup");
         // always executed
+        console.log(email, "email is");
       });
   };
+  const handleSuccessSignup = (e) => {
+    e.preventDefault();
 
+    axios
+      .post("/auth/login", {
+        username,
+        password,
+        userType: "buyer",
+      })
+      .then((response) => {
+        // if user_id sent, success
+        console.log(response.data);
+        if (response.data.user_id) {
+          setIsLoggedIn(true);
+          setUserType("buyer");
+          setUserZip(null);
+          setUserId(response.data.user_id);
+          document.cookie = `userId=${response.data.user_id}`;
+          document.cookie = `userZip=${response.data.zip}`;
+          document.cookie = `userType=buyer`;
+        } else console.log(response.data);
+      })
+      .catch((error) => {
+        // handle error
+        console.log("hit error response");
+        console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
+  };
   // display only success message if signup successful
-  return ( 
-    success ? (
-      <div>
-        <Paper elevation={6} className={classes.signupstack}>
-          <h2> Sign Up </h2>
-          <p>Account created successfully!</p>
-        </Paper>
-      </div>
-    ) : (
+  return success ? (
+    <div>
+      <Paper elevation={6} className={classes.signupstack}>
+        <h2> Sign Up </h2>
+        <p>Account created successfully!</p>
+        <span>
+          Click{" "}
+          <Button onClick={handleSuccessSignup}>
+            <strong>here</strong>{" "}
+          </Button>
+          to get started!
+        </span>
+      </Paper>
+    </div>
+  ) : (
     <Modal
-      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
       open={modalSignUp}
       onClose={closeSignUpModal}
       aria-labelledby="child-modal-title"
@@ -100,11 +160,20 @@ export default function SignUp({ closeSignUpModal, modalSignUp }) {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={closeSignUpModal} >
+              <span style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="outlined"
+                  sx={{ m: 2, fontWeight: 700 }}
+                  onClick={closeSignUpModal}
+                >
                   Cancle
                 </Button>
-                <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ m: 2, fontWeight: 700 }}
+                >
                   Submit
                 </Button>
               </span>
@@ -113,5 +182,5 @@ export default function SignUp({ closeSignUpModal, modalSignUp }) {
         </Paper>
       </div>
     </Modal>
-  ))
+  );
 }
