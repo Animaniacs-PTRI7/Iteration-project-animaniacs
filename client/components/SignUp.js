@@ -1,8 +1,9 @@
 const axios = require("axios");
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { makeStyles } from '@mui/styles';
-import { Stack, CardContent, Paper, TextField, Typography, Button, Card } from "@mui/material";
+import { Stack, CardContent, Paper, TextField, Typography, Button, Modal } from "@mui/material";
+
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -14,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
     left: "20%",
     right: "20%",
     zIndex: "1",
-    width: '30em'
+    width: '30em',
+    textAlign: 'center',
+    backgroundColor: 'white',
   },
 }));
 
-export default function SignUp() {
+export default function SignUp({ closeSignUpModal, modalSignUp }) {
   const classes = useStyles();
-
-  // set form state
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,48 +59,59 @@ export default function SignUp() {
   };
 
   // display only success message if signup successful
-  if (success) {
-    return (
+  return ( 
+    success ? (
       <div>
         <Paper elevation={6} className={classes.signupstack}>
           <h2> Sign Up </h2>
           <p>Account created successfully!</p>
         </Paper>
       </div>
-    );
-  }
-  return (
-    <div>
-      <Paper elevation={6} className={classes.signupstack}>
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <h2> Sign Up </h2>
-          <Stack spacing={2}>
-            <TextField
-              label={"Username"}
-              value={username}
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              type="email"
-              label={"Email"}
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              type="password"
-              label={"Password"}
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type="submit" color="primary">
-              Submit
-            </Button>
+    ) : (
+    <Modal
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      open={modalSignUp}
+      onClose={closeSignUpModal}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+    >
+      <div>
+        <Paper elevation={6} className={classes.signupstack}>
+          <form className={classes.root} onSubmit={handleSubmit}>
+            <h2> Sign Up </h2>
+            <Stack spacing={2}>
+              <TextField
+                label={"Username"}
+                value={username}
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                type="email"
+                label={"Email"}
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                type="password"
+                label={"Password"}
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={closeSignUpModal} >
+                  Cancle
+                </Button>
+                <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >
+                  Submit
+                </Button>
+              </span>
             </Stack>
-        </form>
-      </Paper>
-    </div>
-  );
+          </form>
+        </Paper>
+      </div>
+    </Modal>
+  ))
 }

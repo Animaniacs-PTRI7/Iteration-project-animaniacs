@@ -157,7 +157,6 @@ userController.sellerInformation = async (req, res, next) => {
 };
 
 userController.userZip = async (req, res, next) => {
-  // destructuring the request body
 
   const userId = req.cookies.userId;
   const userType = req.cookies.userType;
