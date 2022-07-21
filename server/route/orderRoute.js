@@ -18,4 +18,9 @@ router.get('/orderSales/:userId',tokenVerifier, order.getSellerOrders, (req, res
   return res.status(200).json(res.locals.orders)
 })
 
+//update orders
+router.post('/update-order',tokenVerifier, order.updateOrder, (req, res)=>{
+  return res.status(200).json(res.locals.order)
+})
+
 module.exports = router;

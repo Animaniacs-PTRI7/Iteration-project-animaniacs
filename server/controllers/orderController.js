@@ -154,8 +154,23 @@ orderController.getSellerOrders = async (req, res, next) => {
   }
 }
 
-orderController.updateOrder = async () => {
+orderController.updateOrder = async (req, res, next) => {
+  const { order_id, fulfilled } = req.body;
+  const query = `UPDATE orders
+  SET fulfilled=$1
+  WHERE pk_order_id=$2
+  RETURNING *;`;
 
+  const update = fulfilled ? false : true
+
+  try {
+    const data = await db.query(query, [update, order_id]);
+    res.locals.order = data.rows[0];
+    return next()
+  }
+  catch (err) {
+    return next(createError({ message: { err: error.message } }));
+  }
 }
 
 module.exports = orderController;

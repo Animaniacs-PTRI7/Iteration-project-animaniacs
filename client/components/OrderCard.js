@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Orderdishes from './Orderdishes';
+import axios from 'axios';
 
 import  { Button, Stack, Card, Grid, Checkbox, FormControlLabel } from '@mui/material';
 
@@ -11,6 +12,16 @@ const OrderCard = (props) => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     const handleUpdate = (e) => {
+        axios.post('api/update-order', {
+            order_id: props.order_id,
+            fulfilled: props.status
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err)
+        })
         console.log('clicked!')
     }
     
@@ -28,12 +39,19 @@ const OrderCard = (props) => {
                     </Grid>
                     <Grid item xs={2}>
                         <p></p>
-                        <FormControlLabel
-                            value="picked up"
-                            control={<Checkbox onChange={handleUpdate}/>}
-                            label="picked up"
-                            labelPlacement="start"
-                            />
+                        {props.status ?  <FormControlLabel
+                                            value="picked up"
+                                            control={<Checkbox disabled checked/>}
+                                            label="picked up"
+                                            labelPlacement="start"
+                                            /> : <FormControlLabel
+                                                    value="picked up"
+                                                    control={<Checkbox onChange={handleUpdate}/>}
+                                                    label="picked up"
+                                                    labelPlacement="start"
+                                                    />
+                            
+                        }
                     </Grid>
                 </Grid>
             </Card>
