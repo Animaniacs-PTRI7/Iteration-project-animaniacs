@@ -33,7 +33,8 @@ export default function FloatingCart(props) {
     .post("/api/create-order", {
       buyer_id,
       seller_id,
-      dishes
+      dishes, 
+      price
     })
     .then(res => {
       console.log(res);
@@ -63,7 +64,7 @@ export default function FloatingCart(props) {
 
   //grab dishes from props
   const { floatCart, seller_id, buyer_id } = props;
-  const { dishes } = floatCart;
+  const { dishes, price } = floatCart;
   console.log('float cart props', props);
   console.log('float cart dishes', dishes);
 

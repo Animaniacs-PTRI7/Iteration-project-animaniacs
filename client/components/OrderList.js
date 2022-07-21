@@ -11,7 +11,6 @@ import { Box } from '@mui/material';
 //theme from feed container
 const useStyles = makeStyles((theme) => ({
   body: {
-    height: "100vh",
     width: "100%",
     display: "flex",
     flexDirection: "column",
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     backgroundRepeat: "none",
     backgroundColor: "transparent",
-    padding: "0px 20px",
+    paddingTop: "100px"
   },
 }));
 
@@ -52,7 +51,16 @@ const OrderList = (props) => {
 
     const ffOrders = [];
     for (let i = 0; i < fulfilled.length; i++) {
-      ffOrders.push(<OrderCard key={i} dishes={fulfilled[i].dishes} order_id={fulfilled[i].pk_order_id} order_date={fulfilled[i].order_date.slice(0,10)} status={fulfilled[i].fulfilled}/>)
+      ffOrders.push(<OrderCard 
+                      key={i} 
+                      dishes={fulfilled[i].dishes} 
+                      order_id={fulfilled[i].pk_order_id} 
+                      order_date={fulfilled[i].order_date.slice(0,10)}
+                      total={fulfilled[i].total} 
+                      status={fulfilled[i].fulfilled} 
+                      kitchen_name={fulfilled[i].kitchen_name}
+                      address={fulfilled[i].seller_street_name + ', ' + fulfilled[i].seller_city + ', ' + fulfilled[i].seller_state + ', ' + fulfilled[i].seller_zip_code}
+                      />)
     }
 
     const unfulfilled = orderData.length > 0 ? orderData.filter( obj => {
@@ -61,7 +69,16 @@ const OrderList = (props) => {
 
     const uffOrders = [];
     for (let i = 0; i < unfulfilled.length; i++) {
-      ffOrders.push(<OrderCard key={i} dishes={unfulfilled[i].dishes} order_id={unfulfilled[i].pk_order_id} order_date={unfulfilled[i].order_date.slice(0,10)} status={unfulfilled[i].fulfilled} />)
+      ffOrders.push(<OrderCard 
+                      key={i} 
+                      dishes={unfulfilled[i].dishes} 
+                      order_id={unfulfilled[i].pk_order_id} 
+                      order_date={unfulfilled[i].order_date.slice(0,10)} 
+                      status={unfulfilled[i].fulfilled} 
+                      total={unfulfilled[i].total}
+                      kitchen_name={unfulfilled[i].kitchen_name}
+                      address={unfulfilled[i].seller_street_name + ', ' + unfulfilled[i].seller_city + ', ' + unfulfilled[i].seller_state + ', ' + unfulfilled[i].seller_zip_code}
+                      />)
     }
 
     console.log('current order,', fulfilled);

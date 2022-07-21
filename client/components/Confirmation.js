@@ -19,7 +19,7 @@ export default function (props) {
   const location = useLocation();
   // console.log(location);
 
-  const { kitchen_name, order_id } = location.state;
+  const { kitchen_name, order_id, price } = location.state;
   //fake data
   // const kitchen_name = 'Joy Kitchen';
   // const order_id = 128;
@@ -30,6 +30,7 @@ export default function (props) {
         <Paper elevation={2} className={classes.paperbody} sx={{ fontSize: 20, fontWeight: 'medium', borderRadius: 2} }>
           <p> Your order to the <b>{kitchen_name}</b> has been accepted.</p>
           <p> Your order # is <b>{order_id}.</b></p>
+          <p> Your order total is <b>{price}.</b></p>
         </Paper>
       </div>
     );
