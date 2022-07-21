@@ -40,7 +40,7 @@ export default function ZipCodeGrab(props) {
           console.log("Response from server is", response);
           setUserZip(UserZip);
           document.cookie = `userZip=${UserZip}`;
-          setTimeout(window.location.reload(), 3000);
+          setTimeout(window.location.reload(), 1000);
         });
     } else {
       //Error handling if zipcode is not 5 Digits (sorry Canada)

@@ -65,11 +65,6 @@ menuController.getSellerMenu = async (req, res, next) => {
   s.pk_seller_id = d.fk_seller_id WHERE S.pk_seller_id = $1;`;
   try {
     const data = await db.query(sqlQuery, para);
-    // if (data.rows.length === 0) {
-    //   res.locals.sellerMenu = null;
-    //   return next();
-    // }
-    console.log('data.rows==>', data.rows);
     const kitchenMenu = {};
     kitchenMenu.kitchenName = data.rows[0].kitchen_name;
     kitchenMenu.pickup_window_start = data.rows[0].pickup_window_start;
