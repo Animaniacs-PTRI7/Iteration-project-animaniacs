@@ -57,6 +57,7 @@ CREATE TABLE "public".Orders
  fk_buyer_id       serial NOT NULL,
  fulfilled         boolean NULL,
  order_date        DATE NULL,
+ total             integer NULL
  CONSTRAINT fk_seller_id
  FOREIGN KEY ("fk_seller_id") references Sellers("pk_seller_id"),
  CONSTRAINT fk_buyer_id
