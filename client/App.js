@@ -144,7 +144,14 @@ const App = () => {
             />
             <Route
               path="/signup"
-              element={<SignUp setIsLoggedIn={setIsLoggedIn} />}
+              element={
+                <SignUp
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserType={setUserType}
+                  setUserZip={setUserZip}
+                  setUserId={setUserId}
+                />
+              }
               // element={
               //   <span
               //     style={{

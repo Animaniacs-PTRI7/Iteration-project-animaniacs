@@ -1,8 +1,16 @@
 const axios = require("axios");
 import React, { useState } from "react";
 
-import { makeStyles } from '@mui/styles';
-import { Stack, CardContent, Paper, TextField, Typography, Button, Card } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {
+  Stack,
+  CardContent,
+  Paper,
+  TextField,
+  Typography,
+  Button,
+  Card,
+} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   signupstack: {
@@ -14,14 +22,18 @@ const useStyles = makeStyles((theme) => ({
     left: "20%",
     right: "20%",
     zIndex: "1",
-    width: '30em'
+    width: "30em",
+    textAlign: "center",
+    backgroundColor: "white",
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
 
   // set form state
+  const [email2, setEmail2] = useState(email);
+  const [password2, setPassword2] = useState(password);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,7 +68,37 @@ export default function SignUp() {
         // always executed
       });
   };
+  const handleSuccess = (e) => {
+    e.preventDefault();
 
+    axios
+      .post("/auth/login", {
+        username: "z",
+        password: "z",
+        userType: "buyer",
+      })
+      .then((response) => {
+        // if user_id sent, success
+        console.log(response.data);
+        if (response.data.user_id) {
+          props.setIsLoggedIn(true);
+          props.setUserType("buyer");
+          props.setUserZip(null);
+          props.setUserId(response.data.user_id);
+          document.cookie = `userId=${response.data.user_id}`;
+          document.cookie = `userZip=${response.data.zip}`;
+          document.cookie = `userType=buyer`;
+        } else console.log(response.data);
+      })
+      .catch((error) => {
+        // handle error
+        console.log("hit error response");
+        console.log(error);
+      })
+      .then(() => {
+        // always executed
+      });
+  };
   // display only success message if signup successful
   if (success) {
     return (
@@ -64,6 +106,13 @@ export default function SignUp() {
         <Paper elevation={6} className={classes.signupstack}>
           <h2> Sign Up </h2>
           <p>Account created successfully!</p>
+          <span>
+            Click{" "}
+            <Button onClick={handleSuccess}>
+              <strong>here</strong>{" "}
+            </Button>
+            to get started!
+          </span>
         </Paper>
       </div>
     );
@@ -97,7 +146,7 @@ export default function SignUp() {
             <Button type="submit" color="primary">
               Submit
             </Button>
-            </Stack>
+          </Stack>
         </form>
       </Paper>
     </div>
