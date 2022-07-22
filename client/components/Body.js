@@ -100,6 +100,7 @@ export default function Body() {
           to='/signup'
           variant='contained'
           color='primary'
+          sx={{ m: 5 }}
           onClick={() => {
             signUpFunc('sign');
           }}
@@ -111,6 +112,7 @@ export default function Body() {
           to='/login'
           variant='contained'
           color='secondary'
+          sx={{ m: 5 }}
           onClick={() => {
             signUpFunc('log');
           }}

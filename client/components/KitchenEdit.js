@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   topAddress: {
     width: '100%',
+    padding: '50px'
   },
   leftAddress: {
     // width: '50%',
@@ -96,10 +97,12 @@ const useStyles = makeStyles((theme) => ({
   },
   timeOps: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column'
   },
   timeOpItem: {
     marginBottom: '15px',
+    padding: '15px',
+    marginTop: '30px'
   },
   activeKitchenName: {
     width: '50%',
@@ -129,6 +132,8 @@ export default function Body(props) {
     current: '',
   });
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const navigate = useNavigate();
 
   const refresh = () => {
     // redirect if not a seller ? I don't think I need this
@@ -236,6 +241,7 @@ export default function Body(props) {
         })
         .then((res) => {
           refresh();
+          navigate('/feed');
         })
         .catch((error) => {
           // handle error
@@ -381,6 +387,7 @@ export default function Body(props) {
             type={'time'}
             InputLabelProps={{ shrink: true }}
             defaultValue={pickupWindow.pickup_window_start}
+            sx={{ m: 2 }}
             onChange={(e) => {
               setPickupWindow({
                 ...pickupWindow,
@@ -395,6 +402,7 @@ export default function Body(props) {
             type={'time'}
             InputLabelProps={{ shrink: true }}
             defaultValue={pickupWindow.pickup_window_end}
+            sx={{ m: 2 }}
             onChange={(e) => {
               setPickupWindow({
                 ...pickupWindow,
@@ -411,6 +419,7 @@ export default function Body(props) {
               label={'Address'}
               className={classes.topAddress}
               defaultValue={address.seller_street_name}
+              sx={{ m: 1 }}
               onChange={(e) => {
                 setAddress({ ...address, seller_street_name: e.target.value });
                 setStateUpdates({ ...stateUpdates, address: true });
@@ -422,6 +431,7 @@ export default function Body(props) {
               label={'City'}
               className={classes.topAddress}
               defaultValue={address.seller_city}
+              sx={{ m: 1 }}
               onChange={(e) => {
                 setAddress({ ...address, seller_city: e.target.value });
                 setStateUpdates({ ...stateUpdates, address: true });
@@ -433,6 +443,7 @@ export default function Body(props) {
               label={'State'}
               className={classes.leftAddress}
               defaultValue={address.seller_state}
+              sx={{ m: 1 }}
               onChange={(e) => {
                 setAddress({ ...address, seller_state: e.target.value });
                 setStateUpdates({ ...stateUpdates, address: true });
@@ -442,6 +453,7 @@ export default function Body(props) {
               label={'Zip'}
               className={classes.rightAddress}
               defaultValue={address.seller_zip_code}
+              sx={{ m: 1 }}
               onChange={(e) => {
                 setAddress({ ...address, seller_zip_code: e.target.value });
                 setStateUpdates({ ...stateUpdates, address: true });

@@ -29,6 +29,7 @@
     "@googlemaps/js-api-loader": "^1.14.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
+    "@mui/private-theming": "^5.9.0",
     "@mui/styled-engine": "^5.8.7",
     "@mui/styles": "^5.9.0",
     "@react-google-maps/api": "^2.12.0",

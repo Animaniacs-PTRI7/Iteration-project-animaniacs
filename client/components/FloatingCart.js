@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 import React, { useState, useEffect } from 'react';
 import MenuItem from './MenuItem';
 import { PropaneSharp } from '@mui/icons-material';
@@ -22,29 +22,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function (props) {
+export default function FloatingCart(props) {
   const classes = useStyles();
 
   const navigate = useNavigate();
 
   const submitOrder = () => {
-    const body = {
+    //post to backend
+    axios
+    .post("/api/create-order", {
       buyer_id,
       seller_id,
       dishes
-    }
-    //post to backend
-    axios
-    .post('http:localhost:3000/createOrder', body)
+    })
     .then(res => {
       console.log(res);
       //send an confirmation message in popup. //On confirmation, reset card and floatcart and back to feedpage.
       props.setFeedActive(true);
       props.setfloatCart({ price: 0, dishes: {}});
+      navigate('/confirmation', {state: res});
     })
     .catch(err => {
       console.log(err);
     })
+
+    return
   }
 
   const checkout = () => {

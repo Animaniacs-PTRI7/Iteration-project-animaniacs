@@ -16,6 +16,8 @@ import SellerBody from './components/SellerBody';
 import SellerSignUp from './components/SellerSignUp';
 import KitchenEdit from './components/KitchenEdit';
 import OrderList from './components/OrderList';
+import Confirmation from './components/Confirmation';
+import ProfileCard from './components/ProfileCard'
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -95,11 +97,12 @@ const App = () => {
             element={<Navigate to='/feed' replace={true} />}
           />
           {/* Nav bar */}
-          <Route path='/' element={<Nav logOut={logOut} userType={userType} />}>
+          <Route path='/' element={<Nav logOut={logOut} userType={userType} />} >
             {/* buyer feed */}
             <Route
               path='/feed'
-              element={<Feed userZip={userZip} userId={userId} />}
+              element={<ProfileCard />}
+              // element={<Feed userZip={userZip} userId={userId} />}
             >
               <Route path='/feed/:sellerId' />
               {/* don't need an element here */}
@@ -111,6 +114,10 @@ const App = () => {
             <Route
               path='/MyOrders'
               element={<OrderList userType={userType} userId={userId} />}
+            />
+            <Route
+              path='/confirmation'
+              element={<Confirmation userZip={userZip} userId={userId} />}
             />
             <Route path='/feed/:id' element={<SignUp />} />
           </Route>
