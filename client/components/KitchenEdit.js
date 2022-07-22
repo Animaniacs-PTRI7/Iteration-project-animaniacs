@@ -136,9 +136,7 @@ export default function Body(props) {
   const navigate = useNavigate();
 
   const refresh = () => {
-    // redirect if not a seller ? I don't think I need this
-    console.log(props);
-    // if (props.userType !== 'seller') navigate('/');
+    
     axios
       .post(`/db/getmenu/`)
       .then((res) => {

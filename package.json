@@ -16,7 +16,7 @@
     "build": "webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --hot --progress --color\" \"nodemon ./server/server.js\""
   },
-  "author": "Joy Zhang, Brandon, ",
+  "author": "Joy, Brandon, Glen, Meow, Tristan",
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.9.3",
