@@ -17,7 +17,7 @@ import Cooking from "../assets/kitchen1.jpg";
 //import Cooking from "../assets/cooking.jpg";
 
 //MUI
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 //Styling
@@ -43,15 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Body(props) {
-  // class Body extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  // componentDidMount() {
-  //   fetch('/feed')
-  //   .then(res => res.json())
-  //   .then(data => console.log('glen data', data))
-  // }
 
   const fakeResponse = {
     kitchenName: "Greg's Kitchen",
@@ -79,39 +70,23 @@ export default function Body(props) {
   const UserId = props.userId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
   const [floatCart, setfloatCart] = useState({ price: 0, dishes: {} });
-
+  console.log('feed zipcode', ZipCode);
   useEffect(() => {
     console.log("-------------------", floatCart);
   }, [floatCart]);
-  // 1: {
-  //   name: ,
-  //   quantity: 0,
-  // }
   const [feedActive, setFeedActive] = useState(true);
   // define state
   const [kitchens, setKitchens] = useState({});
   const [success, setSuccess] = useState();
   const [seller_id, setSellerID] = useState(null);
+  
 
-  // FEED COMPONENT
-  // state: cartState
-  // path: '/feed'
-
-  // Cards component (all cards rendered here) // you are here
-  // path: '/feed' exact
-  // button routes us to '/feed/:sellerid'
-
-  // Seller Page
-  // path: '/feed/:sellerId' exact
-
-  // useEffect to update the state exactly once here
 
   useEffect(() => {
     // axios to get state
     axios
       .get("/feed", {})
       .then((res) => {
-        console.log(res.data);
         setKitchens(res.data);
       })
       .catch((error) => {
@@ -123,18 +98,6 @@ export default function Body(props) {
       });
   }, []);
 
-  //Return back to DOM
-  // feed component would conditionally render either Cards or SellerPage
-
-  // if zip code not ready, display that and return early
-  console.log(ZipCode, zipCodeAssigned);
-
-  // if (success === true) {
-  //   return <Confirmation success={true} />;
-  // }
-  // else if (success === false) {
-  //   return <Confirmation success={false} />;
-  // }
 
   // If successfull, render component
   if (!ZipCode && !zipCodeAssigned) {
@@ -142,7 +105,6 @@ export default function Body(props) {
       // <Navigate to="/information" />
       <div className={classes.body}>
         <ZipCodeGrab buyerId={UserId} setZipCodeAssigned={setZipCodeAssigned} />
-        {/* <h1 className={classes.heavyFont}>{`Test feed`}</h1> */}
         <Outlet />
       </div>
     );
@@ -185,7 +147,8 @@ export default function Body(props) {
         kitchensFromFeed={kitchens}
         setfloatCart={setfloatCart}
         floatCart={floatCart}
-      />
+        userzip={ZipCode}
+        />
     );
   } else {
     console.log("Feed is inactive");
@@ -193,8 +156,6 @@ export default function Body(props) {
       //Display purposes only
       <div className={classes.body}>
         <MenuComponent
-          // dishes={fakeResponse}
-          // ---------------------------------- this is necessary to pass functions to menucomponent, believe it or not
           setfloatCart={setfloatCart}
           floatCart={floatCart}
           userZip={props.userZip}

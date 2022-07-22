@@ -59,7 +59,7 @@ const App = () => {
       return el.split("=")[0] === "userZip";
     })[0];
     UserZipCookie = UserZipCookie ? UserZipCookie.split("=")[1] : false;
-    if (UserZipCookie) setUserZip(Number(UserZipCookie));
+    if (UserZipCookie) setUserZip(UserZipCookie);
 
 
 

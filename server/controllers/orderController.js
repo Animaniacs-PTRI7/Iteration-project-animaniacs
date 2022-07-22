@@ -15,8 +15,8 @@ orderController.createOrder = async (req, res, next) => {
   console.log('date for create order', dateFormat);
   try {
     const sqlQuery1 = `INSERT INTO public.Orders 
-    (fk_buyer_id, fk_seller_id, order_date, fulfilled) 
-    VALUES ($1, $2, $3, $4) 
+    (fk_buyer_id, fk_seller_id, order_date, total, fulfilled) 
+    VALUES ($1, $2, $3, $4, $5) 
     RETURNING *;`;
 
     const sqlQuery2 = `INSERT INTO public.Order_dish 
@@ -25,8 +25,8 @@ orderController.createOrder = async (req, res, next) => {
       RETURNING *`;
 
 
-    const { buyer_id, seller_id, dishes } = req.body;
-    const data = await db.query(sqlQuery1, [buyer_id, seller_id, dateFormat, false]);
+    const { buyer_id, seller_id, dishes, price } = req.body;
+    const data = await db.query(sqlQuery1, [buyer_id, seller_id, dateFormat, Number(price), false]);
     const order_id = data.rows[0].pk_order_id;
 
     for (const key in dishes) {
@@ -36,7 +36,7 @@ orderController.createOrder = async (req, res, next) => {
     WHERE pk_seller_id = $1`
     const kitchenData = await db.query(sqlQuery3, [seller_id])
 
-    res.locals.data = { order_id, kitchen_name: kitchenData.rows[0].kitchen_name }
+    res.locals.data = { order_id, kitchen_name: kitchenData.rows[0].kitchen_name, price }
     return next();
   } catch (error) {
     return next(createError({ message: { err: error.message } }));
@@ -62,8 +62,10 @@ orderController.getBuyerOrders = async (req, res, next) => {
 
 
     // get all oreder from userId
-    const queryOrderId = `SELECT * FROM Orders
-    WHERE fk_buyer_id = $1`;
+    const queryOrderId = `SELECT o.*, s.kitchen_name, s.seller_street_name, s.seller_city, s.seller_zip_code, s.seller_state FROM Orders as o
+    JOIN Sellers as s
+    ON fk_seller_id = pk_seller_id
+    WHERE fk_buyer_id = $1;`;
     const dataOrderByUser = await db.query(queryOrderId, [userId])
 
 
@@ -113,8 +115,10 @@ orderController.getSellerOrders = async (req, res, next) => {
   try {
     const { userId } = req.params;
 
-    const queryOrderId = `SELECT * FROM Orders
-      WHERE fk_seller_id = $1`;
+    const queryOrderId = `SELECT o.*, s.kitchen_name, s.seller_street_name, s.seller_city, s.seller_zip_code, s.seller_state FROM Orders as o
+    JOIN Sellers as s
+    ON fk_seller_id = pk_seller_id
+    WHERE fk_seller_id = $1;`;
     const dataOrderByUser = await db.query(queryOrderId, [userId])
 
     const orderId = []
@@ -152,8 +156,23 @@ orderController.getSellerOrders = async (req, res, next) => {
   }
 }
 
-orderController.updateOrder = async () => {
+orderController.updateOrder = async (req, res, next) => {
+  const { order_id, fulfilled } = req.body;
+  const query = `UPDATE orders
+  SET fulfilled=$1
+  WHERE pk_order_id=$2
+  RETURNING *;`;
 
+  const update = fulfilled ? false : true
+
+  try {
+    const data = await db.query(query, [update, order_id]);
+    res.locals.order = data.rows[0];
+    return next()
+  }
+  catch (err) {
+    return next(createError({ message: { err: error.message } }));
+  }
 }
 
 module.exports = orderController;

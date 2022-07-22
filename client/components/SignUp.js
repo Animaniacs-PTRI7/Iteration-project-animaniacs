@@ -166,7 +166,7 @@ export default function SignUp(props) {
                   sx={{ m: 2, fontWeight: 700 }}
                   onClick={closeSignUpModal}
                 >
-                  Cancle
+                  Cancel
                 </Button>
                 <Button
                   type="submit"

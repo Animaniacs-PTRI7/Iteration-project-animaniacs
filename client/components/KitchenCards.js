@@ -48,13 +48,9 @@ const Card = (props) => {
     // stop rendering full feed when user click button
     props.setFeedActive(false);
     //navigate to /feed/sellerID
-    console.log(props.setfloatCart);
     navigate(`/feed/${props.kitchenID}`, {
       state: {
         setfloatCart: { a: { b: 1 } },
-        // floatCart: props.floatCart,
-        // addToCart: () => {},
-        // removeFromCart: () => {},
       },
     });
   };

@@ -13,16 +13,14 @@ const useStyles = makeStyles((theme) => ({
 export default function (props) {
   console.log('i got to Confirmation page');
   const classes = useStyles();
-  // let success = props.success;
+
 
   //grab data from Navigate
   const location = useLocation();
   // console.log(location);
 
-  const { kitchen_name, order_id } = location.state;
-  //fake data
-  // const kitchen_name = 'Joy Kitchen';
-  // const order_id = 128;
+  const { kitchen_name, order_id, price } = location.state;
+ 
 
   // if (success) {
     return (
@@ -30,6 +28,7 @@ export default function (props) {
         <Paper elevation={2} className={classes.paperbody} sx={{ fontSize: 20, fontWeight: 'medium', borderRadius: 2} }>
           <p> Your order to the <b>{kitchen_name}</b> has been accepted.</p>
           <p> Your order # is <b>{order_id}.</b></p>
+          <p> Your order total is <b>{price}.</b></p>
         </Paper>
       </div>
     );
