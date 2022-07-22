@@ -25,7 +25,6 @@ const tokenVerifier = (req, res, next) => {
 const tokenVerifier2 = (req, res, next) => {
 
   const token = req.cookies.token;
-  console.log('token-->',token)
   if (!token) {
     return res.sendStatus(403);
   }
