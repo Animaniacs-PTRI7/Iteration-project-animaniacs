@@ -102,7 +102,8 @@ menuController.getSellerMenu = async (req, res, next) => {
 
 menuController.updateMenu = async (req, res, next) => {
   const userId = req.cookies.userId;
-  console.log('userId==>', userId);
+  // console.log('userId==>', userId);
+  // console.log('req.body==>', req.body)
   //const para = [userId];
   const {
     kitchenName,
@@ -111,6 +112,9 @@ menuController.updateMenu = async (req, res, next) => {
     address,
     cuisine,
     market_enabled,
+    profileName,
+    profileBio,
+    profilePicture,
   } = req.body;
 
   try {
@@ -174,7 +178,7 @@ menuController.updateMenu = async (req, res, next) => {
           //  SET dish_name = 'New Dishy', description = 'It's new! Try it!', price = '$4.40', quantity_available = '2'
           //   WHERE pk_dish_id=44;`;
 
-          const data = await db.query(sqlQuery);
+          await db.query(sqlQuery);
         }
       }
     }
@@ -185,7 +189,7 @@ menuController.updateMenu = async (req, res, next) => {
         const sqlQuery = `UPDATE public.sellers
        SET pickup_window_start = $1
        WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
+        await db.query(sqlQuery, para);
       }
 
       if (windowTimes.pickup_window_end) {
@@ -193,7 +197,7 @@ menuController.updateMenu = async (req, res, next) => {
         const sqlQuery = `UPDATE public.sellers
     SET pickup_window_end = $1
      WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
+        await db.query(sqlQuery, para);
       }
     }
 
@@ -204,25 +208,33 @@ menuController.updateMenu = async (req, res, next) => {
         const sqlQuery = `UPDATE public.sellers
        SET seller_street_name = $1
        WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
+        await db.query(sqlQuery, para);
       }
 
       console.log(address);
+      if (address.seller_street_number) {
+        console.log('seller state!');
+        const para = [address.seller_street_number];
+        const sqlQuery = `UPDATE public.sellers
+    SET seller_street_number = $1
+     WHERE pk_seller_id=${userId};`;
+        await db.query(sqlQuery, para);
+      }
       if (address.seller_state) {
         console.log('seller state!');
         const para = [address.seller_state];
         const sqlQuery = `UPDATE public.sellers
     SET seller_state = $1
      WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
-      }
+        await db.query(sqlQuery, para);
+      } 
 
       if (address.seller_city) {
         const para = [address.seller_city];
         const sqlQuery = `UPDATE public.sellers
     SET seller_city = $1
      WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
+        await db.query(sqlQuery, para);
       }
 
       if (address.seller_zip_code) {
@@ -230,7 +242,7 @@ menuController.updateMenu = async (req, res, next) => {
         const sqlQuery = `UPDATE public.sellers
     SET seller_zip_code = $1
      WHERE pk_seller_id=${userId};`;
-        const data = await db.query(sqlQuery, para);
+        await db.query(sqlQuery, para);
       }
     }
 
@@ -239,15 +251,43 @@ menuController.updateMenu = async (req, res, next) => {
       const sqlQuery = `UPDATE public.sellers
       SET cuisine = $1
        WHERE pk_seller_id=${userId};`;
-      const data = await db.query(sqlQuery, para);
+      await db.query(sqlQuery, para);
     }
 
     if (market_enabled !== null && market_enabled !== undefined) {
       const para = [market_enabled];
       const sqlQuery = `UPDATE public.sellers
-      SET market_enabled  = $1
+       SET market_enabled  = $1
        WHERE pk_seller_id=${userId};`;
-      const data = await db.query(sqlQuery, para);
+      await db.query(sqlQuery, para);
+    }
+    if (address.seller_city) {
+      const para = [address.seller_city];
+      const sqlQuery = `UPDATE public.sellers
+  SET seller_city = $1
+   WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery, para);
+    }
+    if(profileName){
+      const para = [profileName]
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_name = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery,para)
+    }
+    if(profileBio){
+      const para = [profileBio]
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_bio = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery,para)
+    }
+    if(profilePicture){
+      const para = [profilePicture]
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_img = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery,para)
     }
 
     res.locals.message = 'Menu updated successfully!';
