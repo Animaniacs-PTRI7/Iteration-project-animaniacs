@@ -7,16 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-// import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
-/* 
-
-- pickup time window: from and till
-- address fields
-- "enable" for selling
-- cuisine
-
-*/
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -88,20 +79,7 @@ export default function Body(props) {
               label="Price"
             />
           </FormControl>
-          {/* <CurrencyTextField
-            required
-            currencySymbol='$'
-            minimumValue='0'
-            //   outputFormat='number'
-            decimalCharacter='.'
-            digitGroupSeparator=','
-            defaultValue={props.price.slice(1)}
-            className={classes.dishStatItem + ' dishPrice'}
-            label='Price'
-            onChange={(e) =>
-              props.updateDish(props.dishId, 'price', e.target.value)
-            }
-          /> */}
+          
           <TextField
             required
             type='number'

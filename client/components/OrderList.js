@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const OrderList = (props) => {
     const classes = useStyles();
     const [orderData, setOrderdata] = useState([]);  
-    console.log('orderList data ->', orderData);
+    // console.log('orderList data ->', orderData);
     //on load, fetch to backend with user_id and user_type to get all orders
     const {userType, userId} = props;
 
@@ -40,7 +40,7 @@ const OrderList = (props) => {
       const url = userType == 'seller' ? `/api/orderSales/${userId}` : `/api/orders/${userId}`;
       axios.get(url)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         setOrderdata(res.data);
       })
     }, []);

@@ -93,7 +93,7 @@ export default function SellerLogin(props) {
             />
             <span style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button variant="outlined" sx={{ m: 2, fontWeight: 700 }} onClick={closeLoginModal} >
-                  Cancle
+                  Cancel
                 </Button>
                 <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} >
                 Login

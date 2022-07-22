@@ -13,16 +13,14 @@ const useStyles = makeStyles((theme) => ({
 export default function (props) {
   console.log('i got to Confirmation page');
   const classes = useStyles();
-  // let success = props.success;
+
 
   //grab data from Navigate
   const location = useLocation();
   // console.log(location);
 
   const { kitchen_name, order_id, price } = location.state;
-  //fake data
-  // const kitchen_name = 'Joy Kitchen';
-  // const order_id = 128;
+ 
 
   // if (success) {
     return (

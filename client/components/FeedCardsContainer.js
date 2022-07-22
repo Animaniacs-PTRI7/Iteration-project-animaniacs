@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Cooking from '../assets/cooking.jpg';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import KitchenCard from './KitchenCards';
 import moment from 'moment';
 
 import { makeStyles } from '@mui/styles';
-import { Paper } from '@mui/material';
+import { Paper, TextField, Button } from '@mui/material';
 
 
 //Styling
@@ -45,33 +45,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FeedContainer(props) {
   const classes = useStyles();
-  const ZipCode = props.userZip;
+  const zipcode = props.userzip;
   const UserId = props.buyerId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
-  // const [kitchens, setKitchens] = useState({});
+  const [zipbuilder, setZipbuilder] =useState(null);
+  const [zipsearch, setZip] = useState(zipcode);
 
-  console.log(props);
-  //updating time format
 
   const dateFormat = (time) => {
     return moment(time, "hhmm").format("LT");
   };
 
-  // state is updated everytime fetch is getting new stuffs
-  // useEffect(() => {
-  //   setKitchens(props.kitchensFromFeed);
-  // }, [props.kitchensFromFeed]);
-  // console.log(props);
-  // define state
 
   // for x in props passed from feed, add component to kitchens array
   const kitchensArr = [];
   console.log(props.kitchensFromFeed);
-  // console.log(props.kitchensFromFeed);
+
   for (let kitchenID in props.kitchensFromFeed) {
     const curKitchen = props.kitchensFromFeed[kitchenID];
     console.log(props.setfloatCart);
-    if (curKitchen.market_enabled) {
+    if (curKitchen.market_enabled && curKitchen['seller_zip_code'] == zipsearch) {
       kitchensArr.push(
         <KitchenCard
           key={kitchenID}
@@ -82,18 +75,21 @@ export default function FeedContainer(props) {
           timeEnd={dateFormat(curKitchen.pickup_window_end)}
           bio={curKitchen.seller_bio}
           setFeedActive={props.setFeedActive}
-          // setfloatCart={props.setfloatCart}
-          // floatCart={props.floatCart}
         />
       );
     }
   }
 
-  console.log(kitchensArr);
-  //Declare variables and state
-  //Return back to DOM
+  const handleZip = (e) => {
+    setZip(zipbuilder);
+  }
+  const handleClear = (e) => {
+    setZip(zipcode);
+  }
+
   return (
     <div className={classes.body}>
+      
       <div
         style={{
           display: "flex",
@@ -110,7 +106,21 @@ export default function FeedContainer(props) {
         style={{ maxHeight: '40rem', overflow: 'auto' }}
       >
         {kitchensArr}
-      </Paper>
+      </Paper>    
+      <div id='zipsearch'>
+         <form>
+          <TextField
+                label="Search by Zipcode"
+                sx={{backgroundColor:'white', marginTop: '5px'}}
+                variant='filled'
+                required
+                onChange={(e) => setZipbuilder(e.target.value)}
+              />
+          <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} onClick={handleZip} >Search</Button>
+          <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} onClick={handleClear} >Clear</Button>
+        </form>
+      </div>
+      <Outlet />
       <Outlet />
     </div>
   );

@@ -37,8 +37,6 @@ export default function FloatingCart(props) {
       price
     })
     .then(res => {
-      console.log(res);
-      //send an confirmation message in popup. //On confirmation, reset card and floatcart and back to feedpage.
       props.setFeedActive(true);
       props.setfloatCart({ price: 0, dishes: {}});
       navigate('/confirmation', {state: res.data});
@@ -57,8 +55,6 @@ export default function FloatingCart(props) {
       })
       .then((res) => {
         window.location.assign(res.data.url);
-        //navigate(res.data.url);
-        // console.log(res);
       });
   };
 

@@ -115,8 +115,10 @@ orderController.getSellerOrders = async (req, res, next) => {
   try {
     const { userId } = req.params;
 
-    const queryOrderId = `SELECT * FROM Orders
-      WHERE fk_seller_id = $1`;
+    const queryOrderId = `SELECT o.*, s.kitchen_name, s.seller_street_name, s.seller_city, s.seller_zip_code, s.seller_state FROM Orders as o
+    JOIN Sellers as s
+    ON fk_seller_id = pk_seller_id
+    WHERE fk_seller_id = $1;`;
     const dataOrderByUser = await db.query(queryOrderId, [userId])
 
     const orderId = []
