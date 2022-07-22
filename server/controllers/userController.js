@@ -128,10 +128,8 @@ userController.sellerInformation = async (req, res, next) => {
     seller_name
     from public.sellers`;
     const data = await db.query(sqlQuery);
-    // console.log(data.rows);
     const mappedData = {};
     for (const el of data.rows) {
-      //console.log(el, 'booooooooooooooooooooo');
       const {
         pk_seller_id,
         kitchen_name,
