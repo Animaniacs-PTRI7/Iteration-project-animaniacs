@@ -114,8 +114,19 @@ userController.login = async (req, res, next) => {
 // Used to send back seller information to the front end
 userController.sellerInformation = async (req, res, next) => {
   try {
-    const sqlQuery = `select pk_seller_id, kitchen_name, seller_street_name, seller_street_number, seller_city, seller_zip_code, seller_bio, cuisine, pickup_window_start, pickup_window_end, market_enabled
-   from public.sellers`;
+    const sqlQuery = `
+    select pk_seller_id, 
+    kitchen_name, 
+    seller_street_name, 
+    seller_street_number, 
+    seller_city, seller_zip_code, 
+    seller_bio, 
+    cuisine, pickup_window_start, 
+    pickup_window_end, 
+    market_enabled, 
+    seller_img,
+    seller_name
+    from public.sellers`;
     const data = await db.query(sqlQuery);
     // console.log(data.rows);
     const mappedData = {};
@@ -133,6 +144,8 @@ userController.sellerInformation = async (req, res, next) => {
         pickup_window_start,
         pickup_window_end,
         market_enabled,
+        seller_img,
+        seller_name,
       } = el;
       mappedData[pk_seller_id] = {
         pk_seller_id,
@@ -146,9 +159,10 @@ userController.sellerInformation = async (req, res, next) => {
         pickup_window_start,
         pickup_window_end,
         market_enabled,
+        seller_img,
+        seller_name,
       };
     }
-
     res.locals.data = mappedData;
     return next();
   } catch (error) {
