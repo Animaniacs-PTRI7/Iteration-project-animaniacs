@@ -17,12 +17,6 @@ module.exports = {
     ],
     optimization: {
       concatenateModules: true,
-      minimizer: [
-        new ESBuildMinifyPlugin({
-          target: "es2015", // Syntax to compile to (see options below for possible values)
-        }),
-      
-      ],
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -30,7 +24,7 @@ module.exports = {
         filename: "bundle.js",
     },
     devtool: "eval",
-    mode: "production",
+    mode: "development",
     devServer: {
         host: "localhost",
         port: 8080,

@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { Box, Button } from "@mui/material";
 import profilePic from "../assets/profilePic1.jpg";
+import BasicModal from "./Profile"
+
+//useState for picture
 
 const useStyles = makeStyles((theme) => ({
     typography: {
@@ -56,6 +59,7 @@ const Card = (props) => {
     const classes = useStyles();
     // set box shadow state
     const [shadow, setShadow] = useState(2);
+    const
     const navigate = useNavigate();
     console.log("kitchen card props,", props);
 
@@ -78,6 +82,9 @@ const Card = (props) => {
 
     return (
         <div>
+          <div>
+          <BasicModal/>
+          </div>
             <Box
                 className={classes.boxes}
                 m={1.5}
