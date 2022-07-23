@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 //my approach:
 /*
@@ -23,17 +23,17 @@ const tokenVerifier = (req, res, next) => {
 */
 
 const tokenVerifier2 = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.sendStatus(403);
-  }
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
-    if (err) {
-      return res.status(403).send('Invalid Token');
-    } else {
-      return next();
+    const token = req.cookies.token;
+    if (!token) {
+        return res.sendStatus(403);
     }
-  });
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
+        if (err) {
+            return res.status(403).send("Invalid Token");
+        } else {
+            return next();
+        }
+    });
 };
 
 module.exports = tokenVerifier2;

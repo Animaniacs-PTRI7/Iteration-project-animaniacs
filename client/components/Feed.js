@@ -82,7 +82,7 @@ export default function Body(props) {
   
 
 
-  useEffect(() => {
+    useEffect(() => {
     // axios to get state
     axios
       .get("/feed", {})
@@ -124,7 +124,6 @@ export default function Body(props) {
       );
       return <Navigate to="/feed" replace={true} />;
     }
-  }
 
   // if kitchens is empty, fetch isn't finished yet, so we don't want to make any decisions yet
   if (Object.keys(kitchens).length === 0) {
@@ -172,4 +171,5 @@ export default function Body(props) {
       </div>
     );
   }
+}
 }

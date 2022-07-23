@@ -2,12 +2,12 @@ const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const db = require("../../database/pg_model.js");
 
 const stripeController = async (req, res, next) => {
-  // Destructure what was sent in the request body
-  const { dishes } = req.body;
-  // dishes will be an object
+    // Destructure what was sent in the request body
+    const { dishes } = req.body;
+    // dishes will be an object
 
-  const lineItemsArr = [];
-  for (const dishId in dishes) {
+    const lineItemsArr = [];
+    for (const dishId in dishes) {
     // get price for each dish
     const params = [dishId];
     sqlDishQuery = "select * from public.dishes where pk_dish_id = $1";

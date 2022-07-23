@@ -337,7 +337,6 @@ with each subobject looking like one of the below:
 ```{ 14: {} }``` <-- delete
 ```{ 12: { name, description, price, quantity }``` <-- update
 ```{ -1: { name, description, price, quantity }``` <-- insert
-
 ---*/
 
 // DON'T KNOW HOW TO HANDLE WHEN pk_dish_id IS A NEGATIVE NUMBER

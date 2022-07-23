@@ -19,6 +19,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const background = document.getElementById("app");
 console.log(background, "This is the background");
@@ -58,8 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Nav(props) {
-  const classes = useStyles();
-
+    const classes = useStyles();
   // if logout has been passed, it means we're signed in
   if (props.logOut) {
     logOutIconElement = (
@@ -76,6 +76,11 @@ export default function Nav(props) {
     if (props.userType === "seller")
       myAccountIconElement = (
         <div id="iconGroup1">
+          <Tooltip title={<h2 style={{ color: "white" }}>My Profile</h2>} TransitionComponent={Zoom}>
+                        <IconButton component={Link} to='/MyProfile'>
+                            <AccountCircleIcon sx={{ fontSize: 33 }} className={classes.icon}/>
+                        </IconButton>
+                    </Tooltip>
           <Tooltip
             title={<h2 style={{ color: "white" }}>My Orders</h2>}
             TransitionComponent={Zoom}

@@ -7,26 +7,26 @@ require("dotenv").config();
 const getAllController = {};
 
 getAllController.getAllBuyers = async (req, res, next) => {
-  const queryString = "SELECT buyer_email from public.buyers";
-  await db
-    .query(queryString)
+    const queryString = "SELECT buyer_email from public.buyers";
+    await db
+        .query(queryString)
     // .then((res) => res.rows)
-    .then((data) => {
-      res.locals.buyerUsers = data.rows;
-    })
-    .catch((err) => next(err));
-  return next();
+        .then((data) => {
+            res.locals.buyerUsers = data.rows;
+        })
+        .catch((err) => next(err));
+    return next();
 };
 
 getAllController.getAllSellers = async (req, res, next) => {
-  const queryString =
+    const queryString =
     "SELECT seller_email, seller_nickname from public.sellers";
-  await db
-    .query(queryString)
-    .then((data) => data.rows)
-    .then((data) => (res.locals.sellerUsers = data))
-    .catch((err) => next(err));
-  return next();
+    await db
+        .query(queryString)
+        .then((data) => data.rows)
+        .then((data) => (res.locals.sellerUsers = data))
+        .catch((err) => next(err));
+    return next();
 };
 
 module.exports = getAllController;

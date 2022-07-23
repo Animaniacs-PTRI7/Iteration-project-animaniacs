@@ -9,37 +9,37 @@ import { Paper, TextField, Button, Alert, AlertTitle } from "@mui/material";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
-  body: {
-    height: "100vh",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "none",
-    backgroundColor: "transparent",
-    padding: "0px 20px",
-  },
-  heavyFont: {
-    color: "white",
-    fontWeight: "900",
-    fontSize: "40px",
-    fontFamily: "Nunito",
-  },
-  feedItem: {
-    marginTop: "15px",
-    width: "100%",
-    padding: "5px",
-    maxWidth: "800px",
-    backgroundColor: "#FA8072",
-  },
-  buttons: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
+    body: {
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "none",
+        backgroundColor: "transparent",
+        padding: "0px 20px",
+    },
+    heavyFont: {
+        color: "white",
+        fontWeight: "900",
+        fontSize: "40px",
+        fontFamily: "Nunito",
+    },
+    feedItem: {
+        marginTop: "15px",
+        width: "100%",
+        padding: "5px",
+        maxWidth: "800px",
+        backgroundColor: "#FA8072",
+    },
+    buttons: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
+    },
 }));
 
 export default function FeedContainer(props) {

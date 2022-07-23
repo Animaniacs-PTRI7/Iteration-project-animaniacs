@@ -1,7 +1,7 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
-import { Paper } from '@mui/material';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
+import { Paper } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   paperbody: {
@@ -22,7 +22,7 @@ export default function (props) {
   const { kitchen_name, order_id, price } = location.state;
  
 
-  // if (success) {
+    // if (success) {
     return (
       <div>
         <Paper elevation={2} className={classes.paperbody} sx={{ fontSize: 20, fontWeight: 'medium', borderRadius: 2} }>

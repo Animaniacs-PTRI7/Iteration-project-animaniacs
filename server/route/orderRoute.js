@@ -1,7 +1,7 @@
-const { Router, json } = require('express');
+const { Router, json } = require("express");
 const router = Router();
-const order = require('../controllers/orderController')
-const tokenVerifier = require('../controllers/verifyTokenController');
+const order = require("../controllers/orderController");
+const tokenVerifier = require("../controllers/verifyTokenController");
 
 router.post('/create-order',tokenVerifier, order.createOrder, (req, res)=>{
   return res.status(200).json(res.locals.data);

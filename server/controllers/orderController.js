@@ -1,5 +1,5 @@
-const db = require('../../database/pg_model.js');
-const createError = require('../utils/constants')
+const db = require("../../database/pg_model.js");
+const createError = require("../utils/constants");
 
 const orderController = {};
 
@@ -19,7 +19,7 @@ orderController.createOrder = async (req, res, next) => {
     VALUES ($1, $2, $3, $4, $5) 
     RETURNING *;`;
 
-    const sqlQuery2 = `INSERT INTO public.Order_dish 
+        const sqlQuery2 = `INSERT INTO public.Order_dish 
       (fk_order_id, fk_dish_id, quantity)
       VALUES ($1, $2, $3) 
       RETURNING *`;
@@ -53,12 +53,12 @@ orderController.getBuyerOrders = async (req, res, next) => {
     // TO GET orderId, orderDate , orderDails, name, 
 
 
-    // use userId to find order (orderTable) 
-    // set orderId, to find the dish_id from the order (orderDish Table)
-    // dish_id to get details name (dish)
+        // use userId to find order (orderTable) 
+        // set orderId, to find the dish_id from the order (orderDish Table)
+        // dish_id to get details name (dish)
 
-    // join orderDish with Dish Table to get name
-    //"1" : {"name": "Dumplings -10 pcs", "price": "$8.00", "quantity": 1},
+        // join orderDish with Dish Table to get name
+        //"1" : {"name": "Dumplings -10 pcs", "price": "$8.00", "quantity": 1},
 
 
     // get all oreder from userId

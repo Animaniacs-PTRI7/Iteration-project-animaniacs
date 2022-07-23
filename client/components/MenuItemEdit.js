@@ -11,38 +11,38 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 //Styling
 const useStyles = makeStyles((theme) => ({
-  dishesContainer: {
+    dishesContainer: {
     // flex: '0 0 100%',
     // overflowY: 'scroll',
-  },
-  dishRow: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '20px',
-    marginBottom: '20px',
-    marginLeft: '20px',
-    marginRight: '20px',
-    padding: '20px',
-  },
-  dishPre: {
-    display: 'flex',
-  },
-  dishStats: {
-    display: 'flex',
-    flexGrow: 0,
-    flexShrink: 1,
-  },
-  dishStatItem: {
-    width: '60px',
-    margin: '10px',
-  },
-  dishName: {
-    flexGrow: 1,
-  },
+    },
+    dishRow: {
+        display: "flex",
+        flexDirection: "column",
+        marginTop: "20px",
+        marginBottom: "20px",
+        marginLeft: "20px",
+        marginRight: "20px",
+        padding: "20px",
+    },
+    dishPre: {
+        display: "flex",
+    },
+    dishStats: {
+        display: "flex",
+        flexGrow: 0,
+        flexShrink: 1,
+    },
+    dishStatItem: {
+        width: "60px",
+        margin: "10px",
+    },
+    dishName: {
+        flexGrow: 1,
+    },
 }));
 
 export default function Body(props) {
-  const classes = useStyles();
+    const classes = useStyles();
 
   return (
     <Paper

@@ -64,7 +64,7 @@ export default function Body(props) {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
+    useEffect(() => {
     // choose welcome text
     const greetings = [
       "cooking is",
@@ -76,8 +76,8 @@ export default function Body(props) {
       "[ insert yummy food here ] is",
     ];
 
-    setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
-  }, []);
+        setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
+    }, []);
 
   const openSignUpModal = () => setModalSignUp(true);
   const closeSignUpModal = () => setModalSignUp(false);
