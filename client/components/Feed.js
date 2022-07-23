@@ -70,7 +70,7 @@ export default function Body(props) {
   const UserId = props.userId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
   const [floatCart, setfloatCart] = useState({ price: 0, dishes: {} });
-  console.log('feed zipcode', ZipCode);
+  // console.log('feed zipcode', ZipCode);
   useEffect(() => {
     console.log("-------------------", floatCart);
   }, [floatCart]);

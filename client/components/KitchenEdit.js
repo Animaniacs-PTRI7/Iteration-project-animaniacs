@@ -137,7 +137,7 @@ export default function Body(props) {
     const navigate = useNavigate();
 
   const refresh = () => {
-    
+
     axios
       .post(`/db/getmenu/`)
       .then((res) => {
@@ -301,222 +301,205 @@ export default function Body(props) {
     // and because it uses useeffect to update its initial list, if it has no data the
     // first time it renders, it will not add anything
     const cuisineRender = [];
-    if (!selectedCuisines === false) {
-        cuisineRender.push(
-            <CuisineSelect
-                key='cuisineselect'
-                selectedCuisines={selectedCuisines}
-                setSelectedCuisines={setSelectedCuisines}
-                setCuisinesUpdated={setCuisinesUpdated}
-            />
-        );
-
-
-    }
-
-    let kitchenNameElement;
-    if (updatingKitchenName) {
-        kitchenNameElement = (
-            <div className={classes.kitchenNameContainer}>
-                <TextField
-                    className={classes.activeKitchenName}
-                    label='Kitchen Name'
-                    defaultValue={kitchenName.current}
-                    variant='filled'
-                    onChange={(e) =>
-                        setKitchenName({ ...kitchenName, current: e.target.value })
-                    }
-                ></TextField>
-                <Link
-                    to='#'
-                    onClick={() => {
-                        if (
-                            kitchenName.old !== kitchenName.current &&
-              kitchenName.current !== ""
-                        ) {
-                            setKitchenName({ ...kitchenName, old: kitchenName.current });
-                        } else {
-                            setKitchenName({ ...kitchenName, current: kitchenName.old });
-                        }
-                        setUpdatingKitchenName(false);
-                    }}
-                >
-          Accept Change
-                </Link>
-                <Link
-                    to='#'
-                    onClick={() => {
-                        setKitchenName({ ...kitchenName, current: kitchenName.old });
-                        setUpdatingKitchenName(false);
-                    }}
-                >
-          Cancel
-                </Link>
-            </div>
-        );
-    } else {
-        kitchenNameElement = (
-            <div className={classes.kitchenNameContainer}>
-                <h1>{kitchenName.current}</h1>
-                <Link
-                    to='#'
-                    onClick={() => {
-                        setUpdatingKitchenName(true);
-                    }}
-                >
-          Edit Kitchen Name
-                </Link>
-                <input
-                    accept="image/*"
-                    className={classes.profileInput}
-                    style={{ display: "none" }}
-                    id="raised-button-file"
-                    multiple
-                    type="file"
-                    onChange={e => setSelectedImage(e.target.files[0])}
-                />
-            </div>
-        );
-    }
-
-    // wait for state to set before setting default values
-    const kitchenUpper = !isLoaded ? (
-        <div></div>
-    ) : (
-        <div className={classes.kitchenUpper}>
-            {kitchenNameElement}
-            <div className={classes.kitchenStats}>
-                <h3 style={{ textAlign: "center" }}>
-          Cuisines In This Menu
-                    {cuisineRender}
-                </h3>
-                <div className={classes.timeOps}>
-                    <h3 style={{ textAlign: "center" }}>Pickup Window</h3>
-                    <TextField
-                        className={classes.timeOpItem}
-                        label={"Start Pickup"}
-                        type={"time"}
-                        InputLabelProps={{ shrink: true }}
-                        defaultValue={pickupWindow.pickup_window_start}
-                        sx={{ m: 2 }}
-                        onChange={(e) => {
-                            setPickupWindow({
-                                ...pickupWindow,
-                                pickup_window_start: e.target.value,
-                            });
-                            setStateUpdates({ ...stateUpdates, pickupWindow: true });
-                        }}
-                    />
-                    <TextField
-                        className={classes.timeOpItem}
-                        label={"End Pickup"}
-                        type={"time"}
-                        InputLabelProps={{ shrink: true }}
-                        defaultValue={pickupWindow.pickup_window_end}
-                        sx={{ m: 2 }}
-                        onChange={(e) => {
-                            setPickupWindow({
-                                ...pickupWindow,
-                                pickup_window_end: e.target.value,
-                            });
-                            setStateUpdates({ ...stateUpdates, pickupWindow: true });
-                        }}
-                    />
-                </div>
-                <div className={classes.addressFull}>
-                    <h3 style={{ marginBottom: 0 }}>Pickup Address</h3>
-                    <span>
-                        <TextField
-                            label={"Address"}
-                            className={classes.topAddress}
-                            defaultValue={address.seller_street_name}
-                            sx={{ m: 1 }}
-                            onChange={(e) => {
-                                setAddress({ ...address, seller_street_name: e.target.value });
-                                setStateUpdates({ ...stateUpdates, address: true });
-                            }}
-                        />
-                    </span>
-                    <span>
-                        <TextField
-                            label={"City"}
-                            className={classes.topAddress}
-                            defaultValue={address.seller_city}
-                            sx={{ m: 1 }}
-                            onChange={(e) => {
-                                setAddress({ ...address, seller_city: e.target.value });
-                                setStateUpdates({ ...stateUpdates, address: true });
-                            }}
-                        />
-                    </span>
-                    <span>
-                        <TextField
-                            label={"State"}
-                            className={classes.leftAddress}
-                            defaultValue={address.seller_state}
-                            sx={{ m: 1 }}
-                            onChange={(e) => {
-                                setAddress({ ...address, seller_state: e.target.value });
-                                setStateUpdates({ ...stateUpdates, address: true });
-                            }}
-                        />
-                        <TextField
-                            label={"Zip"}
-                            className={classes.rightAddress}
-                            defaultValue={address.seller_zip_code}
-                            sx={{ m: 1 }}
-                            onChange={(e) => {
-                                setAddress({ ...address, seller_zip_code: e.target.value });
-                                setStateUpdates({ ...stateUpdates, address: true });
-                            }}
-                        />
-                    </span>
-                </div>
-            </div>
-        </div>
+  if (!selectedCuisines === false) {
+    cuisineRender.push(
+      <CuisineSelect
+        key='cuisineselect'
+        selectedCuisines={selectedCuisines}
+        setSelectedCuisines={setSelectedCuisines}
+        setCuisinesUpdated={setCuisinesUpdated}
+      />
     );
+  }
 
-    //Return back to DOM
-    return (
-        <div className={classes.body}>
-            <Paper>
-                <form className={classes.form} onSubmit={submitChanges}>
-                    <div className={classes.menuContainer}>
-                        {kitchenUpper}
-                        <div className={classes.dishesContainer}>
-                            <h3 style={{ textAlign: "center" }}>Menu Customization</h3>
-                            {dishesRender}
-                        </div>
-                    </div>
-                    <div className={classes.submitContainer}>
-                        <FormControlLabel
-                            control={<Switch />}
-                            checked={marketEnabled}
-                            label='Toggle Market Visibility'
-                            onClick={(e) => {
-                                if (
-                                    kitchenName.current &&
+  let kitchenNameElement;
+  if (updatingKitchenName) {
+    kitchenNameElement = (
+      <div className={classes.kitchenNameContainer}>
+        <TextField
+          className={classes.activeKitchenName}
+          label='Kitchen Name'
+          defaultValue={kitchenName.current}
+          variant='filled'
+          onChange={(e) =>
+            setKitchenName({ ...kitchenName, current: e.target.value })
+          }
+        ></TextField>
+        <Link
+          to='#'
+          onClick={() => {
+            if (
+              kitchenName.old !== kitchenName.current &&
+              kitchenName.current !== ''
+            ) {
+              setKitchenName({ ...kitchenName, old: kitchenName.current });
+            } else {
+              setKitchenName({ ...kitchenName, current: kitchenName.old });
+            }
+            setUpdatingKitchenName(false);
+          }}
+        >
+          Accept Change
+        </Link>
+        <Link
+          to='#'
+          onClick={() => {
+            setKitchenName({ ...kitchenName, current: kitchenName.old });
+            setUpdatingKitchenName(false);
+          }}
+        >
+          Cancel
+        </Link>
+      </div>
+    );
+  } else {
+    kitchenNameElement = (
+      <div className={classes.kitchenNameContainer}>
+        <h1>{kitchenName.current}</h1>
+        <Link
+          to='#'
+          onClick={() => {
+            setUpdatingKitchenName(true);
+          }}
+        >
+          Edit Kitchen Name
+        </Link>
+      </div>
+    );
+  }
+
+  // wait for state to set before setting default values
+  const kitchenUpper = !isLoaded ? (
+    <div></div>
+  ) : (
+    <div className={classes.kitchenUpper}>
+      {kitchenNameElement}
+      <div className={classes.kitchenStats}>
+        <h3 style={{ textAlign: 'center' }}>
+          Cuisines In This Menu
+          {cuisineRender}
+        </h3>
+        <div className={classes.timeOps}>
+          <h3 style={{ textAlign: 'center' }}>Pickup Window</h3>
+          <TextField
+            className={classes.timeOpItem}
+            label={'Start Pickup'}
+            type={'time'}
+            InputLabelProps={{ shrink: true }}
+            defaultValue={pickupWindow.pickup_window_start}
+            onChange={(e) => {
+              setPickupWindow({
+                ...pickupWindow,
+                pickup_window_start: e.target.value,
+              });
+              setStateUpdates({ ...stateUpdates, pickupWindow: true });
+            }}
+          />
+          <TextField
+            className={classes.timeOpItem}
+            label={'End Pickup'}
+            type={'time'}
+            InputLabelProps={{ shrink: true }}
+            defaultValue={pickupWindow.pickup_window_end}
+            onChange={(e) => {
+              setPickupWindow({
+                ...pickupWindow,
+                pickup_window_end: e.target.value,
+              });
+              setStateUpdates({ ...stateUpdates, pickupWindow: true });
+            }}
+          />
+        </div>
+        <div className={classes.addressFull}>
+          <h3 style={{ marginBottom: 0 }}>Pickup Address</h3>
+          <span>
+            <TextField
+              label={'Address'}
+              className={classes.topAddress}
+              defaultValue={address.seller_street_name}
+              onChange={(e) => {
+                setAddress({ ...address, seller_street_name: e.target.value });
+                setStateUpdates({ ...stateUpdates, address: true });
+              }}
+            />
+          </span>
+          <span>
+            <TextField
+              label={'City'}
+              className={classes.topAddress}
+              defaultValue={address.seller_city}
+              onChange={(e) => {
+                setAddress({ ...address, seller_city: e.target.value });
+                setStateUpdates({ ...stateUpdates, address: true });
+              }}
+            />
+          </span>
+          <span>
+            <TextField
+              label={'State'}
+              className={classes.leftAddress}
+              defaultValue={address.seller_state}
+              onChange={(e) => {
+                setAddress({ ...address, seller_state: e.target.value });
+                setStateUpdates({ ...stateUpdates, address: true });
+              }}
+            />
+            <TextField
+              label={'Zip'}
+              className={classes.rightAddress}
+              defaultValue={address.seller_zip_code}
+              onChange={(e) => {
+                setAddress({ ...address, seller_zip_code: e.target.value });
+                setStateUpdates({ ...stateUpdates, address: true });
+              }}
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
+  //Return back to DOM
+  return (
+    <div className={classes.body}>
+      <Paper>
+        <form className={classes.form} onSubmit={submitChanges}>
+          <div className={classes.menuContainer}>
+            {kitchenUpper}
+            <div className={classes.dishesContainer}>
+              <h3 style={{ textAlign: 'center' }}>Menu Customization</h3>
+              {dishesRender}
+            </div>
+          </div>
+          <div className={classes.submitContainer}>
+            <FormControlLabel
+              control={<Switch />}
+              checked={marketEnabled}
+              label='Toggle Market Visibility'
+              onClick={(e) => {
+                if (
+                  kitchenName.current &&
                   address.seller_street_name &&
                   address.seller_zip_code &&
                   pickupWindow.pickup_window_start &&
                   pickupWindow.pickup_window_end &&
                   Object.keys(dishesArr).length
-                                ) {
-                                    setStateUpdates({ ...stateUpdates, marketEnabled: true });
-                                    setMarketEnabled(e.target.checked);
-                                }
-                            }}
-                        />
-                        <IconButton onClick={addNewDish}>
-                            {"New Dish"}
-                        </IconButton>
-                        <Button type='submit' variant='contained' color='primary'>
+                ) {
+                  setStateUpdates({ ...stateUpdates, marketEnabled: true });
+                  setMarketEnabled(e.target.checked);
+                }
+              }}
+            />
+            <IconButton onClick={addNewDish}>
+              <AddCircle /> {'New Dish'}
+            </IconButton>
+            <Button type='submit' variant='contained' color='primary'>
               Submit All Kitchen Changes
-                        </Button>
-                    </div>
-                </form>
-            </Paper>
-            <Outlet />
-        </div>
-    );
+            </Button>
+          </div>
+        </form>
+      </Paper>
+      <Outlet />
+    </div>
+  );
 }

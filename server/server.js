@@ -98,11 +98,11 @@ app.post(
 );
 
 app.post(
-  '/db/getmenu',
+  "/db/getmenu",
   tokenVerifier2,
   menuController.getSellerMenu,
   (req, res) => {
-
+    console.log("res.locals.sellerMenu==>", res.locals.sellerMenu);
     //adding tokenVerifier2 as the 2nd middleware?
     res.status(200).json(res.locals.sellerMenu);
   }

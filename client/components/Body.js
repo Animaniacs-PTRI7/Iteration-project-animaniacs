@@ -159,7 +159,8 @@ export default function Body(props) {
         ) : null}
       </div>
     );
-if (success) return (
+  if (success)
+    return (
       <div className={classes.body}>
         <Outlet />
         <div>

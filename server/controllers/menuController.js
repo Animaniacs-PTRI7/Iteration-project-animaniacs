@@ -1,8 +1,8 @@
-const db = require('../../database/pg_model.js');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const db = require("../../database/pg_model.js");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const menuController = {};
 
@@ -11,11 +11,11 @@ menuController.createDish = async (req, res, next) => {
 
   try {
     const props = [
-      'sellerId',
-      'dish_name',
-      'description',
-      'price',
-      'quantity_available',
+      "sellerId",
+      "dish_name",
+      "description",
+      "price",
+      "quantity_available",
     ];
     const values = [];
     // storing the values of the above keys which are received in the body of the request in the values array
@@ -81,7 +81,7 @@ menuController.getSellerMenu = async (req, res, next) => {
     kitchenMenu.dishes = {};
 
     data.rows.forEach((dishObj) => {
-      const dishId = dishObj['pk_dish_id'];
+      const dishId = dishObj["pk_dish_id"];
       const dish = {};
       dish.name = dishObj.dish_name;
       dish.description = dishObj.description;
@@ -97,6 +97,7 @@ menuController.getSellerMenu = async (req, res, next) => {
 };
 
 menuController.updateMenu = async (req, res, next) => {
+  console.log("hi Glen!", req.body);
   const userId = req.cookies.userId;
 
   const {
@@ -128,7 +129,7 @@ menuController.updateMenu = async (req, res, next) => {
           await db.query(sqlQuery);
         } else if (dishId < 0) {
           const para = [];
-          const props = ['name', 'description', 'price', 'quantity'];
+          const props = ["name", "description", "price", "quantity"];
           // storing the values of the above keys which are received in the body of the request in the values array
           for (let i = 0; i < props.length; i++) {
             //console.log('req.body.menuChanges[dishId][props[i]]==>', req.body.menuChanges[dishId][props[i]]);
@@ -144,21 +145,20 @@ menuController.updateMenu = async (req, res, next) => {
         else {
           const cache = Object.entries(req.body.menuChanges[dishId]);
           cache.forEach(([key, value], i) => {
-            if (key === 'name') {
-              cache[i][0] = 'dish_name';
+            if (key === "name") {
+              cache[i][0] = "dish_name";
             }
-            if (key === 'quantity') {
-              cache[i][0] = 'quantity_available';
+            if (key === "quantity") {
+              cache[i][0] = "quantity_available";
             }
-            if (typeof cache[i][1] === 'string')
-              cache[i][1] = cache[i][1].replaceAll('\'', '\'\'');
+            if (typeof cache[i][1] === "string")
+              cache[i][1] = cache[i][1].replaceAll("'", "''");
           });
-          
 
           const text = cache.reduce((str, [key, value]) => {
-            str += key + ' = ' + '\'' + value + '\', ';
+            str += key + " = " + "'" + value + "', ";
             return str;
-          }, '');
+          }, "");
 
           const sqlQuery = `UPDATE public.dishes
           SET ${text.slice(0, -2)}
@@ -186,7 +186,7 @@ menuController.updateMenu = async (req, res, next) => {
         await db.query(sqlQuery, para);
       }
     }
-
+    console.log("hi meow ", address);
     if (address) {
       // if address, guarantee entire address sent
       if (address.seller_street_name) {
@@ -197,7 +197,7 @@ menuController.updateMenu = async (req, res, next) => {
         await db.query(sqlQuery, para);
       }
 
-      console.log('address===>', address);
+      console.log("address===>", address);
       if (address.seller_street_number) {
         //console.log('seller state!');
         const para = [address.seller_street_number];
@@ -247,13 +247,6 @@ menuController.updateMenu = async (req, res, next) => {
        WHERE pk_seller_id=${userId};`;
       await db.query(sqlQuery, para);
     }
-    if (address.seller_city) {
-      const para = [address.seller_city];
-      const sqlQuery = `UPDATE public.sellers
-      SET seller_city = $1
-      WHERE pk_seller_id=${userId}`;
-      await db.query(sqlQuery, para);
-    }
     if (profileName) {
       const para = [profileName];
       const sqlQuery = `UPDATE public.sellers
@@ -276,10 +269,10 @@ menuController.updateMenu = async (req, res, next) => {
       await db.query(sqlQuery, para);
     }
 
-    res.locals.message = 'Menu updated successfully!';
+    res.locals.message = "Menu updated successfully!";
     return next();
   } catch (e) {
-    console.log('erro==>',e);
+    console.log("erro==>", e);
     return next({ message: e.message });
   }
 };
@@ -287,15 +280,9 @@ menuController.updateMenu = async (req, res, next) => {
 menuController.updateProfile = async (req, res, next) => {
   const userId = req.cookies.userId;
 
-  const {
-    profileName,
-    profileBio,
-    profilePicture,
-  } = req.body;
+  const { profileName, profileBio, profilePicture } = req.body;
 
   try {
-  
- 
     if (profileName) {
       const para = [profileName];
       const sqlQuery = `UPDATE public.sellers
@@ -318,10 +305,10 @@ menuController.updateProfile = async (req, res, next) => {
       await db.query(sqlQuery, para);
     }
 
-    res.locals.message = 'Profile updated successfully!';
+    res.locals.message = "Profile updated successfully!";
     return next();
   } catch (e) {
-    console.log('erro==>',e);
+    console.log("erro==>", e);
     return next({ message: e.message });
   }
 };
