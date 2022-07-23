@@ -189,14 +189,11 @@ export default function Body(props) {
     };
 
     useEffect(() => {
-        if (selectedImage) {
-            setImageUrl(URL.createObjectURL(selectedImage));
-            console.log(URL.createObjectURL(selectedImage), "PICTURE URL");
-        }
+        
         // run this first time the component mounts
         // later, we can use refresh to fetch again without remounting
         refresh();
-    }, [selectedImage]);
+    }, []);
 
     const updateDishProp = (id, prop, newVal) => {
     // clone dishes
@@ -378,17 +375,6 @@ export default function Body(props) {
                     type="file"
                     onChange={e => setSelectedImage(e.target.files[0])}
                 />
-                <label htmlFor="raised-button-file">
-                    <Button variant="raised" component="span" className={classes.profileButton}>
-            Upload a Profile Picture
-                    </Button>
-                </label>
-                {imageUrl && selectedImage && (
-                    <Box mt={2} textAlign="center">
-                        <div>Image Preview:</div>
-                        <img src={imageUrl} alt={selectedImage.name} height="100px" />
-                    </Box>
-                )}
             </div>
         );
     }

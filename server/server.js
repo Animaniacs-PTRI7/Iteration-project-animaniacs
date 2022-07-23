@@ -118,7 +118,8 @@ app.post("/db/updatemenu", menuController.updateMenu, (req, res) => {
     res.status(200).json(res.locals.message);
 });
 
-app.post('/db/updateProflie', menuController.updateProfile, (req, res)=>{
+app.post('/db/updateProfile', menuController.updateProfile, (req, res)=>{
+    console.log("Profile info sent successfully:", res.locals.message)
   res.status(200).json(res.locals.message);
 })
 // 404
