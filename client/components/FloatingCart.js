@@ -1,11 +1,11 @@
 const axios = require('axios');
 import React, { useState, useEffect } from 'react';
-import MenuItem from './MenuItem';
-import { PropaneSharp } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import { loadStripe } from "@stripe/stripe-js";
 import { makeStyles } from '@mui/styles';
 import { Stack, Button, Paper } from '@mui/material';
+
+const stripePromise = loadStripe("pk_test_51LN5nMJJE4t2soutfWOdeAtwrGeHCpf4fBkYr2tOEUuk8iNOkca0eRa6XqEF9jhFE1rniLd0rLdJXx5S4doq193S00qwUg3PZi");
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -49,15 +49,18 @@ export default function FloatingCart(props) {
   }
 
   const checkout = () => {
+    console.log(props.floatCart.dishes, "Here are the dishes");
     axios
-      .post('/checkout', {
-        dishes: props.floatCart.dishes,
-      })
-      .then((res) => {
-        window.location.assign(res.data.url);
-      });
-  };
-
+        .post("/checkout", {
+            dishes: props.floatCart.dishes,
+        })
+        .then((res) => {
+            console.log(res, "Respons for checkout");
+            console.log(res.data.url);
+            window.location.assign(res.data.url);
+        });
+    }
+        
   //grab dishes from props
   const { floatCart, seller_id, buyer_id } = props;
   const { dishes, price } = floatCart;
