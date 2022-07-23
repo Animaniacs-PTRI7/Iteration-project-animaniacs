@@ -1,4 +1,4 @@
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+const stripe = require('stripe')(sk_test_4eC39HqLyjWDarjtT1zdp7dc);
 const db = require('../../database/pg_model.js');
 
 const stripeController = async (req, res, next) => {
