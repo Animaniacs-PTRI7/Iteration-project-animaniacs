@@ -4,15 +4,14 @@ import React, { useEffect, useState } from "react";
 
 //MUI
 import { makeStyles } from "@mui/styles";
-import { Stack, Button } from "@mui/material";
-
-//Routes
-import SignUp from "./SignUp";
-import Login from "./Login";
-
+import { Button, AlertTitle, Alert, Snackbar } from "@mui/material";
+import SellerSignUp from "./SellerSignUp";
+import SellerLogin from "./SellerLogin";
+import {Success} from "./Alert/Success";
+import {ErrorAlert} from "./Alert/Error";
 //Assets
-import Doughy from "../assets/doughy.jpg";
-
+//import Doughy from '../assets/doughy.jpg';
+import Cooking from "../assets/kitchen1.jpg";
 //Styling
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Doughy})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(${Cooking})`,
         backgroundSize: "cover",
         backgroundRepeat: "none",
         backgroundColor: "transparent",
@@ -37,26 +36,23 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         margin: "0px 10px",
     },
+    alertNoti: {
+        position: "relative !important",
+        justifyContent: "center !important",
+    },
 }));
 
-export default function Body() {
+export default function SellerBody(props) {
     //Declare variables and state
     const classes = useStyles();
+    const { setIsLoggedIn, setUserType, setUserId, setUserZip } = props;
     const [signUp, setSignUp] = useState(false);
     const [logIn, setLogin] = useState(false);
+    const [modalSignUp, setModalSignUp] = useState(false);
+    const [modalLogIn, setModalLogin] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [randomGreeting, setGreeting] = useState("");
-    let signUpModule;
-
-    //Sign-up Card Display Function
-    const signUpFunc = (action) => {
-        if (action == "sign") {
-            console.log("Button Clicked, sign up was ", signUp);
-            setSignUp(!signUp);
-            console.log("Sign up is now ", signUp);
-        } else {
-            setLogin(!logIn);
-        }
-    };
+    const [error, setError] = useState(false);
 
     useEffect(() => {
     // choose welcome text
@@ -75,46 +71,65 @@ export default function Body() {
         setGreeting(greetings[Math.floor(Math.random() * greetings.length)]);
     }, []);
 
-    if (signUp) {
-    //signUpModule = <SignUp />;
-    }
+    const openSignUpModal = () => setModalSignUp(true);
+    const closeSignUpModal = () => setModalSignUp(false);
 
-    if (logIn) {
-    //signUpModule = <Login />;
-    }
-
+    const openLoginModal = () => setModalLogin(true);
+    const closeLoginModal = () => setModalLogin(false);
+    console.log("success-->", success);
+    const handleClose = () => setSuccess(false);
+    const handleCloseError = () => setError(false);
     //Return back to DOM
     return (
-        <div className={classes.body}>
-            <h1 className={classes.heavyFont}> {randomGreeting}</h1>
-            {signUpModule}
-            {/* <Stack direction='row' spacing={2}> */}
-            <Button
-                component={Link}
-                to='/seller/signup'
-                variant='contained'
-                color='primary'
-                sx={{ m: 1 }}
-                onClick={() => {
-                    signUpFunc("sign");
-                }}
-            >
-          Sign up
-            </Button>
-            <Button
-                component={Link}
-                to='/seller/login'
-                variant='contained'
-                color='secondary'
-                sx={{ m: 1 }}
-                onClick={() => {
-                    signUpFunc("log");
-                }}
-            >
-          Login
-            </Button>
-            {/* </Stack> */}
-            <Outlet />
-        </div>
+        <>
+            {error? <ErrorAlert error={error} handleCloseError={handleCloseError}/> : null }
+            {success ? <Success success={success} handleClose={handleClose}/>:  null }
+            <div className={classes.body}>
+                <>
+                    <h1 className={classes.heavyFont}> {randomGreeting}</h1>
+                    <div>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            sx={{ m: 2, fontWeight: 700 }}
+                            onClick={openSignUpModal}
+                        >
+                Sign up
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            sx={{ m: 2, fontWeight: 700 }}
+                            onClick={openLoginModal}
+                        >
+                Login
+                        </Button>
+                    </div>
+                    <Outlet />
+                </>
+                {modalSignUp ? (
+                    <SellerSignUp
+                        setModalSignUp={setModalSignUp}
+                        showSignUp={modalSignUp}
+                        closeSignUpModal={closeSignUpModal}
+                        setSuccess={setSuccess}
+                        setError={setError}
+                    />
+                ) : null}
+                {modalLogIn ? (
+                    <SellerLogin
+                        closeLoginModal={closeLoginModal}
+                        showLogIn={modalLogIn}
+                        setIsLoggedIn={setIsLoggedIn}
+                        setUserType={setUserType}
+                        setUserZip={setUserZip}
+                        setUserId={setUserId}
+                        setSuccess={setSuccess}
+                        setError={setError}
+                    />
+                ) : null}
+            </div>
+        </>
+    
     );
 }

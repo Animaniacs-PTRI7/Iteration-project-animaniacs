@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   boxes: {
     display: "flex",
     position: "relative",
-    width: "75%",
+    width: "50%",
     flexDirection: "column",
     justifyContent: "space-evenly",
     backgroundColor: "#FFA07A",
@@ -68,13 +68,9 @@ const Card = (props) => {
     // stop rendering full feed when user click button
     props.setFeedActive(false);
     //navigate to /feed/sellerID
-    console.log(props.setfloatCart);
     navigate(`/feed/${props.kitchenID}`, {
       state: {
         setfloatCart: { a: { b: 1 } },
-        // floatCart: props.floatCart,
-        // addToCart: () => {},
-        // removeFromCart: () => {},
       },
     });
   };
@@ -82,7 +78,6 @@ const Card = (props) => {
   return (
     <div>
       <div>
-        {/* <ProfileModal /> */}
       </div>
       <Box
         className={classes.boxes}

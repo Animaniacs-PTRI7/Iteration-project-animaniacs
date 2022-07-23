@@ -3,6 +3,7 @@ const request = require("supertest");
 // this is http://localhost:3000   <<< precisely this
 const server = require("./server");
 
+
 function makeid(length) {
     var result = "";
     var characters =
@@ -105,3 +106,29 @@ describe("testing getAll controllers", () => {
         });
     });
 });
+
+describe('testing all orderRoute',()=>{
+  describe('testing all orderRoute', ()=>{
+    test('should respond 200 code when attempting to retrieve all orders', async ()=>{
+      const respond = await request(server).post('/api');
+      expect(respond.statusCode).toBe(200)
+    })
+  })
+
+  xdescribe('test post/api/create-order', ()=>{
+    test('given details to create order', async()=>{
+      // have to go to tokenVerifier to tokenVerifier first
+      const respond = await request(server).post('/api/create-order','')
+        .send({
+          'buyer_id' : 5,
+          'seller_id' : 1,
+          'dishes':  {
+            '1' : {'name': 'Dumplings -10 pcs', 'price': '$8.00', 'quantity': 2},
+            '2':  { 'name': 'Ramen', 'price': '$10.00', 'quantity': 2},
+            '3':  {'name': 'Seaweed Salad', 'price': '$5.00', 'quantity': 2}
+          }
+        });
+      expect(respond.statusCode).toBe(200)
+    })
+  })
+})

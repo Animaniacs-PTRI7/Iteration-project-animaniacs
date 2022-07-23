@@ -16,12 +16,14 @@ CREATE TABLE "public".Sellers
  pickup_window_start  time NULL,
  pickup_window_end    time  NULL,
  seller_street_name   varchar(50)  NULL,
- seller_street_number integer  NULL,
+ seller_street_number varchar(20)  NULL,
  seller_city          varchar(20)  NULL,
- seller_state          varchar(20)  NULL,
+ seller_state         varchar(20)  NULL,
  seller_zip_code      varchar(10)  NULL,
  cuisine              varchar NULL,
  market_enabled       boolean NULL
+ seller_name          varchar (50) NULL, 
+ seller_image         varchar NULL,
 );
 
 
@@ -59,6 +61,7 @@ CREATE TABLE "public".Orders
  fk_buyer_id       serial NOT NULL,
  fulfilled         boolean NULL,
  order_date        DATE NULL,
+ total             integer NULL
  CONSTRAINT fk_seller_id
  FOREIGN KEY ("fk_seller_id") references Sellers("pk_seller_id"),
  CONSTRAINT fk_buyer_id

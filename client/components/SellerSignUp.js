@@ -1,8 +1,16 @@
 const axios = require("axios");
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import { makeStyles } from "@mui/styles";
-import { Stack, Card, CardContent, Paper, TextField, Typography, Button } from "@mui/material";
+import {
+    Stack,
+    Modal,
+    AlertTitle,
+    Paper,
+    TextField,
+    Alert,
+    Button,Snackbar
+} from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
     signupstack: {
@@ -14,19 +22,18 @@ const useStyles = makeStyles((theme) => ({
         left: "20%",
         right: "20%",
         zIndex: "1",
-        width: "30em"
+        width: "30em",
+        textAlign: "center"
     },
 }));
 
-export default function SignUp() {
+export default function SellerSignUp(props) {
     const classes = useStyles();
-
+    const { showSignUp,setModalSignUp, closeSignUpModal,setSuccess,setError } = props;
     // set form state
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(false);
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -45,10 +52,12 @@ export default function SignUp() {
                 setPassword("");
                 // set "success" in state
                 setSuccess(true);
+                setModalSignUp(false);
             })
             .catch((error) => {
                 // handle error
                 console.log("hit error response");
+                setError(true);
                 console.log(error);
             })
             .then(() => {
@@ -57,49 +66,68 @@ export default function SignUp() {
             });
     };
 
+
     // display only success message if signup successful
-    if (success) {
-        return (
+
+
+    return  (
+        <Modal
+            style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+            open={showSignUp}
+            onClose={closeSignUpModal}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+        >
             <div>
                 <Paper elevation={6} className={classes.signupstack}>
-                    <h2> Sign Up </h2>
-                    <p>Account created successfully!</p>
+                    <form className={classes.root} onSubmit={handleSubmit}>
+                        <h2>Kitchen Sign Up</h2>
+                        <Stack spacing={2}>
+                            <TextField
+                                label={"Username"}
+                                value={username}
+                                required
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <TextField
+                                type="email"
+                                label={"Email"}
+                                value={email}
+                                required
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <TextField
+                                type="password"
+                                label={"Password"}
+                                value={password}
+                                required
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <span style={{ display: "flex", justifyContent: "center" }}>
+                                <Button
+                                    variant="outlined"
+                                    sx={{ m: 2, fontWeight: 700 }}
+                                    onClick={closeSignUpModal}
+                                >
+                  Cancel
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{ m: 2, fontWeight: 700 }}
+                                >
+                  Submit
+                                </Button>
+                            </span>
+                        </Stack>
+                    </form>
                 </Paper>
             </div>
-        );
-    }
-    return (
-        <div>
-            <Paper elevation={6} className={classes.signupstack}>
-                <form className={classes.root} onSubmit={handleSubmit}>
-                    <h2> Sign Up </h2>
-                    <Stack spacing={2}>
-                        <TextField
-                            label={"Username"}
-                            value={username}
-                            required
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <TextField
-                            type="email"
-                            label={"Email"}
-                            value={email}
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <TextField
-                            type="password"
-                            label={"Password"}
-                            value={password}
-                            required
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <Button type="submit" color="primary">
-              Submit
-                        </Button>
-                    </Stack>
-                </form>
-            </Paper>
-        </div>
+        </Modal>
     );
 }

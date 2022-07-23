@@ -4,33 +4,33 @@ import { makeStyles } from "@mui/styles";
 import { Paper } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
-    paperbody: {
-        marginTop: "50%",
-        width:"50em"
-    },
+  paperbody: {
+    margin: '10%',
+    padding: '10%',
+    width:'70%'
+  },
 }));
 export default function (props) {
-    console.log("i got to Confirmation page");
-    const classes = useStyles();
-    let success = props.success;
+  console.log('i got to Confirmation page');
+  const classes = useStyles();
 
-    //grab data from Navigate
-    const location = useLocation();
-    console.log(location);
 
-    // const { kitchen_name, order_id } = location.state;
-    //fake data
-    const kitchen_name = "Joy Kitchen";
-    const order_id = 128;
+  //grab data from Navigate
+  const location = useLocation();
+  // console.log(location);
+
+  const { kitchen_name, order_id, price } = location.state;
+ 
 
     // if (success) {
     return (
-        <div>
-            <Paper className={classes.paperbody}>
-                <p> Your order to the <b>{kitchen_name}</b> has been accepted.</p>
-                <p> Your order # is <b>{order_id}.</b></p>
-            </Paper>
-        </div>
+      <div>
+        <Paper elevation={2} className={classes.paperbody} sx={{ fontSize: 20, fontWeight: 'medium', borderRadius: 2} }>
+          <p> Your order to the <b>{kitchen_name}</b> has been accepted.</p>
+          <p> Your order # is <b>{order_id}.</b></p>
+          <p> Your order total is <b>{price}.</b></p>
+        </Paper>
+      </div>
     );
 }
 //   } else {

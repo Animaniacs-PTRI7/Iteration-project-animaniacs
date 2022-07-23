@@ -98,14 +98,14 @@ app.post(
 );
 
 app.post(
-    "/db/getmenu",
-    tokenVerifier2,
-    menuController.getSellerMenu,
-    (req, res) => {
-        console.log("res.locals.sellerMenu==>", res.locals.sellerMenu);
-        //adding tokenVerifier2 as the 2nd middleware?
-        res.status(200).json(res.locals.sellerMenu);
-    }
+  '/db/getmenu',
+  tokenVerifier2,
+  menuController.getSellerMenu,
+  (req, res) => {
+
+    //adding tokenVerifier2 as the 2nd middleware?
+    res.status(200).json(res.locals.sellerMenu);
+  }
 );
 
 // app.post('/db/menu', tokenVerifier2, menuController.createDish, (req, res) => {
@@ -117,6 +117,10 @@ app.post("/db/updatemenu", menuController.updateMenu, (req, res) => {
     //console.log('res.locals.sellerMenu==>', res.locals.sellerMenu);
     res.status(200).json(res.locals.message);
 });
+
+app.post('/db/updateProflie', menuController.updateProfile, (req, res)=>{
+  res.status(200).json(res.locals.message);
+})
 // 404
 app.use("*", (req, res) => {
     // console.log(Object.keys(req));

@@ -74,18 +74,6 @@ export default function MenuComponent(props) {
 
     props.setSellerID(sellerId);
   
-
-
-    // this line "receives" the useNavigate from elsewhere. it gives us access to props we want to pass
-    // const { state } = useLocation();
-    // console.log(state);
-
-    // this line allows us to access the ID parameter we passed when routing to this component
-  
-
-    console.log(props);
-
-    console.log(sellerId);
     useEffect(() => {
     // so now we fetch!
         axios.post("db/getmenu", { sellerId }).then((res) => {
