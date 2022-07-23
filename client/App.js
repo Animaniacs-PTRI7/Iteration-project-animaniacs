@@ -17,6 +17,7 @@ import SellerSignUp from "./components/SellerSignUp";
 import KitchenEdit from "./components/KitchenEdit";
 import OrderList from "./components/OrderList";
 import Confirmation from "./components/Confirmation";
+import ProfileEdit from "./components/ProfileEdit"
 import { Routes, Route, Navigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,6 +106,10 @@ const App = () => {
                             <Route path='/feed/:sellerId' />
                             {/* don't need an element here */}
                         </Route>
+                        <Route
+                            path='/MyProfile'
+                            element={<ProfileEdit userType={userType} userId={userId} />}
+                        />
                         <Route
                             path='/MyKitchen'
                             element={<KitchenEdit userType={userType} userId={userId} />}
