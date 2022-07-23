@@ -153,7 +153,7 @@ menuController.updateMenu = async (req, res, next) => {
             if (typeof cache[i][1] === 'string')
               cache[i][1] = cache[i][1].replaceAll('\'', '\'\'');
           });
-          console.log('2cache==>', cache);
+          
 
           const text = cache.reduce((str, [key, value]) => {
             str += key + ' = ' + '\'' + value + '\', ';
@@ -197,9 +197,9 @@ menuController.updateMenu = async (req, res, next) => {
         await db.query(sqlQuery, para);
       }
 
-      console.log(address);
+      console.log('address===>', address);
       if (address.seller_street_number) {
-        console.log('seller state!');
+        //console.log('seller state!');
         const para = [address.seller_street_number];
         const sqlQuery = `UPDATE public.sellers
         SET seller_street_number = $1
@@ -207,7 +207,7 @@ menuController.updateMenu = async (req, res, next) => {
         await db.query(sqlQuery, para);
       }
       if (address.seller_state) {
-        console.log('seller state!');
+        // console.log('seller state!');
         const para = [address.seller_state];
         const sqlQuery = `UPDATE public.sellers
         SET seller_state = $1
@@ -279,7 +279,49 @@ menuController.updateMenu = async (req, res, next) => {
     res.locals.message = 'Menu updated successfully!';
     return next();
   } catch (e) {
-    console.log(e);
+    console.log('erro==>',e);
+    return next({ message: e.message });
+  }
+};
+
+menuController.updateProfile = async (req, res, next) => {
+  const userId = req.cookies.userId;
+
+  const {
+    profileName,
+    profileBio,
+    profilePicture,
+  } = req.body;
+
+  try {
+  
+ 
+    if (profileName) {
+      const para = [profileName];
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_name = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery, para);
+    }
+    if (profileBio) {
+      const para = [profileBio];
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_bio = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery, para);
+    }
+    if (profilePicture) {
+      const para = [profilePicture];
+      const sqlQuery = `UPDATE public.sellers
+      SET seller_img = $1
+      WHERE pk_seller_id=${userId}`;
+      await db.query(sqlQuery, para);
+    }
+
+    res.locals.message = 'Profile updated successfully!';
+    return next();
+  } catch (e) {
+    console.log('erro==>',e);
     return next({ message: e.message });
   }
 };

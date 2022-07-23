@@ -115,6 +115,10 @@ app.post('/db/updatemenu', menuController.updateMenu, (req, res) => {
   //console.log('res.locals.sellerMenu==>', res.locals.sellerMenu);
   res.status(200).json(res.locals.message);
 });
+
+app.post('/db/updateProflie', menuController.updateProfile, (req, res)=>{
+  res.status(200).json(res.locals.message);
+})
 // 404
 app.use('*', (req, res) => {
   // console.log(Object.keys(req));
