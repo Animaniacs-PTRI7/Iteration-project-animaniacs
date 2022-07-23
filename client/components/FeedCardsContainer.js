@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Cooking from '../assets/cooking.jpg';
-import { Outlet } from 'react-router-dom';
-import KitchenCard from './KitchenCards';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import Cooking from "../assets/cooking.jpg";
+import { Outlet } from "react-router-dom";
+import KitchenCard from "./KitchenCards";
+import moment from "moment";
 
-import { makeStyles } from '@mui/styles';
-import { Paper, TextField, Button } from '@mui/material';
-
+import { makeStyles } from "@mui/styles";
+import { Paper, TextField, Button, Alert, AlertTitle } from "@mui/material";
 
 //Styling
 const useStyles = makeStyles((theme) => ({
@@ -48,14 +47,12 @@ export default function FeedContainer(props) {
   const zipcode = props.userzip;
   const UserId = props.buyerId;
   const [zipCodeAssigned, setZipCodeAssigned] = useState(false);
-  const [zipbuilder, setZipbuilder] =useState(null);
+  const [zipbuilder, setZipbuilder] = useState(null);
   const [zipsearch, setZip] = useState(zipcode);
-
 
   const dateFormat = (time) => {
     return moment(time, "hhmm").format("LT");
   };
-
 
   // for x in props passed from feed, add component to kitchens array
   const kitchensArr = [];
@@ -64,7 +61,10 @@ export default function FeedContainer(props) {
   for (let kitchenID in props.kitchensFromFeed) {
     const curKitchen = props.kitchensFromFeed[kitchenID];
     console.log(props.setfloatCart);
-    if (curKitchen.market_enabled && curKitchen['seller_zip_code'] == zipsearch) {
+    if (
+      curKitchen.market_enabled &&
+      curKitchen["seller_zip_code"] == zipsearch
+    ) {
       kitchensArr.push(
         <KitchenCard
           key={kitchenID}
@@ -82,14 +82,13 @@ export default function FeedContainer(props) {
 
   const handleZip = (e) => {
     setZip(zipbuilder);
-  }
+  };
   const handleClear = (e) => {
     setZip(zipcode);
-  }
+  };
 
   return (
     <div className={classes.body}>
-      
       <div
         style={{
           display: "flex",
@@ -98,26 +97,52 @@ export default function FeedContainer(props) {
           color: "white",
         }}
       >
-        <h1> Kitchens Ready For Action! </h1>
+        <h1>
+          Kitchens In Zipcode: <strong>{zipsearch}</strong>
+        </h1>
       </div>
       <Paper
         elevation={3}
         className={classes.feedItem}
-        style={{ maxHeight: '40rem', overflow: 'auto' }}
+        style={{ maxHeight: "40rem", overflow: "auto" }}
       >
-        {kitchensArr}
-      </Paper>    
-      <div id='zipsearch'>
-         <form>
+        {kitchensArr.length > 0 ? (
+          kitchensArr
+        ) : (
+          <Alert severity="error">
+            <AlertTitle>Sorry!</AlertTitle>
+            No Cooks in this Area at this time!
+          </Alert>
+        )}
+        {/* Sorry! No Cooks in this Area at this time! */}
+      </Paper>
+      <div id="zipsearch">
+        <form>
           <TextField
-                label="Search by Zipcode"
-                sx={{backgroundColor:'white', marginTop: '5px'}}
-                variant='filled'
-                required
-                onChange={(e) => setZipbuilder(e.target.value)}
-              />
-          <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} onClick={handleZip} >Search</Button>
-          <Button type="submit" variant="contained" color="primary" sx={{ m: 2, fontWeight: 700 }} onClick={handleClear} >Clear</Button>
+            label="Search by Zipcode"
+            sx={{ backgroundColor: "white", marginTop: "5px" }}
+            variant="filled"
+            // required
+            onChange={(e) => setZipbuilder(e.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ m: 2, fontWeight: 700 }}
+            onClick={handleZip}
+          >
+            Search
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ m: 2, fontWeight: 700 }}
+            onClick={handleClear}
+          >
+            Go To Hometown Zipcode
+          </Button>
         </form>
       </div>
       <Outlet />
