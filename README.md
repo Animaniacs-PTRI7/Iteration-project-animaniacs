@@ -8,4 +8,4 @@ There are many talented homecooks who could utilize a platform to help push thei
 PERN, Google Maps API, and Stripe. 
 
 ## The Team 
-Glen Kasoff, Joy!!!!
+Joy!!!!
