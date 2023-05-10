@@ -18,7 +18,7 @@ const PORT = 3000;
 
 // Handling requests
 // needed this only because my proxy wasn't working bc webpack had an early bracket or something
-// app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
 
 app.use(express.json());
 app.use(cookieParser());
